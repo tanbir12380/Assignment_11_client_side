@@ -1,0 +1,97 @@
+
+.register-container-pro{
+  padding-top: 20px;
+}
+
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Glass Card */
+.register-card {
+  width: 380px;
+  padding: 40px 35px;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: white;
+background-color: var(--bg-primary) ;
+
+}
+
+
+
+.register-card h2 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+  font-family: "bebas neue";
+}
+
+
+
+.input-group input {
+  width: 100%;
+  padding: 14px 12px 14px 12px;
+  font-size: 16px;
+  border: 1px solid rgba(219, 219, 219, 0.802);
+  border-radius: 5px;
+  outline: none;
+  color: white !important;
+  margin-bottom: 15px;
+}
+
+.file-upload{
+  color: black;
+}
+
+input {
+    margin-bottom: 15px;
+}
+
+
+label{
+  margin-bottom: 5px !important;
+  display: block;
+}
+
+
+/* Button */
+.register-btn {
+  width: 100%;
+  padding: 5px;
+  font-size: 26px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+background-color: var(--bg-secondary);
+  transition: 0.3s;
+  font-family: "bebas neue";
+}
+
+.register-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(201, 161, 93, 0.45);
+}
+
+/* Login Link */
+.login-link {
+  margin-top: 18px;
+  text-align: center;
+    font-size: 16px;
+}
+
+.login-link a {
+  color: var(--bg-secondary);
+  text-decoration: none;
+
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
