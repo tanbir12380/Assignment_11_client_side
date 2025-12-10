@@ -8,6 +8,10 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 300;
+  flex-direction: column;
 }
 
 /* Glass Card */
@@ -30,6 +34,7 @@ background-color: var(--bg-primary) ;
   margin-bottom: 30px;
   letter-spacing: 1px;
   font-family: "bebas neue";
+  border-bottom: 1px solid rgba(251, 251, 251, 0.168);
 }
 
 
@@ -47,6 +52,11 @@ background-color: var(--bg-primary) ;
 
 .file-upload{
   color: black;
+}
+
+.file-upload:focus{
+  outline: none;
+border: none;
 }
 
 input {
@@ -68,15 +78,16 @@ label{
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  color: white;
-background-color: var(--bg-secondary);
-  transition: 0.3s;
+  color: rgb(0, 0, 0);
+background-color: white;
+  transition: all 0.5s  ease;
   font-family: "bebas neue";
 }
 
 .register-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(201, 161, 93, 0.45);
+  background-color: var(--bg-secondary);
+  color: white
 }
 
 /* Login Link */

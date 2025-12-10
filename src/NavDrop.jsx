@@ -2,15 +2,20 @@
 
 
 
-import React from 'react';
+import React, { useContext } from 'react';
     import "./DropdownAvatar.css";
+import { AuthContext } from './AuthContext';
+import { NavLink } from 'react-router';
+
 const NavDrop = () => {
 
+
+  const { user,SignOutFromApp } = useContext(AuthContext);
 
   return (
       <div className="dropdown-container">
       <img 
-        src="https://i.pravatar.cc/40" 
+        src={user?.photoURL}
         alt="avatar" 
         className="avatar"
       />
@@ -18,7 +23,9 @@ const NavDrop = () => {
       <div className="dropdown">
         <a href="/profile">Profile</a>
         <a href="/dashboard">Dashboard</a>
-        <a href="/logout">Log Out</a>
+        <NavLink  onClick={() => {
+                SignOutFromApp();
+              }}>Log Out </NavLink>
       </div>
     </div>
   );

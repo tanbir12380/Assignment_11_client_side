@@ -1,0 +1,142 @@
+/* ===============================
+   ClubSphere - Features Section
+   Vanilla CSS
+=============================== */
+
+.features-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 580px;
+  width: 98%;
+  font-family: "Inter", sans-serif;
+  margin: 20px auto;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* ================= LEFT SIDE ================= */
+.features-left {
+  background: url("/banner3.jpg");
+  color: #fff;
+  position: relative;
+  background-size: cover;  
+  background-position: top;  
+  background-repeat: no-repeat; 
+}
+
+.features-left>div{
+  background-color: rgba(201, 161, 93, 0.323);
+    padding: 70px 50px;
+      padding-left: 200px;
+      height:100%;
+      width:100%;
+}
+
+
+
+.label {
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: #00e0a4;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.title {
+  font-size: 50px;
+  margin-bottom: 20px;
+  font-family: "bebas neue";
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.desc {
+  max-width: 520px;
+  font-size: 18px;
+  line-height: 1.4;
+  margin-bottom: 30px;
+  color: #e3e3e3;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.contact-btn {
+  background: var(--bg-primary);
+  padding: 8px 20px;
+  font-size: 24px;
+  border-radius: 8px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+  font-family: "bebas neue";
+}
+
+.contact-btn:hover {
+  background: var(--bg-secondary);
+}
+
+/* ================= RIGHT SIDE ================= */
+.features-right {
+  background: var(--bg-primary);
+  padding: 70px 50px;
+  color: #cdd6dd;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 35px;
+  position: relative;
+  padding-right: 200px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.feature-icon {
+  min-width: 55px;
+  height: 55px;
+  background: var(--bg-secondary);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 26px;
+}
+
+.feature-item h3 {
+  font-size: 22px;
+  margin-bottom: 6px;
+  color: #ffffff;
+  font-family: 'bebas neue';
+}
+
+.feature-item p {
+  font-size: 15px;
+  color: #c0cbd3;
+  line-height: 1.6;
+}
+
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 1000px) {
+  .features-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+.features-right, .features-left>div  {
+  padding-left: 100px;
+  padding-right: 100px;
+}
+  .title {
+    font-size: 32px;
+  }
+
+  .feature-icon svg {
+    width: 30px;
+    height: 30px;
+    font-size: 22px;
+  }
+}
+

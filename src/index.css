@@ -4,6 +4,8 @@
 }
 
 
+
+
 .light_theme{
   --bg-primary : rgb(29, 77, 55);
   --bg-primary-light : rgb(63, 96, 82); 
@@ -14,7 +16,6 @@
 
 
 min-height: 100vh;
-
     background-color: var(--bg-secondary-light) !important;
     margin-top: 0px !important;
 }

@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import NavDrop from './NavDrop';
 import { NavLink } from 'react-router';
+import { AuthContext } from './AuthContext';
 
 const Header = () => {
+
+  const {user} = useContext(AuthContext)
+
   return (
     <div className='header'>
       <h1 className='logo'>ClubSphere</h1>
@@ -10,11 +14,20 @@ const Header = () => {
        <li> <NavLink to="/">Home</NavLink></li>
         <li>Clubs</li>
         <li>Events</li>
-        <li>Login</li>
-        <li>Register</li>
-        <li>
+{
+  !user &&          <li><NavLink to='/login'>Login</NavLink></li>
+    
+}
+
+{
+  !user &&          
+        <li><NavLink to="/register">Register</NavLink></li>
+}
+{
+  user &&         <li>
           <NavDrop></NavDrop>
         </li>
+}
       </ul>
     </div>
   );

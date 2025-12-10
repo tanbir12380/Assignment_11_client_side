@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header';
 import { FaArrowRightLong } from "react-icons/fa6";
 import HowItWorks from './HowItWorks';
+import Features from './Features';
 
 const Home = () => {
   return (
@@ -17,6 +18,7 @@ const Home = () => {
       </div> 
     </div>
       <HowItWorks></HowItWorks>
+      <Features></Features>
 </div>
   );
 };
