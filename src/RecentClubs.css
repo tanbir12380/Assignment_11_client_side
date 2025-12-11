@@ -1,0 +1,151 @@
+
+.latest-clubs-section {
+  width: 100%;
+  padding: 80px 0;
+  background: var(--bg-secondary-light);
+  text-align: center;
+  font-family: "Inter";
+}
+
+
+.latest-clubs-section > p {
+  font-size: 14px;
+  color: var(--bg-primary);
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: "Inter";
+}
+
+
+.latest-clubs-section > h3 {
+  font-size: 50px;
+  color: black;
+  margin-bottom: 50px;
+  font-family: 'bebas neue';
+}
+
+.latest-clubs-section > h3 span {
+  color: var(--bg-primary);
+}
+
+
+.latest-clubs-container {
+
+  margin: 0 220px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+justify-content: space-between;
+gap:15px;
+}
+
+.club-card {
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.club-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.12);
+}
+
+
+.club-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+
+
+
+.club-card > div:last-child {
+  padding: 22px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+
+.club-card h4 {
+  font-size: 28px;
+  color: var(--bg-primary);
+  margin-bottom: 10px;
+  font-family: 'bebas neue';
+}
+
+.group-info-middle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+    flex:1;
+      align-items: flex-start;
+}
+
+.group-info-middle p {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+}
+
+
+.club-card button {
+  width: 100%;
+  padding: 8px 0;
+  background: var(--bg-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 22px;
+  font-family: 'bebas neue';
+  cursor: pointer;
+  transition: background 0.5s ease;
+  display: flex;
+  gap:10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.club-card button:hover {
+  background: var(--bg-primary-light);
+}
+
+
+.club-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(0, 80, 0, 0.221);
+}
+
+.club-meta span {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 6px;
+}
+
+
+.club-meta .category {
+  background: var(--bg-secondary-semi-light);
+  color: var(--bg-primary);
+}
+
+
+.club-meta .fee {
+  background: var(--bg-primary);
+  color: white;
+}

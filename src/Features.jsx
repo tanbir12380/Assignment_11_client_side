@@ -2,6 +2,7 @@ import React from "react";
 import "./Features.css";
 import { BsFillCalendar2EventFill } from "react-icons/bs";
 import { GrGroup } from "react-icons/gr";
+import { FaArrowRightLong } from "react-icons/fa6";
 import { FaCreditCard } from "react-icons/fa6";
 
 export default function Features() {
@@ -22,7 +23,7 @@ export default function Features() {
           can focus on what truly matters: people and passion.
         </p>
 
-        <button className="contact-btn">Explore Clubs </button>
+        <button className="contact-btn">Explore Clubs <FaArrowRightLong></FaArrowRightLong> </button>
     </div>
       </div>
 

@@ -3,6 +3,7 @@ import Header from './Header';
 import { FaArrowRightLong } from "react-icons/fa6";
 import HowItWorks from './HowItWorks';
 import Features from './Features';
+import RecentClubs from './RecentClubs';
 
 const Home = () => {
   return (
@@ -17,8 +18,10 @@ const Home = () => {
         </div>
       </div> 
     </div>
+    <RecentClubs></RecentClubs>
+    <Features></Features>
       <HowItWorks></HowItWorks>
-      <Features></Features>
+      
 </div>
   );
 };

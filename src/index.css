@@ -112,13 +112,13 @@ background-color: var(--bg-secondary-light);
 
 .banner-btn{
   background-color: var(--bg-secondary);
-  font-size: 26px;
+  font-size: 22px;
   font-family: "bebas neue";
   margin: 10px auto;
   color:white;
   border-radius: 8px;
   display: flex;
-  padding: 2px 14px 2px 14px;
+  padding: 8px 20px;
 align-items: center;
 gap:10px;
 border: 0px;
@@ -129,9 +129,4 @@ box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);
 .banner-btn:hover{
   background-color: var(--bg-primary);
   cursor: pointer;
-}
-
-.banner-btn span{
-  padding-top: 4px;
-  padding-bottom: 2px;
 }
