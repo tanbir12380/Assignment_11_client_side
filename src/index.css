@@ -4,7 +4,9 @@
 }
 
 
-
+*{
+  box-sizing: border-box;
+}
 
 .light_theme{
   --bg-primary : rgb(29, 77, 55);
@@ -12,12 +14,12 @@
   --bg-secondary : rgba(201, 161, 93);
     --bg-secondary-semi-light : rgb(255, 230, 188);
    --bg-secondary-light : rgb(243, 237, 227);
-   padding-bottom: 1px;
-
 
 min-height: 100vh;
     background-color: var(--bg-secondary-light) !important;
     margin-top: 0px !important;
+    padding-bottom: 1px;
+    box-sizing: border-box !important;
 }
 
 .logo{
@@ -55,6 +57,8 @@ background-color: var(--bg-secondary-light);
   color:white;
   font-family: "bebas neue";
   align-items: center;
+  max-height:100vh;
+  flex-wrap: wrap;
 }
 
 .navLinks li{
@@ -129,4 +133,22 @@ box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);
 .banner-btn:hover{
   background-color: var(--bg-primary);
   cursor: pointer;
+}
+
+
+a{
+  display: flex;
+  gap:10px;
+  align-items: center;
+}
+
+
+button:disabled {
+  background-color: rgb(86, 86, 86);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+button:disabled:hover{
+    background-color: rgb(86, 86, 86);
 }

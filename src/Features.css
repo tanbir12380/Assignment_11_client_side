@@ -1,5 +1,3 @@
-
-
 .features-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -16,20 +14,18 @@
   background: url("/banner3.jpg");
   color: #fff;
   position: relative;
-  background-size: cover;  
-  background-position: top;  
-  background-repeat: no-repeat; 
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
 }
 
-.features-left>div{
+.features-left > div {
   background-color: rgba(201, 161, 93, 0.323);
-    padding: 70px 50px;
-      padding-left: 200px;
-      height:100%;
-      width:100%;
+  padding: 70px 50px;
+  padding-left: 200px;
+  height: 100%;
+  width: 100%;
 }
-
-
 
 .label {
   font-size: 14px;
@@ -66,7 +62,7 @@
   font-family: "bebas neue";
   display: flex;
   align-items: center;
-  gap:10px;
+  gap: 10px;
 }
 
 .contact-btn:hover {
@@ -108,7 +104,7 @@
   font-size: 22px;
   margin-bottom: 6px;
   color: #ffffff;
-  font-family: 'bebas neue';
+  font-family: "bebas neue";
 }
 
 .feature-item p {
@@ -117,17 +113,16 @@
   line-height: 1.6;
 }
 
-
-/* ================= RESPONSIVE ================= */
 @media (max-width: 1000px) {
   .features-wrapper {
     grid-template-columns: 1fr;
   }
 
-.features-right, .features-left>div  {
-  padding-left: 100px;
-  padding-right: 100px;
-}
+  .features-right,
+  .features-left > div {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
   .title {
     font-size: 32px;
   }
@@ -138,4 +133,3 @@
     font-size: 22px;
   }
 }
-

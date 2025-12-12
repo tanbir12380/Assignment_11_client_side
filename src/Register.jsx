@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router";
 import { AuthContext } from "./AuthContext";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
 
 export default function RegisterForm() {
   const {
@@ -26,6 +27,27 @@ export default function RegisterForm() {
     formState: { errors },
   } = useForm();
 
+
+    const saveUserMutation = useMutation({
+    mutationFn: async (userData) => {
+      const response = await fetch("http://localhost:3000/user", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userData),
+      });
+
+       return response.json();
+
+    },
+    onSuccess: () => {
+      toast("User registered successfully!");
+    },
+    onError: (error) => {
+      toast("Error saving user: " + error.message);
+    },
+  });
+
+
   const handleFormSubmit = (data) => {
     const { name, photo, email, password } = data;
 
@@ -43,6 +65,18 @@ export default function RegisterForm() {
         updateUsersDetails(user, name, photo)
           .then(() => {
             reset();
+
+
+            const userData = {
+              name,
+              email,
+              photoURL: photo,
+              role: "member",
+              createdAt: new Date().toISOString(),
+            };
+
+            saveUserMutation.mutate(userData);
+
             navigate(userLocationS || "/");
             setUserLocation(null);
           })
@@ -55,7 +89,20 @@ export default function RegisterForm() {
 
   const signWithGoogle1 = () => {
     signInWithGoogle()
-      .then(() => {
+      .then((response) => {
+
+const user = response.user;
+            const userData = {
+        name: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
+        role: "member", 
+        createdAt: new Date().toISOString(),
+      };
+
+      saveUserMutation.mutate(userData);
+
+
         navigate(userLocationS || "/");
         setUserLocation(null);
       })

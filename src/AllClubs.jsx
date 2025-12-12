@@ -12,32 +12,36 @@ const AllClubs = () => {
   const { data } = useQuery({
     queryKey: ["clubs"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3000/recentClubs");
+      const res = await fetch("http://localhost:3000/clubs");
       return res.json();
     },
   });
 
   useEffect(() => {
+
     const transformClubs = () => {
       if (!data) return;
 
       const updatedClubs = data.map((club) => ({
         ...club,
-        rating: (Math.random() * 1 + 4).toFixed(1),
+        rating: (Math.random() * 1 + 4).toFixed(1), 
       }));
 
-      setClubs(updatedClubs);
+      setClubs(updatedClubs); 
     };
 
     transformClubs();
   }, [data]);
 
+
+
   return (
     <div style={{ paddingTop: "20px" }}>
+      <Header />
+
       <div className="latest-clubs-section">
-        <p>LATEST CLUBS</p>
         <h3>
-          Discover the <span>Clubs</span> Leading the Way
+          Discover All of our <span>Clubs</span>
         </h3>
 
         <div className="latest-clubs-container">
@@ -64,10 +68,7 @@ const AllClubs = () => {
                 </div>
 
                 <button>
-                  <NavLink to={`/clubDetail/${club._id}`}>
-                    {" "}
-                    See Details <FaArrowRightLong />
-                  </NavLink>
+                 <NavLink to={`/clubDetail/${club._id}`}> See Details <FaArrowRightLong /></NavLink>
                 </button>
               </div>
             </div>

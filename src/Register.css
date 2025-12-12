@@ -39,7 +39,7 @@ background-color: var(--bg-primary) ;
 
 
 
-.input-group input {
+.input-group input , .input-group select{
   width: 100%;
   padding: 14px 12px 14px 12px;
   font-size: 16px;
@@ -48,6 +48,10 @@ background-color: var(--bg-primary) ;
   outline: none;
   color: white !important;
   margin-bottom: 15px;
+}
+
+.input-group select option {
+  background-color: var(--bg-primary-light);
 }
 
 .file-upload{
@@ -105,4 +109,9 @@ background-color: white;
 
 .login-link a:hover {
   text-decoration: underline;
+}
+
+
+.input-group textarea:focus{
+outline: none;
 }

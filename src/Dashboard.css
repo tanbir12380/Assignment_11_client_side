@@ -1,0 +1,48 @@
+.dash-side-bar{
+  background-color: var(--bg-secondary-semi-light) !important;
+  padding-top: 80px;
+  font-family: "Inter";
+
+}
+
+.dash-nav{
+  z-index: 100;
+  background-color: var(--bg-primary);
+  position: absolute;
+  align-items: center;
+}
+
+.dash-nav label{
+  margin-bottom: 0px !important;
+  color: white;
+  cursor: pointer;
+  width: 48px !important;
+  display: flex;
+  justify-content: center;
+}
+
+.dash-nav > div{
+  text-align: center;
+  flex: 1;
+  padding-right: 48px ;
+  padding-left: 0;
+  font-family: 'bebas neue';
+  color: white;
+  font-size: 40px;
+  margin-bottom: -5px;
+}
+ 
+
+.drawer-content{
+  padding: 20px;
+  padding-top: 91px;
+}
+
+.outlet-container{
+
+  background-color: white;
+  height:100%;
+  width:100%;
+  border-radius: 12px;
+  padding:20px;
+}
