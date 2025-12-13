@@ -1,22 +1,21 @@
-
 .footer {
   background: var(--bg-primary);
   color: #ffffff;
   font-family: "Inter", sans-serif;
-  width:98%;
-  border-radius: 20px;
+  border-radius: 12px;
   margin: 20px auto;
   padding: 100px 200px;
+  width: calc(100% - 40px);
 }
 
 /* Subscribe Section */
 .subscribe {
   display: flex;
-  width:100%;
+  width: 100%;
   align-items: center;
   justify-content: space-between;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-    padding-bottom: 60px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  padding-bottom: 60px;
 }
 
 .subscribe h2 {
@@ -31,8 +30,7 @@
   gap: 10px;
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 100px;
-    padding: 5px;
-
+  padding: 5px;
 }
 
 .subscribe-box input {
@@ -44,7 +42,7 @@
   color: #ffffff;
   font-size: 15px;
   font-family: "Inter";
-
+  margin-bottom: 0;
 }
 
 .subscribe-box button {
@@ -55,16 +53,15 @@
   font-size: 26px;
   border-radius: 100px;
   cursor: pointer;
-font-family: "bebas neue";
-
-
-}
-
-.social-icons{
+  font-family: "bebas neue";
   display: flex;
-  gap:20px
+  justify-content: center;
 }
 
+.social-icons {
+  display: flex;
+  gap: 20px;
+}
 
 .footer-divider {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -76,10 +73,9 @@ font-family: "bebas neue";
   display: grid;
   grid-template-columns: 1.5fr 1fr 1fr 1fr;
   gap: 40px;
-  width:100%;
+  width: 100%;
+  margin-top: 30px;
 }
-
-
 
 /* Brand Section */
 .brand-title {
@@ -91,9 +87,8 @@ font-family: "bebas neue";
   padding-bottom: 10px;
 }
 
-
-.social-title{
-    font-size: 30px;
+.social-title {
+  font-size: 30px;
   color: #fff;
   margin-bottom: 10px;
   font-family: "bebas neue";
@@ -105,8 +100,8 @@ font-family: "bebas neue";
   line-height: 1.6;
   margin-bottom: 20px;
   font-family: "Inter";
-   border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-   padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  padding-bottom: 40px;
 }
 
 .social-icons a {
@@ -144,7 +139,7 @@ font-family: "bebas neue";
   transition: 0.3s;
 }
 
-.footer-col ul li:hover{
+.footer-col ul li:hover {
   color: var(--bg-secondary);
 }
 
@@ -164,7 +159,7 @@ font-family: "bebas neue";
   flex-wrap: wrap;
   color: #ffffff;
   font-size: 14px;
-  width:100%;
+  width: 100%;
   font-family: "Inter";
 }
 
@@ -178,21 +173,37 @@ font-family: "bebas neue";
   color: var(--bg-secondary);
 }
 
-.contact p{
+.contact p {
   display: flex;
-  gap:10px;
+  gap: 10px;
   align-items: center;
 }
 
-.contact p a{
+.contact p a {
   transform: scale(1.3);
 }
 
 /* Responsive */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .subscribe-box {
     flex-direction: column;
     align-items: center;
+  }
+
+  h2,
+  h3 {
+    font-size: 40px !important;
+  }
+
+  .subscribe {
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 40px;
+  }
+
+  .subscribe h2 {
+    line-height: 1.2;
+    text-align: center;
   }
 
   .subscribe-box input {
@@ -210,4 +221,25 @@ font-family: "bebas neue";
   .bottom-links span {
     margin-left: 10px;
   }
+
+  .footer {
+    padding: 40px 30px 30px 30px;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+  }
+
+  .subscribe-box {
+    flex-direction: row;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.subscribe-box input {
+  margin: 0px !important;
 }

@@ -13,11 +13,13 @@ import { GoogleAuthProvider } from "firebase/auth";
 import { signInWithPopup } from "firebase/auth";
 import { AuthContext } from "./AuthContext";
 import { toast } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
 
 const provider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [userRole, setUserRole] = useState(null);
   const [loading, setLoading] = useState(true);
   const [userLocationS, setUserLocation] = useState(null);
 
@@ -41,15 +43,13 @@ const AuthProvider = ({ children }) => {
   };
 
   const SignOutFromApp = () => {
-     toast('logged out');
+    toast("logged out");
     return signOut(auth);
-   
   };
 
-    const resetYourPassword =(email)=>{
-  return sendPasswordResetEmail(auth, email);
-  }
-
+  const resetYourPassword = (email) => {
+    return sendPasswordResetEmail(auth, email);
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user1) => {
@@ -69,18 +69,56 @@ const AuthProvider = ({ children }) => {
     };
   }, []);
 
+  // useEffect(() => {
+  //   const fetchUserRole = async () => {
+  //     try {
+  //       const res = await fetch(`http://localhost:3000/user/${user.email}`);
+
+  //       const dbUser = await res.json();
+  //       setUserRole(dbUser?.role || null);
+  //     } catch (err) {
+  //       console.error("Failed to load user role:", err);
+  //       setUserRole(null);
+  //     }
+  //   };
+
+  //   fetchUserRole();
+  // }, [user]);
+
+  const { data: dbUser } = useQuery({
+    queryKey: ["dbUser", user?.email],
+    queryFn: async () => {
+      if (!user?.email) return null;
+      const res = await fetch(`http://localhost:3000/user/${user.email}`);
+      if (!res.ok) throw new Error("Failed to fetch DB user");
+      return res.json();
+    },
+    enabled: !!user?.email,
+  });
+
+  useEffect(() => {
+    const fetchUserRoleFromDB = () => {
+      setUserRole(dbUser?.role || null);
+    };
+
+    fetchUserRoleFromDB();
+  }, [dbUser]);
+
   const authInfo = {
     user,
     createUser,
     SignInUser,
     SignOutFromApp,
+    userRole,
     loading,
     signInWithGoogle,
     updateUsersDetails,
     userLocationS,
     setUserLocation,
-    resetYourPassword
+    resetYourPassword,
   };
+
+  console.log("user Role from authContext : ", userRole);
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

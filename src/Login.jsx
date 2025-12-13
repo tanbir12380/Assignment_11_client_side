@@ -12,7 +12,6 @@ export default function LoginForm() {
 
   const navigate = useNavigate();
 
-
   const {
     register,
     handleSubmit,
@@ -57,9 +56,7 @@ export default function LoginForm() {
               {...register("email", { required: true })}
               required
             />
-            {errors.email && (
-              <p className="error-text">Email is required</p>
-            )}
+            {errors.email && <p className="error-text">Email is required</p>}
           </div>
 
           {/* PASSWORD */}
@@ -104,7 +101,7 @@ export default function LoginForm() {
               alignItems: "center",
               justifyContent: "center",
               gap: "8px",
-              marginTop: "10px",
+              marginTop: "20px",
               width: "100%",
               boxShadow: "2px 2px 5px rgba(30, 30, 30, 0.25)",
               padding: "10px",

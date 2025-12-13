@@ -27,8 +27,7 @@ export default function RegisterForm() {
     formState: { errors },
   } = useForm();
 
-
-    const saveUserMutation = useMutation({
+  const saveUserMutation = useMutation({
     mutationFn: async (userData) => {
       const response = await fetch("http://localhost:3000/user", {
         method: "POST",
@@ -36,8 +35,7 @@ export default function RegisterForm() {
         body: JSON.stringify(userData),
       });
 
-       return response.json();
-
+      return response.json();
     },
     onSuccess: () => {
       toast("User registered successfully!");
@@ -46,7 +44,6 @@ export default function RegisterForm() {
       toast("Error saving user: " + error.message);
     },
   });
-
 
   const handleFormSubmit = (data) => {
     const { name, photo, email, password } = data;
@@ -65,7 +62,6 @@ export default function RegisterForm() {
         updateUsersDetails(user, name, photo)
           .then(() => {
             reset();
-
 
             const userData = {
               name,
@@ -90,18 +86,16 @@ export default function RegisterForm() {
   const signWithGoogle1 = () => {
     signInWithGoogle()
       .then((response) => {
+        const user = response.user;
+        const userData = {
+          name: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+          role: "member",
+          createdAt: new Date().toISOString(),
+        };
 
-const user = response.user;
-            const userData = {
-        name: user.displayName,
-        email: user.email,
-        photoURL: user.photoURL,
-        role: "member", 
-        createdAt: new Date().toISOString(),
-      };
-
-      saveUserMutation.mutate(userData);
-
+        saveUserMutation.mutate(userData);
 
         navigate(userLocationS || "/");
         setUserLocation(null);
@@ -116,7 +110,10 @@ const user = response.user;
       <Header />
 
       <div className="register-container">
-        <form onSubmit={handleSubmit(handleFormSubmit)} className="register-card">
+        <form
+          onSubmit={handleSubmit(handleFormSubmit)}
+          className="register-card"
+        >
           <h2>Create Account</h2>
 
           {/* NAME */}
@@ -130,7 +127,9 @@ const user = response.user;
           <div className="input-group">
             <label>Upload your photo</label>
             <input type="text" {...register("photo", { required: true })} />
-            {errors.photo && <p className="error-text">Photo URL is required</p>}
+            {errors.photo && (
+              <p className="error-text">Photo URL is required</p>
+            )}
           </div>
 
           {/* EMAIL */}
@@ -172,10 +171,10 @@ const user = response.user;
               alignItems: "center",
               justifyContent: "center",
               gap: "8px",
-              marginTop: "10px",
+              marginTop: "20px",
               width: "100%",
-              padding:'10px',
-              borderRadius:'5px',
+              padding: "10px",
+              borderRadius: "5px",
               boxShadow: "2px 2px 5px rgba(30, 30, 30, 0.25)",
             }}
           >

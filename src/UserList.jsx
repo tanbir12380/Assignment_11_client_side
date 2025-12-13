@@ -61,7 +61,7 @@ const UserList = () => {
               <td>{user.name}</td>
               <td>{user.email}</td>
               <td>{user.role}</td>
-              <td>
+              <td className="action-button-container">
                 <button
                   className="role-btn admin-btn"
                   onClick={() =>
@@ -88,13 +88,13 @@ const UserList = () => {
                 <button
                   className="role-btn user-btn"
                   onClick={() =>
-                    updateRoleMutation.mutate({ id: user._id, role: "user" })
+                    updateRoleMutation.mutate({ id: user._id, role: "member" })
                   }
                   disabled={
                     !(user.role === "admin" || user.role === "clubManager")
                   }
                 >
-                  Make User
+                  Make Member
                 </button>
               </td>
             </tr>

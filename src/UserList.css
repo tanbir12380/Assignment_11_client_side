@@ -50,3 +50,16 @@
 .user-btn {
   background-color: rgb(0, 129, 86);
 }
+
+.action-button-container {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+button {
+  white-space: nowrap;
+}
+
+.user-list-container {
+  overflow-x: scroll;
+}

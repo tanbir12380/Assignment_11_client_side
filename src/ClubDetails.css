@@ -9,7 +9,7 @@
 .group-details-container {
   padding: 20px 0 0 0;
   background-color: var(--bg-secondary-light);
-  font-family: "Inter",Arial, sans-serif;
+  font-family: "Inter", Arial, sans-serif;
 }
 
 .group-details-card {
@@ -76,4 +76,10 @@
 
 .join-button:hover {
   background-color: var(--bg-primary-light);
+}
+
+@media (max-width: 768px) {
+  .group-details-card {
+    margin: 20px 20px !important;
+  }
 }

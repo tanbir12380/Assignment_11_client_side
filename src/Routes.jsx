@@ -17,6 +17,10 @@ import UserList from "./UserList";
 import PaymentSuccess from "./PaymentSuccess";
 import PaymentSuccessEvent from "./PaymentSuccess-event";
 import Profile from "./Profile";
+import Forbidden from "./Forbidden";
+import PrivateRoute from "./PrivateRoute";
+import PrivateRoute_admin from "./privateRoute_admin";
+import PrivateRoute_Manager from "./PrivateRoute_Manager";
 
 export const router = createBrowserRouter([
   {
@@ -65,7 +69,13 @@ export const router = createBrowserRouter([
       },
       {
         path: "createClub",
-        element: <CreateClub></CreateClub>,
+        element: (
+          <PrivateRoute>
+            <PrivateRoute_Manager>
+              <CreateClub></CreateClub>
+            </PrivateRoute_Manager>
+          </PrivateRoute>
+        ),
       },
       {
         path: "myEvent",
@@ -73,11 +83,23 @@ export const router = createBrowserRouter([
       },
       {
         path: "createEvent",
-        element: <CreateEvent></CreateEvent>,
+        element: (
+          <PrivateRoute>
+            <PrivateRoute_Manager>
+              <CreateEvent></CreateEvent>
+            </PrivateRoute_Manager>
+          </PrivateRoute>
+        ),
       },
       {
         path: "users",
-        element: <UserList></UserList>,
+        element: (
+          <PrivateRoute>
+            <PrivateRoute_admin>
+              <UserList></UserList>
+            </PrivateRoute_admin>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/payment-success",
@@ -88,5 +110,9 @@ export const router = createBrowserRouter([
         element: <PaymentSuccessEvent></PaymentSuccessEvent>,
       },
     ],
+  },
+  {
+    path: "/forbidden",
+    element: <Forbidden></Forbidden>,
   },
 ]);
