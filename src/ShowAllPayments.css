@@ -1,0 +1,79 @@
+.payments-title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--bg-primary);
+  font-family: "bebas neue";
+  font-size: 30px;
+  margin-top: 0;
+}
+
+.payments-table-wrapper {
+  background: #fff;
+  border-radius: 10px;
+  overflow-x: auto;
+  box-shadow: 2px 2px 16px rgba(0, 0, 0, 0.15);
+}
+
+.payments-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Inter";
+  font-size: 15px;
+}
+
+.payments-table thead {
+  background-color: var(--bg-primary);
+}
+
+.payments-table th {
+  color: #fff;
+  font-weight: 500;
+  padding: 14px;
+  text-align: left;
+  font-size: 16px;
+}
+
+.payments-table td {
+  padding: 14px;
+
+  color: rgb(45, 45, 45);
+}
+
+.payments-table tbody tr {
+  transition: all 0.5s ease;
+  border-bottom: 1px solid var(--bg-secondary-semi-light);
+}
+
+.payments-table tbody tr:last-child {
+  transition: all 0.5s ease;
+  border-bottom: none;
+}
+
+.payments-table tbody tr:hover {
+  background-color: var(--bg-secondary-light);
+}
+
+.type-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.type-club {
+  background-color: rgba(63, 96, 82, 0.15);
+  color: var(--bg-primary);
+}
+
+.type-event {
+  background-color: rgba(201, 161, 93, 0.25);
+  color: #8a6a2f;
+}
+
+.no-payments {
+  text-align: center;
+  padding: 30px;
+  color: #777;
+  font-size: 15px;
+}

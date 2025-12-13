@@ -3,7 +3,8 @@ import { AuthContext } from "./AuthContext";
 import { Navigate, useLocation } from "react-router";
 
 const PrivateRoute = ({ children }) => {
-  const { user, loading, setUserLocation } = useContext(AuthContext);
+  const { user, loading, setUserLocation, isFetching, isLoading } =
+    useContext(AuthContext);
 
   const location = useLocation();
 
@@ -13,7 +14,9 @@ const PrivateRoute = ({ children }) => {
     }
   }, [user, loading, location.pathname, setUserLocation]);
 
-  if (loading) {
+  console.log("from private Route");
+
+  if (loading || isFetching || isLoading) {
     return (
       <div
         className="loaders3"

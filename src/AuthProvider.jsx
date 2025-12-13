@@ -19,7 +19,6 @@ const provider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [userRole, setUserRole] = useState(null);
   const [loading, setLoading] = useState(true);
   const [userLocationS, setUserLocation] = useState(null);
 
@@ -85,40 +84,34 @@ const AuthProvider = ({ children }) => {
   //   fetchUserRole();
   // }, [user]);
 
-  const { data: dbUser } = useQuery({
+  const {
+    data: dbUser,
+    isLoading,
+    isFetching,
+  } = useQuery({
     queryKey: ["dbUser", user?.email],
     queryFn: async () => {
-      if (!user?.email) return null;
       const res = await fetch(`http://localhost:3000/user/${user.email}`);
-      if (!res.ok) throw new Error("Failed to fetch DB user");
       return res.json();
     },
     enabled: !!user?.email,
   });
-
-  useEffect(() => {
-    const fetchUserRoleFromDB = () => {
-      setUserRole(dbUser?.role || null);
-    };
-
-    fetchUserRoleFromDB();
-  }, [dbUser]);
 
   const authInfo = {
     user,
     createUser,
     SignInUser,
     SignOutFromApp,
-    userRole,
+    userRole: dbUser?.role,
     loading,
+    isLoading,
+    isFetching,
     signInWithGoogle,
     updateUsersDetails,
     userLocationS,
     setUserLocation,
     resetYourPassword,
   };
-
-  console.log("user Role from authContext : ", userRole);
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

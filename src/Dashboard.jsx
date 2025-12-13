@@ -100,9 +100,11 @@ const Dashboard = () => {
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Payments"
                   >
-                    {/* admin - manage payments */}
-                    <RiSecurePaymentLine size={24}></RiSecurePaymentLine>
-                    <span className="is-drawer-close:hidden">Payments</span>
+                    {/* admin - manage payments  */}
+                    <NavLink to="/dashboard/allPayments">
+                      <RiSecurePaymentLine size={24}></RiSecurePaymentLine>
+                      <span className="is-drawer-close:hidden">Payments</span>
+                    </NavLink>
                   </button>
                 </li>
               </>
