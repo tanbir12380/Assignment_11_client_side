@@ -230,9 +230,13 @@ const Dashboard = () => {
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Payments"
                   >
-                    {/* member - manage payments */}
-                    <RiSecurePaymentLine size={24}></RiSecurePaymentLine>
-                    <span className="is-drawer-close:hidden">My Payments</span>
+                    {/* member - manage payments  */}
+                    <NavLink to="/dashboard/myPayments">
+                      <RiSecurePaymentLine size={24}></RiSecurePaymentLine>
+                      <span className="is-drawer-close:hidden">
+                        My Payments
+                      </span>
+                    </NavLink>
                   </button>
                 </li>
               </>

@@ -24,6 +24,7 @@ import PrivateRoute_Manager from "./PrivateRoute_Manager";
 import MyJoinedClubs from "./MyJoinedClubs";
 import MyJoinedEvent from "./MyJoinedEvent";
 import AllPayments from "./ShowAllPayments";
+import MyPayments from "./ShowMyPayments";
 
 export const router = createBrowserRouter([
   {
@@ -146,6 +147,14 @@ export const router = createBrowserRouter([
             <PrivateRoute_admin>
               <AllPayments></AllPayments>
             </PrivateRoute_admin>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/myPayments",
+        element: (
+          <PrivateRoute>
+            <MyPayments></MyPayments>
           </PrivateRoute>
         ),
       },
