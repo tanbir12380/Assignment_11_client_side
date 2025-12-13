@@ -8,13 +8,13 @@
   height: 40px;
   border-radius: 50%;
   cursor: pointer;
-  border: 2px solid var(--bg-secondary)
+  border: 2px solid var(--bg-secondary);
+  object-fit: cover;
 }
-
 
 .dropdown {
   position: absolute;
-  top: 40px; 
+  top: 40px;
   right: -40px;
   background: var(--bg-primary-light);
   border: 1px solid #ddd;
@@ -23,10 +23,9 @@
   padding: 5px 0;
   display: none;
   flex-direction: column;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   z-index: 10;
 }
-
 
 .dropdown-container:hover .dropdown {
   display: flex;

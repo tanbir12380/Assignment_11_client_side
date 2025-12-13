@@ -97,7 +97,23 @@ const EventDetails = () => {
   };
 
   if (isLoading)
-    return <p style={{ textAlign: "center", padding: "40px" }}>Loading...</p>;
+    return (
+      <div
+        className="loaders3"
+        style={{
+          width: "100%",
+          flex: "1",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "500px",
+        }}
+      >
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+      </div>
+    );
   if (isError)
     return (
       <p style={{ textAlign: "center", padding: "40px" }}>

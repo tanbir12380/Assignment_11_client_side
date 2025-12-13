@@ -198,11 +198,13 @@ const Dashboard = () => {
                 <li>
                   <button
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Clubs members"
+                    data-tip="My Clubs"
                   >
-                    {/* manager - my clubs members */}
-                    <MdGroups2 size={24}></MdGroups2>
-                    <span className="is-drawer-close:hidden">My Clubs </span>
+                    {/* member - my clubs  */}
+                    <NavLink to="/dashboard/myJoinedClubs">
+                      <MdGroups2 size={24}></MdGroups2>
+                      <span className="is-drawer-close:hidden">My Clubs </span>
+                    </NavLink>
                   </button>
                 </li>
 
@@ -211,11 +213,13 @@ const Dashboard = () => {
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Event management"
                   >
-                    {/* member - my events */}
-                    <MdOutlineEventAvailable
-                      size={24}
-                    ></MdOutlineEventAvailable>
-                    <span className="is-drawer-close:hidden">My Event </span>
+                    {/* member - my events  */}
+                    <NavLink to="/dashboard/myJoinedEvents">
+                      <MdOutlineEventAvailable
+                        size={24}
+                      ></MdOutlineEventAvailable>
+                      <span className="is-drawer-close:hidden">My Event </span>
+                    </NavLink>
                   </button>
                 </li>
 

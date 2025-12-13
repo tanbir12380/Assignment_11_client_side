@@ -21,6 +21,8 @@ import Forbidden from "./Forbidden";
 import PrivateRoute from "./PrivateRoute";
 import PrivateRoute_admin from "./privateRoute_admin";
 import PrivateRoute_Manager from "./PrivateRoute_Manager";
+import MyJoinedClubs from "./MyJoinedClubs";
+import MyJoinedEvent from "./MyJoinedEvent";
 
 export const router = createBrowserRouter([
   {
@@ -35,12 +37,26 @@ export const router = createBrowserRouter([
         path: "allClubs",
         element: <AllClubs></AllClubs>,
       },
-      { path: "clubDetail/:id", element: <ClubDetails></ClubDetails> },
+      {
+        path: "clubDetail/:id",
+        element: (
+          <PrivateRoute>
+            <ClubDetails></ClubDetails>
+          </PrivateRoute>
+        ),
+      },
       {
         path: "allEvents",
         element: <AllEvents></AllEvents>,
       },
-      { path: "eventDetail/:id", element: <EventDetails></EventDetails> },
+      {
+        path: "eventDetail/:id",
+        element: (
+          <PrivateRoute>
+            <EventDetails></EventDetails>
+          </PrivateRoute>
+        ),
+      },
       {
         path: "/register",
         element: <RegisterForm></RegisterForm>,
@@ -55,7 +71,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        element: <Profile></Profile>,
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -108,6 +128,14 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/payment-success-event",
         element: <PaymentSuccessEvent></PaymentSuccessEvent>,
+      },
+      {
+        path: "/dashboard/myJoinedClubs",
+        element: <MyJoinedClubs></MyJoinedClubs>,
+      },
+      {
+        path: "/dashboard/myJoinedEvents",
+        element: <MyJoinedEvent></MyJoinedEvent>,
       },
     ],
   },
