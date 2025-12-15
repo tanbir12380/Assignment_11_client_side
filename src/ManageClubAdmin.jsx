@@ -1,17 +1,22 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import "./ShowAllPayments.css";
 import Swal from "sweetalert2";
 import { BsInfoSquareFill } from "react-icons/bs";
+import { AuthContext } from "./AuthContext";
 
 const ManageClubAdmin = () => {
   const [modalData, setModalData] = useState({});
   const modalRef = useRef();
+  const {user}= useContext(AuthContext);
 
   const { data, refetch } = useQuery({
     queryKey: ["clubs"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3000/clubsAdminList");
+      const res = await fetch("http://localhost:3000/clubsAdminList", {
+          headers:{
+          accesstoken: user.accessToken
+        }});
       return res.json();
     },
   });
@@ -20,6 +25,9 @@ const ManageClubAdmin = () => {
     mutationFn: async (clubId) => {
       const res = await fetch(`http://localhost:3000/clubApprove/${clubId}`, {
         method: "PATCH",
+         headers:{
+          accesstoken: user.accessToken
+        }
       });
       refetch();
       return res.json();
@@ -30,6 +38,9 @@ const ManageClubAdmin = () => {
     mutationFn: async (clubId) => {
       const res = await fetch(`http://localhost:3000/clubReject/${clubId}`, {
         method: "PATCH",
+          headers:{
+          accesstoken: user.accessToken
+        }
       });
       refetch();
       return res.json();

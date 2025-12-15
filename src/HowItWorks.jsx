@@ -18,7 +18,7 @@ export default function HowItWorks() {
   };
 
   return (
-    <section className="how-wrapper">
+    <section     className="how-wrapper">
       {/* LEFT SIDE */}
       <div className="how-left">
         <motion.p

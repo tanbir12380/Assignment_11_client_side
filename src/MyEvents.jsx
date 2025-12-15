@@ -14,7 +14,11 @@ const MyEvents = () => {
   const { data, isLoading: clubsLoading } = useQuery({
     queryKey: ["userClubs", user.email],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/getEvents/${user.email}`);
+      const res = await fetch(`http://localhost:3000/getEvents/${user.email}`,{
+        headers:{
+          accesstoken: user.accessToken
+        }
+      });
       return res.json();
     },
   });

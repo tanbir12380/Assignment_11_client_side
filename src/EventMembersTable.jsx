@@ -9,7 +9,11 @@ const EventMembersTable = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["managerMembers", user?.email],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/clubManager-dashboard-EventMember/${user.email}`);
+      const res = await fetch(`http://localhost:3000/clubManager-dashboard-EventMember/${user.email}`,{
+        headers:{
+          accesstoken: user.accessToken
+        }
+      });
          const jsonData = await res.json(); 
     console.log(jsonData); 
     return jsonData;

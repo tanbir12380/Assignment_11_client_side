@@ -4,17 +4,18 @@ import { FaRegStar } from "react-icons/fa";
 import { FaArrowRightLong } from "react-icons/fa6";
 import Header from "./Header";
 import { useQuery } from "@tanstack/react-query";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 
 const AllEvent = () => {
   const [events, setEvents] = useState([]);
+
+  const navigate = useNavigate();
 
   // Fetch all events
   const { data, isLoading } = useQuery({
     queryKey: ["events"],
     queryFn: async () => {
       const res = await fetch("http://localhost:3000/events");
-      if (!res.ok) throw new Error("Failed to fetch events");
       return res.json();
     },
   });
@@ -49,8 +50,8 @@ const AllEvent = () => {
           {events.map((event) => (
             <div className="club-card" key={event._id}>
               <div>
-                {/* fallback image if bannerImage missing */}
-                <img src={event.bannerImage || "/banner1.jpg"} alt={event.title} />
+               
+                <img src={event?.bannerImage} alt={event.title} />
               </div>
 
               <div>
@@ -70,7 +71,9 @@ const AllEvent = () => {
                   </p>
                 </div>
 
-                <button>
+                <button onClick={()=>{
+                  navigate(`/eventDetail/${event._id}`)
+                }}>
                   <NavLink to={`/eventDetail/${event._id}`}>
                     See Details <FaArrowRightLong />
                   </NavLink>

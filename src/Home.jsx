@@ -15,7 +15,7 @@ const Home = () => {
     visible: { opacity: 1, y: 0, transition: { duration: 1.5 } },
   };
   return (
-<div>
+<div className='HomeContainerClass'>
       <div className='navAndbanner'>
       <div className='innerNavAndBanner'>
         <Header></Header>
@@ -29,9 +29,13 @@ const Home = () => {
         </motion.div>
       </div> 
     </div>
-    <RecentClubs></RecentClubs>
+
+ <RecentClubs></RecentClubs>
     <Features></Features>
       <HowItWorks></HowItWorks>
+
+
+   
       
 </div>
   );

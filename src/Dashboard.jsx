@@ -129,6 +129,7 @@ const Dashboard = () => {
             {/* club manager */}
             {userRole == "clubManager" && (
               <>
+
                 <li>
                   <button
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"

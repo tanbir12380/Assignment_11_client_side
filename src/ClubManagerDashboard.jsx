@@ -11,7 +11,11 @@ const ClubManagerDashboard = () => {
     enabled: !!user?.email,
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:3000/clubManager-dashboard-stats/${user.email}`
+        `http://localhost:3000/clubManager-dashboard-stats/${user.email}`,{
+        headers:{
+          accesstoken: user.accessToken
+        }
+      }
       );
       return res.json();
     },

@@ -23,7 +23,10 @@ const MyJoinedClubs = () => {
     queryKey: ["membership", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:3000/get-membership/${user.email}`
+        `http://localhost:3000/get-membership/${user.email}`, {
+          headers:{
+          accesstoken: user.accessToken
+        }}
       );
       return res.json();
     },

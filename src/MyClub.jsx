@@ -12,8 +12,11 @@ const MyClub = () => {
   const { data: userClubs, isLoading: clubsLoading } = useQuery({
     queryKey: ["userClubs", user.email],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/getClubs/${user.email}`);
-      if (!res.ok) throw new Error("Failed to fetch clubs");
+      const res = await fetch(`http://localhost:3000/getClubs/${user.email}`,{
+        headers:{
+          accesstoken: user.accessToken
+        }
+      });
       return res.json();
     },
   });

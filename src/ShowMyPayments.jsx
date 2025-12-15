@@ -12,7 +12,10 @@ const MyPayments = () => {
     queryKey: ["myPayments", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:3000/get-my-payments/${user.email}`
+        `http://localhost:3000/get-my-payments/${user.email}`,{
+        headers:{
+          accesstoken: user.accessToken
+        }}
       );
       return res.json();
     },

@@ -2,13 +2,22 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import "./AdminDashboard.css";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { useContext } from "react";
+import { AuthContext } from "./AuthContext";
 
 
 const AdminDashboard = () => {
+
+  const {user}= useContext(AuthContext);
+
   const { data, isLoading } = useQuery({
     queryKey: ["adminStats"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3000/admin-dashboard-stats");
+      const res = await fetch("http://localhost:3000/admin-dashboard-stats",{
+        headers:{
+          accesstoken: user.accessToken
+        }
+      });
       if (!res.ok) throw new Error("Failed to fetch dashboard stats");
       return res.json();
     },
@@ -17,7 +26,11 @@ const AdminDashboard = () => {
   const { data: allClubs, isLoading: isLoading1 } = useQuery({
     queryKey: ["clubs"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3000/clubs");
+      const res = await fetch("http://localhost:3000/clubs",{
+        headers:{
+          accesstoken: user.accessToken
+        }
+      });
       return res.json();
     },
   });

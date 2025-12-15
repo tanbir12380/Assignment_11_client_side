@@ -4,11 +4,11 @@ import { FaRegStar } from "react-icons/fa";
 import { FaArrowRightLong } from "react-icons/fa6";
 import Header from "./Header";
 import { useQuery } from "@tanstack/react-query";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 
 const AllClubs = () => {
   const [clubs, setClubs] = useState([]);
-
+const navigate = useNavigate();
   const { data } = useQuery({
     queryKey: ["clubs"],
     queryFn: async () => {
@@ -67,7 +67,9 @@ const AllClubs = () => {
                   </p>
                 </div>
 
-                <button>
+                <button onClick={()=>{
+                  navigate(`/clubDetail/${club._id}`)
+                }}>
                  <NavLink to={`/clubDetail/${club._id}`}> See Details <FaArrowRightLong /></NavLink>
                 </button>
               </div>

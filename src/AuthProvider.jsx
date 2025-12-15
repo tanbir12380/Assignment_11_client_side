@@ -91,7 +91,11 @@ const AuthProvider = ({ children }) => {
   } = useQuery({
     queryKey: ["dbUser", user?.email],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/user/${user.email}`);
+      const res = await fetch(`http://localhost:3000/user/${user.email}`,{
+        headers:{
+          accesstoken: user.accessToken
+        }
+      });
       return res.json();
     },
     enabled: !!user?.email,

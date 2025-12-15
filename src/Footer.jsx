@@ -52,10 +52,14 @@ const Footer = () => {
         viewport={{ once: true }}
       >
         <div className="subscribe">
-          <motion.h2  variants={textFromLeft}
+          <motion.h2 style={{
+            zIndex:'100'
+          }}  variants={textFromLeft}
         initial="hidden"
         whileInView="visible" viewport={{ once: true }}>Join for ClubSphere Updates, News & Events!</motion.h2>
-          <motion.div variants={textFromRight}
+          <motion.div  style={{
+            zIndex:'100'
+          }}  variants={textFromRight}
         initial="hidden"
         whileInView="visible" viewport={{ once: true }} className="subscribe-box">
             <input type="email" placeholder="Enter your email" />
@@ -126,7 +130,7 @@ const Footer = () => {
             Copyright © {new Date().getFullYear()} ClubSphere. All Rights
             Reserved.
           </motion.p>
-          <motion.div variants={textFromRight}
+          <motion.div  variants={textFromRight}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }} className="bottom-links">

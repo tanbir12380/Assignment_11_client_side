@@ -163,7 +163,10 @@
   font-size: 14px;
   width: 100%;
   font-family: "Inter";
+
 }
+
+
 
 .bottom-links span {
   margin-left: 20px;
@@ -220,6 +223,7 @@
   .footer-col-brand h3 {
     font-size: 40px !important;
   }
+
 
   .footer-content {
     grid-template-columns: 1fr;

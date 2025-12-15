@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import "./RecentClubs.css";
 import { FaRegStar } from "react-icons/fa";
 import { FaArrowRightLong } from "react-icons/fa6";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 
 const AllClubs = () => {
   const [clubs, setClubs] = useState([]);
+
+  const navigate = useNavigate();
 
   // Fetch data
   const { data } = useQuery({
@@ -75,7 +77,9 @@ const cardVariants = {
                   </p>
                 </div>
 
-                <button>
+                <button onClick={()=>{
+                  navigate(`/clubDetail/${club._id}`)
+                }}>
                   <NavLink to={`/clubDetail/${club._id}`}>
                     See Details <FaArrowRightLong />
                   </NavLink>

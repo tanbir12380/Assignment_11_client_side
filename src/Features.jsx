@@ -20,7 +20,7 @@ export default function Features() {
   };
 
   return (
-    <section className="features-wrapper">
+    <section        className="features-wrapper">
       {/* LEFT SIDE WITH BACKGROUND */}
       <div className="features-left">
         <div>

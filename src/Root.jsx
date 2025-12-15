@@ -5,7 +5,9 @@ import { ToastContainer } from "react-toastify";
 
 const Root = () => {
   return (
-    <div>
+    <div         style={{
+          overflow:'hidden'
+        }} >
       <Outlet></Outlet>
       <Footer></Footer>
       <ToastContainer />

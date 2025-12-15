@@ -7,6 +7,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { useContext } from "react";
 import { AuthContext } from "./AuthContext";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 
 const ClubDetails = () => {
   const { id } = useParams();
@@ -45,7 +46,11 @@ const ClubDetails = () => {
   } = useQuery({
     queryKey: ["club", id],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/clubs/${id}`);
+      const res = await fetch(`http://localhost:3000/clubs/${id}`,{
+        headers:{
+          accesstoken: user.accessToken
+        }
+      });
       console.log(id);
       return res.json();
     },
@@ -137,40 +142,89 @@ const ClubDetails = () => {
       <p style={{ textAlign: "center", padding: "40px" }}>Error loading club</p>
     );
 
+
+        const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.5 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 100 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 1, ease: "easeOut" },
+  },
+};
+
+const itemVariants2 = {
+  hidden: { opacity: 0, y: -100 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 1, ease: "easeOut" },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
+
+
+
   return (
-    <div className="group-details-container">
+       <motion.div
+      className="group-details-container"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
       <Header />
 
-      <div className="group-details-card">
-        <div className="group-banner">
+      <motion.div className="group-details-card" variants={cardVariants}>
+        <motion.div className="group-banner" variants={itemVariants2}>
           <img src={club.bannerImage} alt={club.clubName} />
-        </div>
+        </motion.div>
 
         <div className="group-content">
-          <h1 className="group-title">{club.clubName}</h1>
+          <motion.h1 className="group-title" variants={itemVariants}>
+            {club.clubName}
+          </motion.h1>
 
-          <div className="group-meta">
+          <motion.div className="group-meta" variants={itemVariants}>
             <span>Category: {club.category}</span>
             <span>Membership Fee: ${club.membershipFee}</span>
-          </div>
+          </motion.div>
 
-          <div className="group-members">
+          <motion.div className="group-members" variants={itemVariants}>
             {club.memberCount ? club.memberCount : "0"} members
-          </div>
+          </motion.div>
 
-          <p className="group-description">{club.description}</p>
+          <motion.p className="group-description" variants={itemVariants}>
+            {club.description}
+          </motion.p>
 
-          <button
+          <motion.button
+            className="contact-btn"
             onClick={handleBuy}
             disabled={isMember}
-            className=" contact-btn"
+            whileHover={{ scale: isMember ? 1 : 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            variants={itemVariants}
           >
-            {" "}
             {isMember ? "Already Joined" : "Join Club"} <FaArrowRightLong />
-          </button>
+          </motion.button>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

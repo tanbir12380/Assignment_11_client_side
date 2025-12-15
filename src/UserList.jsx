@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import "./UserList.css";
 import "./ShowAllPayments.css";
 import { toast } from "react-toastify";
+import { AuthContext } from "./AuthContext";
 
 const UserList = () => {
+
+  const {user}= useContext(AuthContext);
+
   const {
     data: users,
     isLoading,
@@ -13,8 +17,10 @@ const UserList = () => {
   } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3000/users");
-      if (!res.ok) throw new Error("Failed to fetch users");
+      const res = await fetch("http://localhost:3000/users",{
+        headers:{
+          accesstoken: user.accessToken
+        }});
       return res.json();
     },
   });
@@ -23,10 +29,11 @@ const UserList = () => {
     mutationFn: async ({ id, role }) => {
       const res = await fetch(`http://localhost:3000/users/${id}`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",
+           accesstoken: user.accessToken
+         },
         body: JSON.stringify({ role }),
       });
-      if (!res.ok) throw new Error("Failed to update role");
       return res.json();
     },
     onSuccess: () => {

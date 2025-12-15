@@ -22,6 +22,7 @@ export default function CreateClub() {
         method: "POST",
         headers: {
           "content-type": "application/json",
+          accesstoken: user.accessToken
         },
         body: JSON.stringify(data),
       });

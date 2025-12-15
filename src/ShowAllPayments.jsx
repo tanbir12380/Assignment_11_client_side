@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { AuthContext } from "./AuthContext";
 import "./ShowAllPayments.css";
 
 const AllPayments = () => {
+
+  const {user}= useContext(AuthContext);
+
   const { data: payments = [] } = useQuery({
     queryKey: ["payments"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3000/get-all-payments");
+      const res = await fetch("http://localhost:3000/get-all-payments",{
+        headers:{
+          accesstoken: user.accessToken
+        }});
       return res.json();
     },
   });

@@ -16,7 +16,10 @@ const MemberDashboard = () => {
     enabled: !!user?.email,
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:3000/memberDashboard/${user.email}`
+        `http://localhost:3000/memberDashboard/${user.email}`, {
+          headers:{
+          accesstoken: user.accessToken
+        }}
       );
 
       return res.json();
