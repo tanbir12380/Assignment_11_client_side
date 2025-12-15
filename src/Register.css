@@ -6,7 +6,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 300;
+  flex-direction: column;
   padding: 20px;
+}
+
+.create-club-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-family: "Inter";
   font-size: 16px;
   font-weight: 300;
@@ -15,16 +25,27 @@
 
 /* Glass Card */
 .register-card {
-  width: 380px;
   padding: 40px 35px;
   border-radius: 12px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
   border: 1px solid rgba(255, 255, 255, 0.25);
   color: white;
   background-color: var(--bg-primary);
+  min-width: 25%;
 }
 
-.register-card h2 {
+.create-club-card {
+  padding: 40px 35px;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: white;
+  background-color: var(--bg-primary);
+  min-width: 35%;
+}
+
+.register-card h2,
+.create-club-card h2 {
   text-align: center;
   font-size: 32px;
   margin-bottom: 30px;
@@ -42,7 +63,6 @@
   border-radius: 5px;
   outline: none;
   color: white !important;
-  margin-bottom: 15px;
 }
 
 .input-group select option {
@@ -58,13 +78,10 @@
   border: none;
 }
 
-input {
-  margin-bottom: 15px !important;
-}
-
 label {
   margin-bottom: 5px !important;
   display: block;
+  margin-top: 15px !important;
 }
 
 /* Button */
@@ -79,6 +96,7 @@ label {
   background-color: white;
   transition: all 0.5s ease;
   font-family: "bebas neue";
+  margin-top: 20px;
 }
 
 .register-btn:hover {
@@ -107,4 +125,14 @@ label {
 
 .input-group textarea:focus {
   outline: none;
+}
+
+.error-text {
+  color: red;
+}
+
+@media (max-width:768px){
+  .register-card{
+    width:100%;
+  }
 }

@@ -22,6 +22,7 @@
   font-size: 50px;
   color: #ffffff;
   font-family: "bebas neue";
+  line-height: 1.2;
 }
 
 .subscribe-box {
@@ -130,6 +131,7 @@
   margin-bottom: 15px;
   color: #fff;
   font-family: "bebas neue";
+  line-height: 1.2;
 }
 
 .footer-col ul li {
@@ -183,21 +185,47 @@
   transform: scale(1.3);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .subscribe-box {
-    flex-direction: column;
+@media (max-width: 1550px) {
+  .footer-content {
+    grid-template-columns: 1.5fr 1fr 1fr;
+  }
+  .footer {
+    padding: 150px;
+  }
+}
+
+@media (max-width: 1680px) {
+  .subscribe {
+    flex-direction: column !important;
     align-items: center;
   }
 
-  h2,
-  h3 {
+  .subscribe h2 {
+    text-align: center;
+  }
+}
+
+@media (max-width: 1215px) {
+  .footer-content {
+    grid-template-columns: 1.5fr 1fr;
+  }
+  .footer {
+    padding: 100px;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .subscribe h2,
+  .footer-col-brand h3 {
     font-size: 40px !important;
   }
 
+  .footer-content {
+    grid-template-columns: 1fr;
+  }
+
   .subscribe {
-    flex-direction: column;
-    align-items: center;
     padding-bottom: 40px;
   }
 

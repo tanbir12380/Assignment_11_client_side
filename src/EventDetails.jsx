@@ -11,11 +11,13 @@ const EventDetails = () => {
   const { id } = useParams();
 
   const [isMember, setIsMember] = useState(false);
+  const [toggole, setToggole] = useState(false);
 
   const {
     data: event,
     isLoading,
     isError,
+    refetch,
   } = useQuery({
     queryKey: ["event", id],
     queryFn: async () => {
@@ -46,7 +48,7 @@ const EventDetails = () => {
     };
 
     checkMembership();
-  }, [user, id]);
+  }, [user, id, toggole]);
 
   const createCheckoutMutation = useMutation({
     mutationFn: async (paymentInfo) => {
@@ -75,14 +77,63 @@ const EventDetails = () => {
     },
   });
 
+  const freeMembershipMutation = useMutation({
+    mutationFn: async (membershipData) => {
+      const res = await fetch(
+        "http://localhost:3000/save-free-membership-event",
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(membershipData),
+        }
+      );
+      setToggole(!toggole);
+      refetch();
+      toast("Congratulations, You've successfully joined the event");
+      return res.json();
+    },
+  });
+
+  const isPast = (eventDate) => {
+    const [year, month, day] = eventDate.split("-").map(Number);
+    const today = new Date();
+
+    console.log(today, year, month, day);
+
+    if (today.getFullYear() > year) return true;
+    if (today.getFullYear() < year) return false;
+
+    if (today.getMonth() + 1 > month) return true;
+    if (today.getMonth() + 1 < month) return false;
+
+    return today.getDate() > day;
+  };
+
   // --- Buy handler ---
   const handleBuy = () => {
+    if (isPast(event.eventDate)) {
+      toast("Sorry, this event has already passed and registration is closed");
+      return;
+    }
+
     if (
       event.maxAttendees === event.attendees ||
-      event.maxAttendees < event.attendees ||
-      isMember
+      event.maxAttendees < event.attendees
     ) {
       toast("no seat available");
+    }
+
+    if (event.eventFee === 0) {
+      const freeMembershipData = {
+        userEmail: user.email,
+        eventId: id,
+        clubId: event.clubId,
+      };
+
+      freeMembershipMutation.mutate(freeMembershipData);
+      return;
     }
 
     const paymentInfo = {
@@ -91,6 +142,7 @@ const EventDetails = () => {
       type: "event",
       eventId: id,
       email: user.email,
+      clubId: event.clubId,
     };
 
     createCheckoutMutation.mutate(paymentInfo);
@@ -135,7 +187,7 @@ const EventDetails = () => {
 
           <div className="group-meta">
             <span>Location: {event.location}</span>
-            <span>Date: {new Date(event.eventDate).toLocaleString()}</span>
+            <span>Date: {event.eventDate}</span>
             {event.isPaid ? (
               <span>Fee: ${event.eventFee}</span>
             ) : (
@@ -144,6 +196,9 @@ const EventDetails = () => {
             {event.maxAttendees && (
               <span>Max Attendees: {event.maxAttendees}</span>
             )}
+            <span>
+              People Joined : {event.memberCount ? event.memberCount : 0}
+            </span>
           </div>
 
           <p className="group-description">{event.description}</p>

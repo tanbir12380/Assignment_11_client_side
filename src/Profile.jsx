@@ -25,7 +25,8 @@ const { data: fullUser, isLoading, isError } = useQuery({
 
 <Header></Header>
 
-      <div className="profile-card">
+<div className="profile-card-pro"> 
+        <div className="profile-card">
         <div className="profile-photo">
           <img src={fullUser.photoURL} alt={fullUser.name} />
         </div>
@@ -39,6 +40,7 @@ const { data: fullUser, isLoading, isError } = useQuery({
           </p>
         </div>
       </div>
+</div>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import NavDrop from "./NavDrop";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { AuthContext } from "./AuthContext";
 import { GiHamburgerMenu } from "react-icons/gi";
 import "./Header.css";
@@ -8,10 +8,20 @@ import "./Header.css";
 const Header = () => {
   const { user } = useContext(AuthContext);
   const { SignOutFromApp } = useContext(AuthContext);
-
+  const navigate = useNavigate();
   return (
     <div className="header">
-      <h1 className="logo">ClubSphere</h1>
+      <h1
+        style={{
+          cursor: "pointer",
+        }}
+        onClick={() => {
+          navigate("/");
+        }}
+        className="logo"
+      >
+        ClubSphere
+      </h1>
       <ul className="navLinks navLinks-main">
         <li>
           {" "}
@@ -54,7 +64,7 @@ const Header = () => {
         <nav>
           <ul className="navLinks ">
             {user && (
-              <li>
+              <li style={{ width: "40px" }}>
                 <img src={user?.photoURL} alt="avatar" className="avatar" />
               </li>
             )}

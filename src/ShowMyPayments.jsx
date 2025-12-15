@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { AuthContext } from "./AuthContext";
 import "./ShowAllPayments.css";
+import { FaArrowRightLong } from "react-icons/fa6";
+import { NavLink } from "react-router";
 
 const MyPayments = () => {
   const { user } = useContext(AuthContext);
@@ -40,8 +42,55 @@ const MyPayments = () => {
                 <td>${payment.cost}</td>
                 <td>{payment.userEmail}</td>
                 <td>{payment.type}</td>
-                <td>
-                  {payment.type === "club" ? payment.clubId : payment.eventId}
+                <td
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                    gap: "20px",
+                  }}
+                >
+                  {payment.type === "club" ? (
+                    <>
+                      {" "}
+                      {payment.clubId}{" "}
+                      <NavLink
+                        to={`/clubDetail/${payment.clubId}`}
+                        style={{
+                          width: "30px",
+                          height: "30px",
+                          borderRadius: "50%",
+                          backgroundColor: "var(--bg-secondary)",
+                          color: "white",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <FaArrowRightLong />
+                      </NavLink>
+                    </>
+                  ) : (
+                    <>
+                      {" "}
+                      {payment.eventId}{" "}
+                      <NavLink
+                        to={`/eventDetail/${payment.eventId}`}
+                        style={{
+                          width: "30px",
+                          height: "30px",
+                          borderRadius: "50%",
+                          backgroundColor: "var(--bg-secondary)",
+                          color: "white",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <FaArrowRightLong />
+                      </NavLink>
+                    </>
+                  )}
                 </td>
                 <td>{payment.paymentId}</td>
                 <td>{new Date(payment.joinedAt).toLocaleString()}</td>

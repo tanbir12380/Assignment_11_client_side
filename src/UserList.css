@@ -26,7 +26,6 @@
 }
 
 .role-btn {
-  margin-right: 8px;
   padding: 5px 10px;
   border: none;
   border-radius: 4px;
@@ -53,11 +52,13 @@
 
 .action-button-container {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-button {
+.role-btn {
   white-space: nowrap;
+  width: 165px;
 }
 
 .user-list-container {

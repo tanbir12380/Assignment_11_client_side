@@ -42,7 +42,7 @@ html {
 
 body {
   margin: 0;
-  min-height: calc(100vh - 100px);
+  min-height: 100vh;
   background-color: var(--bg-secondary-light);
   box-sizing: border-box !important;
   padding-bottom: 1px;

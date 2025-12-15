@@ -1,16 +1,22 @@
 .dash-side-bar {
   background-color: var(--bg-secondary-semi-light) !important;
-  padding-top: 80px;
+  padding-top: 90px;
   font-family: "Inter";
   box-sizing: border-box !important;
   min-height: 100%;
+  gap: 20px;
+  padding-left: 12px;
 }
 
 .dash-nav {
   z-index: 100;
   background-color: var(--bg-primary);
-  position: absolute;
+  position: fixed;
   align-items: center;
+}
+
+#menu-label{
+  margin-top: 0px !important;
 }
 
 .dash-nav label {
@@ -36,6 +42,7 @@
 .drawer-content {
   padding: 20px;
   padding-top: 91px;
+  min-height: 100vh;
 }
 
 .outlet-container {
@@ -45,4 +52,9 @@
   padding: 20px;
   width: 100%;
   box-sizing: border-box;
+}
+
+ul li button {
+  padding: 0px !important;
+  font-size: 16px;
 }

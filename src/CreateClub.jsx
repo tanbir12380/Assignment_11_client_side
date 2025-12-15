@@ -16,7 +16,6 @@ export default function CreateClub() {
     reset,
   } = useForm();
 
-
   const createClubMutation = useMutation({
     mutationFn: async (data) => {
       const res = await fetch("http://localhost:3000/clubs", {
@@ -26,8 +25,6 @@ export default function CreateClub() {
         },
         body: JSON.stringify(data),
       });
-
-      if (!res.ok) throw new Error("Network error");
 
       return res.json();
     },
@@ -40,22 +37,22 @@ export default function CreateClub() {
     },
   });
 
-
   const handleFormSubmit = (formData) => {
     const now = new Date().toISOString();
 
     const finalData = {
       clubName: formData.clubName,
       description: formData.description,
-      category: formData.category, 
+      category: formData.category,
       location: formData.location,
       bannerImage: formData.bannerImage,
-      membershipFee: Number(formData.membershipFee),
+      membershipFee: parseInt(formData.membershipFee),
       status: "pending",
       managerEmail: user.email,
       createdAt: now,
       updatedAt: now,
-      membercount: 0
+      memberCount: 0,
+      eventCount: 0,
     };
 
     createClubMutation.mutate(finalData);
@@ -63,71 +60,99 @@ export default function CreateClub() {
 
   return (
     <div>
-      <div className="register-container-pro">
+      <div className="create-club-container">
+        <form
+          onSubmit={handleSubmit(handleFormSubmit)}
+          className="create-club-card"
+        >
+          <h2>Create Club</h2>
 
-        <div className="register-container">
-          <form onSubmit={handleSubmit(handleFormSubmit)} className="register-card">
-            <h2>Create Club</h2>
+          {/* CLUB NAME */}
+          <div className="input-group">
+            <label>Club Name</label>
+            <input type="text" {...register("clubName", { required: true })} />
+            {errors.clubName && (
+              <p className="error-text">Club name is required</p>
+            )}
+          </div>
 
-            {/* CLUB NAME */}
-            <div className="input-group">
-              <label>Club Name</label>
-              <input type="text" {...register("clubName", { required: true })} />
-              {errors.clubName && <p className="error-text">Club name is required</p>}
-            </div>
+          {/* DESCRIPTION */}
+          <div className="input-group">
+            <label>Description</label>
+            <textarea
+              style={{
+                width: "100%",
+                border: "1px solid rgba(219, 219, 219, 0.802)",
+                borderRadius: "5px",
+              }}
+              rows="3"
+              {...register("description", { required: true })}
+            ></textarea>
+            {errors.description && (
+              <p className="error-text">Description is required</p>
+            )}
+          </div>
 
-            {/* DESCRIPTION */}
-            <div className="input-group">
-              <label>Description</label>
-              <textarea style={{width:'100%', border:'1px solid rgba(219, 219, 219, 0.802)', borderRadius:'5px'}} rows="3" {...register("description", { required: true })}></textarea>
-              {errors.description && <p className="error-text">Description is required</p>}
-            </div>
+          {/* CATEGORY (TEXT INPUT) */}
+          <div className="input-group">
+            <label>Category</label>
+            <input
+              type="text"
+              {...register("category", { required: true })}
+              placeholder="e.g. Photography, Tech, Sports"
+            />
+            {errors.category && (
+              <p className="error-text">Category is required</p>
+            )}
+          </div>
 
-            {/* CATEGORY (TEXT INPUT) */}
-            <div className="input-group">
-              <label>Category</label>
-              <input
-                type="text"
-                {...register("category", { required: true })}
-                placeholder="e.g. Photography, Tech, Sports"
-              />
-              {errors.category && <p className="error-text">Category is required</p>}
-            </div>
+          {/* LOCATION */}
+          <div className="input-group">
+            <label>Location (City / Area)</label>
+            <input type="text" {...register("location", { required: true })} />
+            {errors.location && (
+              <p className="error-text">Location is required</p>
+            )}
+          </div>
 
-            {/* LOCATION */}
-            <div className="input-group">
-              <label>Location (City / Area)</label>
-              <input type="text" {...register("location", { required: true })} />
-              {errors.location && <p className="error-text">Location is required</p>}
-            </div>
+          {/* BANNER IMAGE */}
+          <div className="input-group">
+            <label>Banner Image URL</label>
+            <input
+              type="text"
+              {...register("bannerImage", { required: true })}
+            />
+            {errors.bannerImage && (
+              <p className="error-text">Banner image is required</p>
+            )}
+          </div>
 
-            {/* BANNER IMAGE */}
-            <div className="input-group">
-              <label>Banner Image URL</label>
-              <input type="text" {...register("bannerImage", { required: true })} />
-              {errors.bannerImage && <p className="error-text">Banner image is required</p>}
-            </div>
+          {/* MEMBERSHIP FEE */}
+          <div className="input-group">
+            <label>Membership Fee</label>
+            <input
+              type="number"
+              {...register("membershipFee", { required: true })}
+            />
+            {errors.membershipFee && (
+              <p className="error-text">Membership fee is required</p>
+            )}
+          </div>
 
-            {/* MEMBERSHIP FEE */}
-            <div className="input-group">
-              <label>Membership Fee</label>
-              <input type="number" {...register("membershipFee", { required: true })} />
-              {errors.membershipFee && <p className="error-text">Membership fee is required</p>}
-            </div>
+          {/* MANAGER EMAIL */}
+          <div className="input-group">
+            <label>Manager Email</label>
+            <input type="email" defaultValue={user.email} readOnly />
+          </div>
 
-            {/* MANAGER EMAIL */}
-            <div className="input-group">
-              <label>Manager Email</label>
-              <input type="email" defaultValue={user.email} readOnly />
-            </div>
-
-            {/* SUBMIT BUTTON */}
-            <button className="register-btn" disabled={createClubMutation.isPending}>
-              {createClubMutation.isPending ? "Creating..." : "Create Club"}
-            </button>
-
-          </form>
-        </div>
+          {/* SUBMIT BUTTON */}
+          <button
+            className="register-btn"
+            disabled={createClubMutation.isPending}
+          >
+            {createClubMutation.isPending ? "Creating..." : "Create Club"}
+          </button>
+        </form>
       </div>
     </div>
   );

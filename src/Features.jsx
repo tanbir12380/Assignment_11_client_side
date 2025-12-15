@@ -4,8 +4,13 @@ import { BsFillCalendar2EventFill } from "react-icons/bs";
 import { GrGroup } from "react-icons/gr";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaCreditCard } from "react-icons/fa6";
+import { useNavigate } from "react-router";
 
 export default function Features() {
+
+
+  const navigate = useNavigate();
+
   return (
     <section className="features-wrapper">
       {/* LEFT SIDE WITH BACKGROUND */}
@@ -23,7 +28,7 @@ export default function Features() {
           can focus on what truly matters: people and passion.
         </p>
 
-        <button className="contact-btn">Explore Clubs <FaArrowRightLong></FaArrowRightLong> </button>
+        <button onClick={()=>{navigate('/allClubs')}} className="contact-btn">Explore Clubs <FaArrowRightLong></FaArrowRightLong> </button>
     </div>
       </div>
 

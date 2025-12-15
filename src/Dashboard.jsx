@@ -11,20 +11,30 @@ import { IoHomeSharp } from "react-icons/io5";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
 import { HiOutlineMenu } from "react-icons/hi";
 import "./Dashboard.css";
-import { NavLink, Outlet } from "react-router";
+import { NavLink, Outlet, useNavigate } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "./AuthContext";
 
 const Dashboard = () => {
   const { userRole } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   return (
     <div className="drawer_container drawer lg:drawer-open">
       <nav className="navbar w-full dash-nav">
-        <label htmlFor="my-drawer-4" aria-label="open sidebar">
+        <label id="menu-label" htmlFor="my-drawer-4" aria-label="open sidebar">
           <HiOutlineMenu size={35}></HiOutlineMenu>
         </label>
-        <div>ClubSphere</div>
+        <div
+          style={{
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          ClubSphere
+        </div>
       </nav>
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
 
@@ -48,7 +58,7 @@ const Dashboard = () => {
                 data-tip="Homepage"
               >
                 <NavLink to="/">
-                  <IoHomeSharp size={24}></IoHomeSharp>
+                  <IoHomeSharp size={35}></IoHomeSharp>
                   <span className="is-drawer-close:hidden">Homepage</span>
                 </NavLink>
               </button>
@@ -63,9 +73,11 @@ const Dashboard = () => {
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Overiew"
                   >
-                    {/* admin overview */}
-                    <MdAdminPanelSettings size={24}></MdAdminPanelSettings>
-                    <span className="is-drawer-close:hidden">Overview</span>
+                    {/* admin overview  */}
+                    <NavLink to="/dashboard/adminDashboard">
+                      <MdAdminPanelSettings size={35}></MdAdminPanelSettings>
+                      <span className="is-drawer-close:hidden">Overview</span>
+                    </NavLink>
                   </button>
                 </li>
 
@@ -76,7 +88,7 @@ const Dashboard = () => {
                   >
                     {/* admin - member management */}
                     <NavLink to="/dashboard/users">
-                      <MdManageAccounts size={24}></MdManageAccounts>
+                      <MdManageAccounts size={35}></MdManageAccounts>
                       <span className="is-drawer-close:hidden">
                         Manage users
                       </span>
@@ -90,8 +102,12 @@ const Dashboard = () => {
                     data-tip="Manage clubs"
                   >
                     {/* admin - manage clubs */}
-                    <LiaLayerGroupSolid size={24}></LiaLayerGroupSolid>
-                    <span className="is-drawer-close:hidden">Manage clubs</span>
+                    <NavLink to="/dashboard/manageClubAdmin">
+                      <LiaLayerGroupSolid size={35}></LiaLayerGroupSolid>
+                      <span className="is-drawer-close:hidden">
+                        Manage clubs
+                      </span>
+                    </NavLink>
                   </button>
                 </li>
 
@@ -102,7 +118,7 @@ const Dashboard = () => {
                   >
                     {/* admin - manage payments  */}
                     <NavLink to="/dashboard/allPayments">
-                      <RiSecurePaymentLine size={24}></RiSecurePaymentLine>
+                      <RiSecurePaymentLine size={35}></RiSecurePaymentLine>
                       <span className="is-drawer-close:hidden">Payments</span>
                     </NavLink>
                   </button>
@@ -118,9 +134,11 @@ const Dashboard = () => {
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Overiew"
                   >
-                    {/* manager overview */}
-                    <MdAdminPanelSettings size={24}></MdAdminPanelSettings>
+                    {/* manager overview  */}
+                   <NavLink to="/dashboard/clubManagerDashboard">
+                     <MdAdminPanelSettings size={35}></MdAdminPanelSettings>
                     <span className="is-drawer-close:hidden">Overview</span>
+                   </NavLink>
                   </button>
                 </li>
 
@@ -131,7 +149,7 @@ const Dashboard = () => {
                   >
                     {/* manager - my clubs */}
                     <NavLink to="/dashboard/myClub">
-                      <LiaLayerGroupSolid size={24}></LiaLayerGroupSolid>
+                      <LiaLayerGroupSolid size={35}></LiaLayerGroupSolid>
                       <span className="is-drawer-close:hidden">My Clubs</span>
                     </NavLink>
                   </button>
@@ -143,7 +161,7 @@ const Dashboard = () => {
                     data-tip="Clubs members"
                   >
                     {/* manager - my clubs members */}
-                    <MdGroups2 size={24}></MdGroups2>
+                    <MdGroups2 size={35}></MdGroups2>
                     <span className="is-drawer-close:hidden">
                       Clubs members
                     </span>
@@ -158,7 +176,7 @@ const Dashboard = () => {
                     {/* manager - my events */}
                     <NavLink to="/dashboard/myEvent">
                       <MdOutlineEventAvailable
-                        size={24}
+                        size={35}
                       ></MdOutlineEventAvailable>
                       <span className="is-drawer-close:hidden">
                         Event management
@@ -173,7 +191,7 @@ const Dashboard = () => {
                     data-tip="Event registration"
                   >
                     {/* manager - my events register */}
-                    <SquarePen size={24} />
+                    <SquarePen size={35} />
                     <span className="is-drawer-close:hidden">
                       Event registration
                     </span>
@@ -192,7 +210,7 @@ const Dashboard = () => {
                     data-tip="Overiew"
                   >
                     {/* member overview */}
-                    <RiFolderUserLine size={24}></RiFolderUserLine>
+                    <RiFolderUserLine size={35}></RiFolderUserLine>
                     <span className="is-drawer-close:hidden">Overview</span>
                   </button>
                 </li>
@@ -204,7 +222,7 @@ const Dashboard = () => {
                   >
                     {/* member - my clubs  */}
                     <NavLink to="/dashboard/myJoinedClubs">
-                      <MdGroups2 size={24}></MdGroups2>
+                      <MdGroups2 size={35}></MdGroups2>
                       <span className="is-drawer-close:hidden">My Clubs </span>
                     </NavLink>
                   </button>
@@ -218,7 +236,7 @@ const Dashboard = () => {
                     {/* member - my events  */}
                     <NavLink to="/dashboard/myJoinedEvents">
                       <MdOutlineEventAvailable
-                        size={24}
+                        size={35}
                       ></MdOutlineEventAvailable>
                       <span className="is-drawer-close:hidden">My Event </span>
                     </NavLink>
@@ -232,7 +250,7 @@ const Dashboard = () => {
                   >
                     {/* member - manage payments  */}
                     <NavLink to="/dashboard/myPayments">
-                      <RiSecurePaymentLine size={24}></RiSecurePaymentLine>
+                      <RiSecurePaymentLine size={35}></RiSecurePaymentLine>
                       <span className="is-drawer-close:hidden">
                         My Payments
                       </span>

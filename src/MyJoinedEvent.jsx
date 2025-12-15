@@ -52,7 +52,6 @@ const MyJoinedEvent = () => {
           {events.map((event) => (
             <div className="club-card" key={event._id}>
               <div>
-                {/* fallback image if bannerImage missing */}
                 <img
                   src={event.bannerImage || "/banner1.jpg"}
                   alt={event.title}
@@ -88,12 +87,6 @@ const MyJoinedEvent = () => {
               </div>
             </div>
           ))}
-
-          {events.length === 0 && (
-            <p style={{ textAlign: "center", padding: "20px" }}>
-              No events available
-            </p>
-          )}
         </div>
       </div>
     </div>

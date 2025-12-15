@@ -1,15 +1,129 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { NavLink } from 'react-router';
+import { NavLink } from "react-router";
+import { AuthContext } from "./AuthContext";
+import { useQuery } from "@tanstack/react-query";
+import { FaRegStar } from "react-icons/fa";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 const MyEvents = () => {
+  const { user } = useContext(AuthContext);
+
+  const [userEvents, setEvents] = useState([]);
+
+  const { data, isLoading: clubsLoading } = useQuery({
+    queryKey: ["userClubs", user.email],
+    queryFn: async () => {
+      const res = await fetch(`http://localhost:3000/getEvents/${user.email}`);
+      return res.json();
+    },
+  });
+
+  useEffect(() => {
+    const transformEvents = () => {
+      if (!data) return;
+
+      const updatedEvents = data.map((event) => ({
+        ...event,
+        rating: (Math.random() * 1 + 4).toFixed(1),
+      }));
+
+      setEvents(updatedEvents);
+    };
+
+    transformEvents();
+  }, [data]);
+
+  if (clubsLoading) {
+    return (
+      <div
+        className="loaders3"
+        style={{
+          width: "100%",
+          flex: "1",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "500px",
+        }}
+      >
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+      </div>
+    );
+  }
+
   return (
     <div>
-      
-      <button className='contact-btn'>
-<NavLink to='/dashboard/createEvent'><FaPlus></FaPlus> Create Event</NavLink>
-      </button>
+      <div
+        className="latest-clubs-section"
+        style={{ backgroundColor: "white", paddingTop: "0" }}
+      >
+        <h3>
+          Your <span> Events</span>
+        </h3>
+        <div
+          style={{
+            width: "100%",
+            paddingLeft: "220px",
+            paddingBottom: "30px",
+          }}
+        >
+          <button className="contact-btn">
+            <NavLink to="/dashboard/createEvent">
+              <FaPlus></FaPlus> Create Event
+            </NavLink>
+          </button>
+        </div>
+        <div className="latest-clubs-container">
+          {userEvents.map((event) => (
+            <div className="club-card" key={event._id}>
+              <div>
+                {/* fallback image if bannerImage missing */}
+                <img
+                  src={event.bannerImage || "/banner1.jpg"}
+                  alt={event.title}
+                />
+              </div>
 
+              <div>
+                <h4>{event.title}</h4>
+
+                <div className="club-meta">
+                  <span className="category">{event.location}</span>
+                  {event.isPaid && (
+                    <span className="fee">${event.eventFee}</span>
+                  )}
+                  {!event.isPaid && <span className="fee">Free</span>}
+                </div>
+
+                <div className="group-info-middle">
+                  <p>Date: {new Date(event.eventDate).toLocaleDateString()}</p>
+                  {event.maxAttendees && (
+                    <p>Max Attendees: {event.maxAttendees}</p>
+                  )}
+                  <p>
+                    {event.rating} <FaRegStar />
+                  </p>
+                </div>
+
+                <button>
+                  <NavLink to={`/eventDetail/${event._id}`}>
+                    See Details <FaArrowRightLong />
+                  </NavLink>
+                </button>
+              </div>
+            </div>
+          ))}
+
+          {userEvents.length === 0 && (
+            <p style={{ textAlign: "center", padding: "20px" }}>
+              No events available
+            </p>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

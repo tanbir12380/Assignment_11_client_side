@@ -1,3 +1,7 @@
+.payments-container {
+  padding: 0px !important;
+}
+
 .payments-title {
   text-align: center;
   margin-bottom: 20px;
@@ -76,4 +80,25 @@
   padding: 30px;
   color: #777;
   font-size: 15px;
+}
+
+.manage-btn-container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.manage-btn {
+  width: 150px;
+  border-radius: 12px;
+  background-color: var(--bg-primary);
+  padding: 8px 16px;
+  color: white;
+  font-size: 16px;
+  font-family: "Inter";
+  cursor: pointer;
+}
+
+.manage-btn1 {
+  background-color: rgba(160, 0, 0, 1);
 }

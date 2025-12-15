@@ -25,6 +25,12 @@ import MyJoinedClubs from "./MyJoinedClubs";
 import MyJoinedEvent from "./MyJoinedEvent";
 import AllPayments from "./ShowAllPayments";
 import MyPayments from "./ShowMyPayments";
+import ManageClubAdmin from "./ManageClubAdmin";
+import AdminDashboard from "./AdminDashboard";
+import ForbiddenPro from "./ForbiddenPro";
+import ClubManagerDashboard from "./ClubManagerDashboard";
+import RoleBasedDashboard from "./RoleBasedDashboard";
+import MemberDashboard from "./MemberDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -86,9 +92,50 @@ export const router = createBrowserRouter([
     element: <Dashboard></Dashboard>,
     children: [
       {
-        path: "myClub",
-        element: <MyClub></MyClub>,
+        index: true,
+        element: (
+         <PrivateRoute> <RoleBasedDashboard></RoleBasedDashboard></PrivateRoute>
+        ),
       },
+       {
+        path: "adminDashboard",
+        element: (
+          <PrivateRoute>
+            <PrivateRoute_admin>
+              <AdminDashboard></AdminDashboard>
+            </PrivateRoute_admin>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path:'clubManagerDashboard',
+        element:<PrivateRoute><PrivateRoute_Manager><ClubManagerDashboard></ClubManagerDashboard></PrivateRoute_Manager></PrivateRoute>
+      },
+      {
+        path:'memberDashboard',
+        element: <PrivateRoute><MemberDashboard></MemberDashboard></PrivateRoute>
+      },
+      {
+        path: "myClub",
+        element: (
+          <PrivateRoute>
+            <PrivateRoute_Manager>
+              <MyClub></MyClub>
+            </PrivateRoute_Manager>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "manageClubAdmin",
+        element: (
+          <PrivateRoute>
+            <PrivateRoute_admin>
+              <ManageClubAdmin></ManageClubAdmin>
+            </PrivateRoute_admin>
+          </PrivateRoute>
+        ),
+      },
+     
       {
         path: "createClub",
         element: (
@@ -101,7 +148,13 @@ export const router = createBrowserRouter([
       },
       {
         path: "myEvent",
-        element: <MyEvents></MyEvents>,
+        element: (
+          <PrivateRoute>
+            <PrivateRoute_Manager>
+              <MyEvents></MyEvents>
+            </PrivateRoute_Manager>
+          </PrivateRoute>
+        ),
       },
       {
         path: "createEvent",
@@ -164,4 +217,8 @@ export const router = createBrowserRouter([
     path: "/forbidden",
     element: <Forbidden></Forbidden>,
   },
+  {
+    path:"*",
+    element:<ForbiddenPro></ForbiddenPro>
+  }
 ]);

@@ -6,6 +6,7 @@ import "./ClubDetails.css";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { useContext } from "react";
 import { AuthContext } from "./AuthContext";
+import { toast } from "react-toastify";
 
 const ClubDetails = () => {
   const { id } = useParams();
@@ -13,6 +14,7 @@ const ClubDetails = () => {
   const { user } = useContext(AuthContext);
 
   const [isMember, setIsMember] = useState(false);
+  const [toggole, setToggole] = useState(false);
 
   useEffect(() => {
     if (!user) return;
@@ -33,12 +35,13 @@ const ClubDetails = () => {
     };
 
     checkMembership();
-  }, [user, id]);
+  }, [user, id, toggole]);
 
   const {
     data: club,
     isLoading,
     isError,
+    refetch,
   } = useQuery({
     queryKey: ["club", id],
     queryFn: async () => {
@@ -72,8 +75,34 @@ const ClubDetails = () => {
     },
   });
 
+  const freeMembershipMutation = useMutation({
+    mutationFn: async (membershipData) => {
+      const res = await fetch("http://localhost:3000/save-free-membership", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(membershipData),
+      });
+      setToggole(!toggole);
+      refetch();
+      toast("Congratulations, You've successfully joined the club");
+      return res.json();
+    },
+  });
+
   // --- Buy handler ---
   const handleBuy = () => {
+    if (club.membershipFee === 0) {
+      const freeMembershipData = {
+        userEmail: user.email,
+        clubId: id,
+      };
+
+      freeMembershipMutation.mutate(freeMembershipData);
+      return;
+    }
+
     const paymentInfo = {
       cost: club.membershipFee,
       name: club.clubName,
@@ -125,7 +154,9 @@ const ClubDetails = () => {
             <span>Membership Fee: ${club.membershipFee}</span>
           </div>
 
-          <div className="group-members">{club.memberCount} members</div>
+          <div className="group-members">
+            {club.memberCount ? club.memberCount : "0"} members
+          </div>
 
           <p className="group-description">{club.description}</p>
 

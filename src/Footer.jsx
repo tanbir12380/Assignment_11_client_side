@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Footer.css";
 import {
   FaFacebookF,
@@ -8,9 +8,15 @@ import {
 } from "react-icons/fa";
 import { MdPhone, MdEmail, MdLocationOn } from "react-icons/md";
 import { RiTwitterXLine } from "react-icons/ri";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
+import { AuthContext } from "./AuthContext";
 
 const Footer = () => {
+
+  
+  const navigate = useNavigate();
+  const user = useContext(AuthContext)
+
   return (
     <div>
       <footer className="footer">
@@ -18,8 +24,8 @@ const Footer = () => {
           <h2>Join for ClubSphere Updates, News & Events!</h2>
           <div className="subscribe-box">
             <input type="email" placeholder="Enter your email" />
-            <button>
-              <NavLink to="/login">Join us</NavLink>
+            <button onClick={()=>{ if(!user.email){navigate('/login')}} }>
+              <NavLink >Join us</NavLink>
             </button>
           </div>
         </section>
@@ -93,7 +99,7 @@ const Footer = () => {
             <h4>Contact Info</h4>
             <p>
               <a>
-                <MdPhone />
+                <MdLocationOn />
               </a>{" "}
               Dhaka, Bangladesh
             </p>
@@ -106,7 +112,7 @@ const Footer = () => {
             <p>
               <a>
                 {" "}
-                <MdLocationOn />
+                <MdPhone />
               </a>{" "}
               +880 - 123 456 789
             </p>
