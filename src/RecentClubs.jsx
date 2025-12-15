@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import "./RecentClubs.css";
 import { FaRegStar } from "react-icons/fa";
 import { FaArrowRightLong } from "react-icons/fa6";
-import Header from "./Header";
-import { useQuery } from "@tanstack/react-query";
 import { NavLink } from "react-router";
+import { useQuery } from "@tanstack/react-query";
+import { motion } from "framer-motion";
 
 const AllClubs = () => {
   const [clubs, setClubs] = useState([]);
 
+  // Fetch data
   const { data } = useQuery({
     queryKey: ["clubs"],
     queryFn: async () => {
@@ -17,20 +18,22 @@ const AllClubs = () => {
     },
   });
 
+  // Add random rating
   useEffect(() => {
-    const transformClubs = () => {
-      if (!data) return;
-
-      const updatedClubs = data.map((club) => ({
-        ...club,
-        rating: (Math.random() * 1 + 4).toFixed(1),
-      }));
-
-      setClubs(updatedClubs);
-    };
-
-    transformClubs();
+const transformClubs = () => { if (!data) return; const updatedClubs = data.map((club) => ({ ...club, rating: (Math.random() * 1 + 4).toFixed(1), })); setClubs(updatedClubs); }; transformClubs();
   }, [data]);
+
+
+
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8 }, 
+  },
+};
 
   return (
     <div style={{ paddingTop: "20px" }}>
@@ -40,9 +43,19 @@ const AllClubs = () => {
           Discover the <span>Clubs</span> Leading the Way
         </h3>
 
-        <div className="latest-clubs-container">
+        <div
+  className="latest-clubs-container"
+
+        >
           {clubs.map((club) => (
-            <div className="club-card" key={club._id}>
+            <motion.div
+              className="club-card"
+              key={club._id}
+              variants={cardVariants}
+               initial="hidden"
+   whileInView="visible"
+  viewport={{ once: true }}
+            >
               <div>
                 <img src={club.bannerImage} alt={club.clubName} />
               </div>
@@ -57,7 +70,6 @@ const AllClubs = () => {
 
                 <div className="group-info-middle">
                   <p>{club.memberCount} members</p>
-
                   <p>
                     {club.rating} <FaRegStar />
                   </p>
@@ -65,12 +77,11 @@ const AllClubs = () => {
 
                 <button>
                   <NavLink to={`/clubDetail/${club._id}`}>
-                    {" "}
                     See Details <FaArrowRightLong />
                   </NavLink>
                 </button>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
