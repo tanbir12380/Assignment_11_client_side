@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 const EventDetails = () => {
   const { id } = useParams();
-
+  const { user } = useContext(AuthContext);
   const [isMember, setIsMember] = useState(false);
   const [toggole, setToggole] = useState(false);
 
@@ -27,7 +27,22 @@ const EventDetails = () => {
     },
   });
 
-  const { user } = useContext(AuthContext);
+
+    const {
+    data: club,
+    isLoading : loading2,
+
+  } = useQuery({
+    queryKey: ["club", event?.clubId],
+    enabled: !!event?.clubId,
+    queryFn: async () => {
+      const res = await fetch(`http://localhost:3000/clubs/${event.clubId}`);
+
+      return res.json();
+    },
+  });
+
+
 
   useEffect(() => {
     if (!user) return;
@@ -183,7 +198,10 @@ const EventDetails = () => {
         </div>
 
         <div className="group-content">
-          <h1 className="group-title">{event.title}</h1>
+          <h1 style={{marginBottom:'0'}} className="group-title">{event.title}</h1>
+          <p style={{
+            marginBottom:'20px'
+          }}>Created by : {club?.clubName}</p>
 
           <div className="group-meta">
             <span>Location: {event.location}</span>

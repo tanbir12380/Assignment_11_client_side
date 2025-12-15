@@ -42,7 +42,7 @@ gap:15px;
 .club-card {
   background: #ffffff;
   border-radius: 14px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
   overflow: hidden;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   display: flex;

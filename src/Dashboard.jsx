@@ -213,9 +213,11 @@ const Dashboard = () => {
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Overiew"
                   >
-                    {/* member overview */}
-                    <RiFolderUserLine size={35}></RiFolderUserLine>
+                    {/* member overview  */}
+                   <NavLink to="/dashboard/memberDashboard">
+                     <RiFolderUserLine size={35}></RiFolderUserLine>
                     <span className="is-drawer-close:hidden">Overview</span>
+                   </NavLink>
                   </button>
                 </li>
 
@@ -235,7 +237,7 @@ const Dashboard = () => {
                 <li>
                   <button
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Event management"
+                    data-tip="My Event"
                   >
                     {/* member - my events  */}
                     <NavLink to="/dashboard/myJoinedEvents">

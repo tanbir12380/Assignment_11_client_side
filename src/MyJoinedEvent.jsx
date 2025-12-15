@@ -5,6 +5,7 @@ import Header from "./Header";
 import { FaRegStar } from "react-icons/fa";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { NavLink } from "react-router";
+import "./RecentClubs.css";
 
 const MyJoinedEvent = () => {
   const { user } = useContext(AuthContext);
@@ -46,8 +47,19 @@ const MyJoinedEvent = () => {
   }, [allEvents, membershipIds]);
 
   return (
-    <div style={{ paddingTop: "20px" }}>
+    <div >
+       <h2
+        style={{
+          fontFamily: "bebas neue",
+          fontSize: "30px",
+          textAlign: "center",
+          marginBottom:'20px'
+        }}
+      >
+        Events you joined
+      </h2>
       <div>
+       
         <div className="latest-clubs-container">
           {events.map((event) => (
             <div className="club-card" key={event._id}>

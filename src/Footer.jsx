@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./Footer.css";
 import {
   FaFacebookF,
@@ -8,13 +8,12 @@ import {
 } from "react-icons/fa";
 import { MdPhone, MdEmail, MdLocationOn } from "react-icons/md";
 import { RiTwitterXLine } from "react-icons/ri";
-import { NavLink, useNavigate } from "react-router";
+import { NavLink, } from "react-router";
 import { AuthContext } from "./AuthContext";
 import { motion } from "framer-motion";
 
 const Footer = () => {
-  const navigate = useNavigate();
-  const user = useContext(AuthContext);
+
 
   const sectionVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -60,7 +59,7 @@ const Footer = () => {
         initial="hidden"
         whileInView="visible" viewport={{ once: true }} className="subscribe-box">
             <input type="email" placeholder="Enter your email" />
-            <button onClick={() => { if (!user.email) { navigate('/login') } }}>
+            <button>
               <NavLink>Join us</NavLink>
             </button>
           </motion.div>
