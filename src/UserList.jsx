@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import "./UserList.css";
+import "./ShowAllPayments.css";
 import { toast } from "react-toastify";
 
 const UserList = () => {
@@ -45,7 +46,8 @@ const UserList = () => {
     <div className="user-list-container">
       <h2>User List</h2>
 
-      <table className="user-table">
+<div className="payments-table-wrapper">
+        <table className="payments-table">
         <thead>
           <tr>
             <th>Name</th>
@@ -101,6 +103,9 @@ const UserList = () => {
           ))}
         </tbody>
       </table>
+</div>
+
+
     </div>
   );
 };

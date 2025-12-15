@@ -160,11 +160,13 @@ const Dashboard = () => {
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Clubs members"
                   >
-                    {/* manager - my clubs members */}
-                    <MdGroups2 size={35}></MdGroups2>
+                    {/* manager - my clubs members  */}
+                   <NavLink to="/dashboard/clubMembersTable">
+                     <MdGroups2 size={35}></MdGroups2>
                     <span className="is-drawer-close:hidden">
                       Clubs members
                     </span>
+                   </NavLink>
                   </button>
                 </li>
 
@@ -190,11 +192,13 @@ const Dashboard = () => {
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Event registration"
                   >
-                    {/* manager - my events register */}
-                    <SquarePen size={35} />
+                    {/* manager - my events register eventMembersTable */}
+                   <NavLink to="/dashboard/eventMembersTable">
+                     <SquarePen size={35} />
                     <span className="is-drawer-close:hidden">
                       Event registration
                     </span>
+                   </NavLink>
                   </button>
                 </li>
               </>

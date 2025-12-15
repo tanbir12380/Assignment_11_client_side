@@ -31,6 +31,8 @@ import ForbiddenPro from "./ForbiddenPro";
 import ClubManagerDashboard from "./ClubManagerDashboard";
 import RoleBasedDashboard from "./RoleBasedDashboard";
 import MemberDashboard from "./MemberDashboard";
+import ClubMembersTable from "./ClubMembersTable";
+import EventMembersTable from "./EventMembersTable";
 
 export const router = createBrowserRouter([
   {
@@ -162,6 +164,26 @@ export const router = createBrowserRouter([
           <PrivateRoute>
             <PrivateRoute_Manager>
               <CreateEvent></CreateEvent>
+            </PrivateRoute_Manager>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path:'clubMembersTable',
+          element: (
+          <PrivateRoute>
+            <PrivateRoute_Manager>
+              <ClubMembersTable></ClubMembersTable>
+            </PrivateRoute_Manager>
+          </PrivateRoute>
+        ),
+      },
+       {
+        path:'eventMembersTable',
+          element: (
+          <PrivateRoute>
+            <PrivateRoute_Manager>
+              <EventMembersTable></EventMembersTable>
             </PrivateRoute_Manager>
           </PrivateRoute>
         ),
