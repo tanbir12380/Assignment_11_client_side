@@ -17,7 +17,7 @@ const Footer = () => {
 
   const sectionVariants = {
     hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, staggerChildren: 0.15 } },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, staggerChildren: 0.25 } },
   };
 
   const itemVariants = {

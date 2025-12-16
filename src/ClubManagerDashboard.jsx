@@ -4,24 +4,25 @@ import "./AdminDashboard.css";
 import { AuthContext } from "./AuthContext";
 
 const ClubManagerDashboard = () => {
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   const { data, isLoading } = useQuery({
     queryKey: ["managerStats", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:3000/clubManager-dashboard-stats/${user.email}`,{
-        headers:{
-          accesstoken: user.accessToken
+        `http://localhost:3000/clubManager-dashboard-stats/${user.email}`,
+        {
+          headers: {
+            accesstoken: user.accessToken,
+          },
         }
-      }
       );
       return res.json();
     },
   });
 
-  if (isLoading)
+  if (isLoading) {
     return (
       <div
         style={{
@@ -38,8 +39,7 @@ const ClubManagerDashboard = () => {
         <span className="loading loading-bars loading-xl"></span>
       </div>
     );
-
-
+  }
 
   return (
     <>
@@ -53,9 +53,7 @@ const ClubManagerDashboard = () => {
         Club Manager Dashboard
       </h2>
 
-
       <div className="dashboard-container">
-        {/* Total Clubs */}
         <div className="dashboard-card">
           <h3>Total Clubs</h3>
           <p>{data.totalClubs}</p>
@@ -65,19 +63,16 @@ const ClubManagerDashboard = () => {
           </small>
         </div>
 
-        {/* Total Events */}
         <div className="dashboard-card">
           <h3>Total Events</h3>
           <p>{data.totalEvents}</p>
         </div>
 
-        {/* Total Members */}
         <div className="dashboard-card">
           <h3>Total Members</h3>
           <p>{data.totalMembers}</p>
         </div>
 
-        {/* Total Payments Amount */}
         <div className="dashboard-card">
           <h3>Total Payments</h3>
           <p>${data.totalPaymentsAmount}</p>

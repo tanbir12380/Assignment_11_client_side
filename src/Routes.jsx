@@ -33,6 +33,7 @@ import RoleBasedDashboard from "./RoleBasedDashboard";
 import MemberDashboard from "./MemberDashboard";
 import ClubMembersTable from "./ClubMembersTable";
 import EventMembersTable from "./EventMembersTable";
+import UpdateClub from "./UpdateClub";
 
 export const router = createBrowserRouter([
   {
@@ -126,6 +127,14 @@ export const router = createBrowserRouter([
             </PrivateRoute_Manager>
           </PrivateRoute>
         ),
+      },
+      {
+        path:'updateClub/:id',
+        element:   <PrivateRoute>
+            <PrivateRoute_Manager>
+              <UpdateClub></UpdateClub>
+            </PrivateRoute_Manager>
+          </PrivateRoute>
       },
       {
         path: "manageClubAdmin",

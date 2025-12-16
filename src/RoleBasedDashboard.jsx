@@ -26,7 +26,7 @@ const RoleBasedDashboard = () => {
 });
 
 
-if(isLoading,loading){
+if(isLoading || loading){
   return      <div
         className="loaders3"
         style={{

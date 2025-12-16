@@ -8,17 +8,17 @@ import { FaArrowRightLong } from "react-icons/fa6";
 
 const MyEvents = () => {
   const { user } = useContext(AuthContext);
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [userEvents, setEvents] = useState([]);
 
   const { data, isLoading: clubsLoading } = useQuery({
     queryKey: ["userClubs", user.email],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/getEvents/${user.email}`,{
-        headers:{
-          accesstoken: user.accessToken
-        }
+      const res = await fetch(`http://localhost:3000/getEvents/${user.email}`, {
+        headers: {
+          accesstoken: user.accessToken,
+        },
       });
       return res.json();
     },
@@ -75,9 +75,12 @@ const MyEvents = () => {
             paddingBottom: "30px",
           }}
         >
-          <button onClick={()=>{
-            navigate("/dashboard/createEvent")
-          }} className="contact-btn">
+          <button
+            onClick={() => {
+              navigate("/dashboard/createEvent");
+            }}
+            className="contact-btn"
+          >
             <NavLink to="/dashboard/createEvent">
               <FaPlus></FaPlus> Create Event
             </NavLink>
@@ -87,11 +90,7 @@ const MyEvents = () => {
           {userEvents.map((event) => (
             <div className="club-card" key={event._id}>
               <div>
-                {/* fallback image if bannerImage missing */}
-                <img
-                  src={event.bannerImage || "/banner1.jpg"}
-                  alt={event.title}
-                />
+                <img src={event.bannerImage} alt={event.title} />
               </div>
 
               <div>
@@ -115,9 +114,11 @@ const MyEvents = () => {
                   </p>
                 </div>
 
-                <button onClick={()=>{
-                  navigate(`/eventDetail/${event._id}`)
-                }}>
+                <button
+                  onClick={() => {
+                    navigate(`/eventDetail/${event._id}`);
+                  }}
+                >
                   <NavLink to={`/eventDetail/${event._id}`}>
                     See Details <FaArrowRightLong />
                   </NavLink>

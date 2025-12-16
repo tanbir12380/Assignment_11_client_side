@@ -7,7 +7,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { AuthContext } from "./AuthContext";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
-
+import Swal from "sweetalert2";
 
 const EventDetails = () => {
   const { id } = useParams();
@@ -18,41 +18,33 @@ const EventDetails = () => {
   const {
     data: event,
     isLoading,
-    isError,
     refetch,
   } = useQuery({
     queryKey: ["event", id],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/event/${id}`,{
-        headers:{
-          accesstoken: user.accessToken
-        }
+      const res = await fetch(`http://localhost:3000/event/${id}`, {
+        headers: {
+          accesstoken: user.accessToken,
+        },
       });
 
       return res.json();
     },
   });
 
-
-    const {
-    data: club,
-    isLoading : loading2,
-
-  } = useQuery({
+  const { data: club, isLoading: loading2 } = useQuery({
     queryKey: ["club", event?.clubId],
     enabled: !!event?.clubId,
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/clubs/${event.clubId}`,{
-        headers:{
-          accesstoken: user.accessToken
-        }
+      const res = await fetch(`http://localhost:3000/clubs/${event.clubId}`, {
+        headers: {
+          accesstoken: user.accessToken,
+        },
       });
 
       return res.json();
     },
   });
-
-
 
   useEffect(() => {
     if (!user) return;
@@ -116,7 +108,13 @@ const EventDetails = () => {
       );
       setToggole(!toggole);
       refetch();
-      toast("Congratulations, You've successfully joined the event");
+      Swal.fire({
+        icon: "success",
+        allowOutsideClick: false,
+        title: "Congratulations, You've successfully joined the event",
+        showConfirmButton: false,
+        timer: 2000,
+      });
       return res.json();
     },
   });
@@ -173,7 +171,7 @@ const EventDetails = () => {
     createCheckoutMutation.mutate(paymentInfo);
   };
 
-  if (isLoading)
+  if (isLoading || loading2) {
     return (
       <div
         className="loaders3"
@@ -191,98 +189,103 @@ const EventDetails = () => {
         <span className="loading loading-bars loading-xl"></span>
       </div>
     );
-  if (isError)
-    return (
-      <p style={{ textAlign: "center", padding: "40px" }}>
-        Error loading event
-      </p>
-    );
+  }
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.5 },
+    },
+  };
 
+  const itemVariants = {
+    hidden: { opacity: 0, y: 100 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 1, ease: "easeOut" },
+    },
+  };
 
-    const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.5 },
-  },
-};
+  const itemVariants2 = {
+    hidden: { opacity: 0, y: -100 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 1, ease: "easeOut" },
+    },
+  };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 100 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 1, ease: "easeOut" },
-  },
-};
-
-const itemVariants2 = {
-  hidden: { opacity: 0, y: -100 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 1, ease: "easeOut" },
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
-};
-
-
+  const cardVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  };
 
   return (
-    <motion.div    
-  initial="hidden"
-  animate="visible"
-  variants={containerVariants}  className="group-details-container">
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+      className="group-details-container"
+    >
       <Header />
 
-      <motion.div  variants={cardVariants} className="group-details-card">
+      <motion.div variants={cardVariants} className="group-details-card">
         <motion.div variants={itemVariants2} className="group-banner">
           <img src={event.bannerImage || "/banner1.jpg"} alt={event.title} />
         </motion.div>
 
         <div className="group-content">
-          <motion.h1  variants={itemVariants} style={{marginBottom:'0'}} className="group-title">{event.title}</motion.h1>
-          <motion.p  variants={itemVariants} style={{
-            marginBottom:'20px'
-          }}>Created by : {club?.clubName}</motion.p>
+          <motion.h1
+            variants={itemVariants}
+            style={{ marginBottom: "0" }}
+            className="group-title"
+          >
+            {event.title}
+          </motion.h1>
+          <motion.p
+            variants={itemVariants}
+            style={{
+              marginBottom: "20px",
+            }}
+          >
+            Created by : {club?.clubName}
+          </motion.p>
 
-          <motion.div variants={itemVariants}   className="group-meta">
+          <motion.div variants={itemVariants} className="group-meta">
             <span> Location: {event.location}</span>
-            <span >Date: {event.eventDate}</span>
+            <span>Date: {event.eventDate}</span>
             {event.isPaid ? (
-              <span >Fee: ${event.eventFee}</span>
+              <span>Fee: ${event.eventFee}</span>
             ) : (
-              <span >Fee: Free</span>
+              <span>Fee: Free</span>
             )}
             {event.maxAttendees && (
-              <span >Max Attendees: {event.maxAttendees}</span>
+              <span>Max Attendees: {event.maxAttendees}</span>
             )}
-            <span >
+            <span>
               People Joined : {event.memberCount ? event.memberCount : 0}
             </span>
           </motion.div>
 
-          <motion.p variants={itemVariants} className="group-description">{event.description}</motion.p>
+          <motion.p variants={itemVariants} className="group-description">
+            {event.description}
+          </motion.p>
 
-<motion.button
-  disabled={isMember}
-  onClick={handleBuy}
-  className="contact-btn"
-  whileHover={{ scale: isMember ? 1 : 1.05 }}
-  whileTap={{ scale: 0.95 }}
-  variants={itemVariants}
->
-  {isMember ? "Already Joined" : "Join Event"} <FaArrowRightLong />
-</motion.button>
-
+          <motion.button
+            disabled={isMember}
+            onClick={handleBuy}
+            className="contact-btn"
+            whileHover={{ scale: isMember ? 1 : 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            variants={itemVariants}
+          >
+            {isMember ? "Already Joined" : "Join Event"} <FaArrowRightLong />
+          </motion.button>
         </div>
       </motion.div>
     </motion.div>

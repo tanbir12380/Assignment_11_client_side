@@ -35,7 +35,25 @@ const AllEvent = () => {
     transformEvents();
   }, [data]);
 
-  if (isLoading) return <p style={{ textAlign: "center", padding: "40px" }}>Loading events...</p>;
+  if (isLoading)    {
+    return (
+      <div
+        className="loaders3"
+        style={{
+          width: "100%",
+          flex: "1",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "500px",
+        }}
+      >
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+      </div>
+    );
+  }
 
   return (
     <div style={{ paddingTop: "20px" }}>

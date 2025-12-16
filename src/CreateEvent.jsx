@@ -3,8 +3,9 @@ import Header from "./Header";
 import { AuthContext } from "./AuthContext";
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "./register.css";
+import Swal from "sweetalert2";
 
 export default function CreateEvent() {
   const { user } = useContext(AuthContext);
@@ -25,24 +26,26 @@ export default function CreateEvent() {
     queryKey: ["userClubs", user.email],
     queryFn: async () => {
       const res = await fetch(`http://localhost:3000/getClubs/${user.email}`, {
-        headers: { 
-          accesstoken: user.accessToken },
+        headers: {
+          accesstoken: user.accessToken,
+        },
       });
       return res.json();
     },
   });
-  
+
   const createEventMutation = useMutation({
     mutationFn: async (data) => {
       const res = await fetch("http://localhost:3000/events", {
         method: "POST",
-        headers: { 
+        headers: {
           "Content-Type": "application/json",
-          accesstoken: user.accessToken },
+          accesstoken: user.accessToken,
+        },
         body: JSON.stringify(data),
       });
       return res.json();
-    }
+    },
   });
 
   const handleFormSubmit = (formData) => {
@@ -63,28 +66,54 @@ export default function CreateEvent() {
       membercount: 0,
     };
 
-        try{
+    try {
       createEventMutation.mutate(finalData);
-     reset();
-         toast.success(
-          "Event is created successfully."
-        );
-        }
-    catch (error) {
-        toast.error(error.message);
-      }
-
-   
+      reset();
+      Swal.fire({
+        icon: "success",
+        allowOutsideClick: false,
+        title: "Event is created successfully!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        allowOutsideClick: false,
+        title: "Failed",
+        text: error.message.slice(9),
+      });
+    }
   };
 
-  if (clubsLoading)
+  if (clubsLoading) {
     return (
-      <p style={{ textAlign: "center", padding: "40px" }}>Loading clubs...</p>
+      <div
+        style={{
+          width: "100%",
+          flex: 1,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "500px",
+        }}
+      >
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+      </div>
     );
+  }
 
   if (!userClubs || userClubs.length === 0)
     return (
-      <p style={{ textAlign: "center", padding: "40px" }}>
+      <p
+        style={{
+          textAlign: "center",
+          padding: "40px",
+          fontFamily: "bebas neue",
+        }}
+      >
         You have no approved clubs to create events for.
       </p>
     );
@@ -98,7 +127,6 @@ export default function CreateEvent() {
         >
           <h2>Create Event</h2>
 
-          {/* CLUB SELECT */}
           <div className="input-group">
             <label>Select Club</label>
             <select {...register("clubId", { required: true })}>
@@ -113,14 +141,12 @@ export default function CreateEvent() {
             )}
           </div>
 
-          {/* EVENT TITLE */}
           <div className="input-group">
             <label>Event Title</label>
             <input type="text" {...register("title", { required: true })} />
             {errors.title && <p className="error-text">Title is required</p>}
           </div>
 
-          {/* DESCRIPTION */}
           <div className="input-group">
             <label>Description</label>
             <textarea
@@ -148,7 +174,6 @@ export default function CreateEvent() {
             )}
           </div>
 
-          {/* EVENT DATE */}
           <div className="input-group">
             <label>Event Date</label>
             <input type="date" {...register("eventDate", { required: true })} />
@@ -157,7 +182,6 @@ export default function CreateEvent() {
             )}
           </div>
 
-          {/* LOCATION */}
           <div className="input-group">
             <label>Location</label>
             <input type="text" {...register("location", { required: true })} />
@@ -166,7 +190,6 @@ export default function CreateEvent() {
             )}
           </div>
 
-          {/* IS PAID */}
           <div className="input-group">
             <label>Is Paid Event?</label>
             <select {...register("isPaid", { required: true })}>
@@ -175,7 +198,6 @@ export default function CreateEvent() {
             </select>
           </div>
 
-          {/* EVENT FEE (only if paid) */}
           {isPaidValue === "true" && (
             <div className="input-group">
               <label>Event Fee</label>
@@ -189,7 +211,6 @@ export default function CreateEvent() {
             </div>
           )}
 
-          {/* MAX ATTENDEES */}
           <div className="input-group">
             <label>Max Attendees</label>
             <input
@@ -201,7 +222,6 @@ export default function CreateEvent() {
             )}
           </div>
 
-          {/* SUBMIT */}
           <button
             className="register-btn"
             disabled={createEventMutation.isPending}
@@ -210,7 +230,7 @@ export default function CreateEvent() {
           </button>
         </form>
       </div>
-            <ToastContainer />
+      <ToastContainer />
     </div>
   );
 }

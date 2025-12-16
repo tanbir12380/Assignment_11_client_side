@@ -9,21 +9,36 @@ const EventMembersTable = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["managerMembers", user?.email],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/clubManager-dashboard-EventMember/${user.email}`,{
-        headers:{
-          accesstoken: user.accessToken
+      const res = await fetch(
+        `http://localhost:3000/clubManager-dashboard-EventMember/${user.email}`,
+        {
+          headers: {
+            accesstoken: user.accessToken,
+          },
         }
-      });
-         const jsonData = await res.json(); 
-    console.log(jsonData); 
-    return jsonData;
+      );
+      const jsonData = await res.json();
+      console.log(jsonData);
+      return jsonData;
     },
     enabled: !!user?.email,
   });
 
   if (isLoading) {
     return (
-      <div className="members-loading">
+      <div
+        className="loaders3"
+        style={{
+          width: "100%",
+          flex: "1",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "500px",
+        }}
+      >
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
         <span className="loading loading-bars loading-xl"></span>
       </div>
     );
@@ -36,7 +51,9 @@ const EventMembersTable = () => {
   return (
     <div className="payments-container">
       <h2 className="payments-title">Event Members</h2>
-<div className="payments-table-wrapper"> <table className="payments-table">
+      <div className="payments-table-wrapper">
+        {" "}
+        <table className="payments-table">
           <thead>
             <tr>
               <th>#</th>
@@ -57,8 +74,8 @@ const EventMembersTable = () => {
               </tr>
             ))}
           </tbody>
-        </table></div>
- 
+        </table>
+      </div>
     </div>
   );
 };

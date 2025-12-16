@@ -12,8 +12,8 @@ import { useState } from "react";
 import { GoogleAuthProvider } from "firebase/auth";
 import { signInWithPopup } from "firebase/auth";
 import { AuthContext } from "./AuthContext";
-import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
+import Swal from "sweetalert2";
 
 const provider = new GoogleAuthProvider();
 
@@ -42,7 +42,13 @@ const AuthProvider = ({ children }) => {
   };
 
   const SignOutFromApp = () => {
-    toast("logged out");
+          Swal.fire({
+            icon: "success",
+            allowOutsideClick: false,
+            title: "Your are logged out successfully!",
+              showConfirmButton: false,
+      timer: 1500
+          });
     return signOut(auth);
   };
 

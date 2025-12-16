@@ -23,7 +23,6 @@
   flex-direction: column;
 }
 
-/* Glass Card */
 .register-card {
   padding: 40px 35px;
   border-radius: 12px;
@@ -131,11 +130,11 @@ label {
   color: red;
 }
 
-@media (max-width:768px){
-  .register-card{
-    width:100%;
+@media (max-width: 768px) {
+  .register-card {
+    width: 100%;
   }
-  .create-club-card{
-    width:100%;
+  .create-club-card {
+    width: 100%;
   }
 }

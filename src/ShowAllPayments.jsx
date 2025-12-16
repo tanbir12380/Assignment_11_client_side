@@ -4,19 +4,39 @@ import { AuthContext } from "./AuthContext";
 import "./ShowAllPayments.css";
 
 const AllPayments = () => {
+  const { user } = useContext(AuthContext);
 
-  const {user}= useContext(AuthContext);
-
-  const { data: payments = [] } = useQuery({
+  const { data: payments = [], isLoading } = useQuery({
     queryKey: ["payments"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3000/get-all-payments",{
-        headers:{
-          accesstoken: user.accessToken
-        }});
+      const res = await fetch("http://localhost:3000/get-all-payments", {
+        headers: {
+          accesstoken: user.accessToken,
+        },
+      });
       return res.json();
     },
   });
+
+  if (isLoading) {
+    return (
+      <div
+        className="loaders3"
+        style={{
+          width: "100%",
+          flex: "1",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "500px",
+        }}
+      >
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+      </div>
+    );
+  }
 
   return (
     <div className="payments-container">

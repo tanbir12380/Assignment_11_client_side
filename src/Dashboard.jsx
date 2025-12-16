@@ -53,7 +53,9 @@ const Dashboard = () => {
         >
           <ul className=" w-full grow menu  dash-side-bar">
             <li>
-              <button
+              <button onClick={()=>{
+                navigate("/")
+              }}
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Homepage"
               >
@@ -69,7 +71,9 @@ const Dashboard = () => {
             {userRole === "admin" && (
               <>
                 <li>
-                  <button
+                  <button  onClick={()=>{
+                navigate("/dashboard/adminDashboard")
+              }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Overiew"
                   >
@@ -82,7 +86,9 @@ const Dashboard = () => {
                 </li>
 
                 <li>
-                  <button
+                  <button onClick={()=>{
+                navigate("/dashboard/users")
+              }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Manage users"
                   >
@@ -97,7 +103,9 @@ const Dashboard = () => {
                 </li>
 
                 <li>
-                  <button
+                  <button onClick={()=>{
+                navigate("/dashboard/manageClubAdmin")
+              }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Manage clubs"
                   >
@@ -112,7 +120,9 @@ const Dashboard = () => {
                 </li>
 
                 <li>
-                  <button
+                  <button onClick={()=>{
+                navigate("/dashboard/allPayments")
+              }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Payments"
                   >
@@ -131,7 +141,9 @@ const Dashboard = () => {
               <>
 
                 <li>
-                  <button
+                  <button onClick={()=>{
+                navigate("/dashboard/clubManagerDashboard")
+              }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Overiew"
                   >
@@ -144,7 +156,9 @@ const Dashboard = () => {
                 </li>
 
                 <li>
-                  <button
+                  <button  onClick={()=>{
+                navigate("/dashboard/myClub")
+              }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="My Clubs"
                   >
@@ -157,7 +171,9 @@ const Dashboard = () => {
                 </li>
 
                 <li>
-                  <button
+                  <button onClick={()=>{
+                navigate("/dashboard/clubMembersTable")
+              }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Clubs members"
                   >
@@ -172,7 +188,9 @@ const Dashboard = () => {
                 </li>
 
                 <li>
-                  <button
+                  <button  onClick={()=>{
+                navigate("/dashboard/myEvent")
+              }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Event management"
                   >
@@ -189,7 +207,9 @@ const Dashboard = () => {
                 </li>
 
                 <li>
-                  <button
+                  <button onClick={()=>{
+                navigate("/dashboard/eventMembersTable")
+              }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Event registration"
                   >
@@ -210,7 +230,9 @@ const Dashboard = () => {
             {userRole == "member" && (
               <>
                 <li>
-                  <button
+                  <button  onClick={()=>{
+                navigate("/dashboard/memberDashboard")
+              }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Overiew"
                   >
@@ -223,7 +245,9 @@ const Dashboard = () => {
                 </li>
 
                 <li>
-                  <button
+                  <button  onClick={()=>{
+                navigate("/dashboard/myJoinedClubs")
+              }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="My Clubs"
                   >
@@ -236,7 +260,9 @@ const Dashboard = () => {
                 </li>
 
                 <li>
-                  <button
+                  <button onClick={()=>{
+                navigate("/dashboard/myJoinedEvents")
+              }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="My Event"
                   >
@@ -251,7 +277,9 @@ const Dashboard = () => {
                 </li>
 
                 <li>
-                  <button
+                  <button  onClick={()=>{
+                navigate("/dashboard/myPayments")
+              }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Payments"
                   >

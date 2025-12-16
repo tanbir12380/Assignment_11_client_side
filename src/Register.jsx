@@ -6,6 +6,7 @@ import { AuthContext } from "./AuthContext";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
+import Swal from "sweetalert2";
 
 export default function RegisterForm() {
   const {
@@ -37,12 +38,6 @@ export default function RegisterForm() {
 
       return response.json();
     },
-    onSuccess: () => {
-      toast("User registered successfully!");
-    },
-    onError: (error) => {
-      toast("Error saving user: " + error.message);
-    },
   });
 
   const handleFormSubmit = (data) => {
@@ -54,6 +49,15 @@ export default function RegisterForm() {
       );
       return;
     }
+
+    Swal.fire({
+      title: "Processing...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
 
     createUser(email, password)
       .then((response) => {
@@ -73,17 +77,42 @@ export default function RegisterForm() {
 
             saveUserMutation.mutate(userData);
 
+            Swal.close();
+
+            Swal.fire({
+              icon: "success",
+              allowOutsideClick: false,
+              title: "Your Account is registered successfully!",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+
             navigate(userLocationS || "/");
             setUserLocation(null);
           })
           .catch(() => {});
       })
       .catch((error) => {
-        toast(error.message.slice(9));
+        Swal.close();
+        Swal.fire({
+          icon: "error",
+          allowOutsideClick: false,
+          title: "Failed",
+          text: error.message.slice(9),
+        });
       });
   };
 
   const signWithGoogle1 = () => {
+    Swal.fire({
+      title: "Processing...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
     signInWithGoogle()
       .then((response) => {
         const user = response.user;
@@ -96,12 +125,26 @@ export default function RegisterForm() {
         };
 
         saveUserMutation.mutate(userData);
+        Swal.close();
 
+        Swal.fire({
+          icon: "success",
+          allowOutsideClick: false,
+          title: "Your Account is registered successfully!",
+          showConfirmButton: false,
+          timer: 2000,
+        });
         navigate(userLocationS || "/");
         setUserLocation(null);
       })
       .catch((error) => {
-        toast(error.message.slice(9));
+        Swal.close();
+        Swal.fire({
+          icon: "error",
+          allowOutsideClick: false,
+          title: "Failed",
+          text: error.message.slice(9),
+        });
       });
   };
 
@@ -116,14 +159,12 @@ export default function RegisterForm() {
         >
           <h2>Create Account</h2>
 
-          {/* NAME */}
           <div className="input-group">
             <label>Full Name</label>
             <input type="text" {...register("name", { required: true })} />
             {errors.name && <p className="error-text">Name is required</p>}
           </div>
 
-          {/* PHOTO */}
           <div className="input-group">
             <label>Upload your photo</label>
             <input type="text" {...register("photo", { required: true })} />
@@ -132,14 +173,12 @@ export default function RegisterForm() {
             )}
           </div>
 
-          {/* EMAIL */}
           <div className="input-group">
             <label>Email</label>
             <input type="email" {...register("email", { required: true })} />
             {errors.email && <p className="error-text">Email is required</p>}
           </div>
 
-          {/* PASSWORD */}
           <div className="input-group">
             <label>Password</label>
             <input
@@ -151,14 +190,12 @@ export default function RegisterForm() {
             )}
           </div>
 
-          {/* SUBMIT BUTTON */}
           <button className="register-btn">Sign Up</button>
 
           <p className="login-link">
             Already have an account? <Link to="/login">Login</Link>
           </p>
 
-          {/* GOOGLE LOGIN */}
           <button
             type="button"
             onClick={signWithGoogle1}

@@ -8,15 +8,16 @@ import { AuthContext } from "./AuthContext";
 const ManageClubAdmin = () => {
   const [modalData, setModalData] = useState({});
   const modalRef = useRef();
-  const {user}= useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
-  const { data, refetch } = useQuery({
+  const { data, refetch, isLoading } = useQuery({
     queryKey: ["clubs"],
     queryFn: async () => {
       const res = await fetch("http://localhost:3000/clubsAdminList", {
-          headers:{
-          accesstoken: user.accessToken
-        }});
+        headers: {
+          accesstoken: user.accessToken,
+        },
+      });
       return res.json();
     },
   });
@@ -25,9 +26,9 @@ const ManageClubAdmin = () => {
     mutationFn: async (clubId) => {
       const res = await fetch(`http://localhost:3000/clubApprove/${clubId}`, {
         method: "PATCH",
-         headers:{
-          accesstoken: user.accessToken
-        }
+        headers: {
+          accesstoken: user.accessToken,
+        },
       });
       refetch();
       return res.json();
@@ -38,9 +39,9 @@ const ManageClubAdmin = () => {
     mutationFn: async (clubId) => {
       const res = await fetch(`http://localhost:3000/clubReject/${clubId}`, {
         method: "PATCH",
-          headers:{
-          accesstoken: user.accessToken
-        }
+        headers: {
+          accesstoken: user.accessToken,
+        },
       });
       refetch();
       return res.json();
@@ -93,6 +94,26 @@ const ManageClubAdmin = () => {
     });
   };
 
+  if (isLoading) {
+    return (
+      <div
+        className="loaders3"
+        style={{
+          width: "100%",
+          flex: "1",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "500px",
+        }}
+      >
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+      </div>
+    );
+  }
+
   return (
     <div className="payments-container">
       <dialog
@@ -119,9 +140,9 @@ const ManageClubAdmin = () => {
           >
             Members : {modalData.memberCount}
           </p>
-          
-            <p>Events : {modalData.eventCount}</p>
-          
+
+          <p>Events : {modalData.eventCount}</p>
+
           <div className="modal-action">
             <form method="dialog">
               <button className="btn">Close</button>

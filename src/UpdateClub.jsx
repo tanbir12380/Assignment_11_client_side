@@ -1,14 +1,15 @@
 import React, { useContext } from "react";
 import Header from "./Header";
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
 import { AuthContext } from "./AuthContext";
 import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
-import { ToastContainer } from "react-toastify";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import {  ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
 
-export default function CreateClub() {
+export default function UpdateClub() {
   const { user } = useContext(AuthContext);
+  const {id} = useParams();
 
   const {
     register,
@@ -17,19 +18,39 @@ export default function CreateClub() {
     reset,
   } = useForm();
 
-  const createClubMutation = useMutation({
+
+    const {
+    data: club,
+    isLoading,
+  } = useQuery({
+    queryKey: ["club", id],
+    queryFn: async () => {
+      const res = await fetch(`http://localhost:3000/clubs/${id}`,{
+        headers:{
+          accesstoken: user.accessToken
+        }
+      });
+      console.log(id);
+      return res.json();
+    },
+  });
+
+
+  const updateClubMutation = useMutation({
     mutationFn: async (data) => {
-      const res = await fetch("http://localhost:3000/clubs", {
-        method: "POST",
+      const res = await fetch(`http://localhost:3000/clubs/${id}`, {
+        method: "PATCH",
         headers: {
           "content-type": "application/json",
-          accesstoken: user.accessToken,
+          accesstoken: user.accessToken
         },
         body: JSON.stringify(data),
       });
 
       return res.json();
-    },
+      
+
+    }
   });
 
   const handleFormSubmit = async (formData) => {
@@ -50,25 +71,44 @@ export default function CreateClub() {
       eventCount: 0,
     };
 
-    try {
-      createClubMutation.mutate(finalData);
-      reset();
-      Swal.fire({
-        icon: "success",
-        allowOutsideClick: false,
-        title: "Your club is created successfully!",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        allowOutsideClick: false,
-        title: "Failed",
-        text: error.message.slice(9),
-      });
+    try{
+ updateClubMutation.mutate(finalData);
+ reset();
+                  Swal.fire({
+                     icon: "success",
+                     allowOutsideClick: false,
+                     title: "Your club is updated successfully!",
+                       showConfirmButton: false,
+       timer: 1500})
     }
+catch (error) {
+     Swal.fire({
+                icon: "error",
+                allowOutsideClick: false,
+                title: "Failed",
+                text: error.message.slice(9),
+              });
+  }
+   
   };
+
+  if(isLoading){
+    return      <div
+        className="loaders3"
+        style={{
+          width: "100%",
+          flex: "1",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "500px",
+        }}
+      >
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+      </div>
+  }
 
   return (
     <div>
@@ -79,17 +119,20 @@ export default function CreateClub() {
         >
           <h2>Create Club</h2>
 
+          {/* CLUB NAME */}
           <div className="input-group">
             <label>Club Name</label>
-            <input type="text" {...register("clubName", { required: true })} />
+            <input defaultValue={club.clubName} type="text" {...register("clubName", { required: true })} />
             {errors.clubName && (
               <p className="error-text">Club name is required</p>
             )}
           </div>
 
+          {/* DESCRIPTION */}
           <div className="input-group">
             <label>Description</label>
             <textarea
+            defaultValue={club.description}
               style={{
                 width: "100%",
                 border: "1px solid rgba(219, 219, 219, 0.802)",
@@ -103,9 +146,11 @@ export default function CreateClub() {
             )}
           </div>
 
+          {/* CATEGORY (TEXT INPUT) */}
           <div className="input-group">
             <label>Category</label>
             <input
+             defaultValue={club.category}
               type="text"
               {...register("category", { required: true })}
               placeholder="e.g. Photography, Tech, Sports"
@@ -115,17 +160,20 @@ export default function CreateClub() {
             )}
           </div>
 
+          {/* LOCATION */}
           <div className="input-group">
             <label>Location (City / Area)</label>
-            <input type="text" {...register("location", { required: true })} />
+            <input  defaultValue={club.location} type="text" {...register("location", { required: true })} />
             {errors.location && (
               <p className="error-text">Location is required</p>
             )}
           </div>
 
+          {/* BANNER IMAGE */}
           <div className="input-group">
             <label>Banner Image URL</label>
             <input
+            defaultValue={club.bannerImage}
               type="text"
               {...register("bannerImage", { required: true })}
             />
@@ -134,9 +182,11 @@ export default function CreateClub() {
             )}
           </div>
 
+          {/* MEMBERSHIP FEE */}
           <div className="input-group">
             <label>Membership Fee</label>
             <input
+             defaultValue={club.membershipFee}
               type="number"
               {...register("membershipFee", { required: true })}
             />
@@ -145,16 +195,17 @@ export default function CreateClub() {
             )}
           </div>
 
+          {/* MANAGER EMAIL */}
           <div className="input-group">
             <label>Manager Email</label>
             <input type="email" defaultValue={user.email} readOnly />
           </div>
 
+          {/* SUBMIT BUTTON */}
           <button
             className="register-btn"
-            disabled={createClubMutation.isPending}
           >
-            {createClubMutation.isPending ? "Creating..." : "Create Club"}
+            {updateClubMutation.isPending ? "Updating..." : "Update Club"}
           </button>
         </form>
       </div>

@@ -6,8 +6,8 @@ import "./ClubDetails.css";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { useContext } from "react";
 import { AuthContext } from "./AuthContext";
-import { toast } from "react-toastify";
 import { motion } from "framer-motion";
+import Swal from "sweetalert2";
 
 const ClubDetails = () => {
   const { id } = useParams();
@@ -91,7 +91,13 @@ const ClubDetails = () => {
       });
       setToggole(!toggole);
       refetch();
-      toast("Congratulations, You've successfully joined the club");
+                    Swal.fire({
+                      icon: "success",
+                      allowOutsideClick: false,
+                      title: "Congratulations, You've successfully joined the club",
+                        showConfirmButton: false,
+        timer: 2000
+                    });
       return res.json();
     },
   });

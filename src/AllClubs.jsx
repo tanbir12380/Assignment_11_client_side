@@ -9,7 +9,7 @@ import { NavLink, useNavigate } from "react-router";
 const AllClubs = () => {
   const [clubs, setClubs] = useState([]);
 const navigate = useNavigate();
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["clubs"],
     queryFn: async () => {
       const res = await fetch("http://localhost:3000/clubs");
@@ -33,6 +33,26 @@ const navigate = useNavigate();
     transformClubs();
   }, [data]);
 
+
+  if(isLoading){
+       return (
+      <div
+        className="loaders3"
+        style={{
+          width: "100%",
+          flex: "1",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "500px",
+        }}
+      >
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+      </div>
+    );
+  }
 
 
   return (

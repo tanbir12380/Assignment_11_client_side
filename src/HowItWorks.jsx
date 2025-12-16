@@ -14,12 +14,15 @@ export default function HowItWorks() {
 
   const textFromRight = {
     hidden: { opacity: 0, x: 100 },
-    visible: { opacity: 1, x: 0, transition: { duration: 1.5 , staggerChildren: 0.2 } },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 1.5, staggerChildren: 0.2 },
+    },
   };
 
   return (
-    <section     className="how-wrapper">
-      {/* LEFT SIDE */}
+    <section className="how-wrapper">
       <div className="how-left">
         <motion.p
           className="section-label"
@@ -49,10 +52,10 @@ export default function HowItWorks() {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          ClubSphere follows a simple but powerful step-by-step process that helps
-          clubs grow their community, organize events, onboard members, and manage
-          everything smoothly. Whether you're starting a new club or joining one,
-          we support you every step of the way.
+          ClubSphere follows a simple but powerful step-by-step process that
+          helps clubs grow their community, organize events, onboard members,
+          and manage everything smoothly. Whether you're starting a new club or
+          joining one, we support you every step of the way.
         </motion.p>
 
         <motion.button
@@ -66,7 +69,6 @@ export default function HowItWorks() {
         </motion.button>
       </div>
 
-      {/* RIGHT SIDE */}
       <div className="how-right">
         <div className="step">
           <div className="icon">

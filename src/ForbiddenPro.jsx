@@ -19,7 +19,6 @@ const ForbiddenPro = () => {
           gap: "30px",
         }}
       >
-        {/* Status Code */}
         <h1
           className="text-7xl tracking-widest"
           style={{
@@ -30,7 +29,6 @@ const ForbiddenPro = () => {
           404
         </h1>
 
-        {/* Title */}
         <h2
           className="text-3xl"
           style={{
@@ -38,10 +36,9 @@ const ForbiddenPro = () => {
             color: "var(--bg-secondary-light)",
           }}
         >
-           Page Not Found
+          Page Not Found
         </h2>
 
-        {/* Description */}
         <p
           className="text-base leading-relaxed"
           style={{
@@ -49,11 +46,10 @@ const ForbiddenPro = () => {
             color: "var(--bg-secondary-semi-light)",
           }}
         >
-                    The page you are looking for does not exist. It might have been moved or deleted.
-
+          The page you are looking for does not exist. It might have been moved
+          or deleted.
         </p>
 
-        {/* Action */}
         <Link
           to="/"
           style={{

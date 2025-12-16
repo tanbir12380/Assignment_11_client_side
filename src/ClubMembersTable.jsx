@@ -6,7 +6,7 @@ import "./ShowAllPayments.css";
 const ClubMembersTable = () => {
   const { user } = useContext(AuthContext);
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["managerMembers", user?.email],
     queryFn: async () => {
       const res = await fetch(`http://localhost:3000/clubManager-dashboard-ClubMember/${user.email}`,{
@@ -23,15 +23,25 @@ const ClubMembersTable = () => {
 
   if (isLoading) {
     return (
-      <div className="members-loading">
+      <div
+        style={{
+          width: "100%",
+          flex: 1,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "500px",
+        }}
+      >
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
         <span className="loading loading-bars loading-xl"></span>
       </div>
     );
+
   }
 
-  if (isError) {
-    return <p className="members-error">Failed to load memberships</p>;
-  }
+
 
   return (
     <div className="payments-container">

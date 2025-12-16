@@ -19,7 +19,6 @@ const Forbidden = () => {
           gap: "30px",
         }}
       >
-        {/* Status Code */}
         <h1
           className="text-7xl tracking-widest"
           style={{
@@ -30,7 +29,6 @@ const Forbidden = () => {
           403
         </h1>
 
-        {/* Title */}
         <h2
           className="text-3xl"
           style={{
@@ -41,7 +39,6 @@ const Forbidden = () => {
           Access Forbidden
         </h2>
 
-        {/* Description */}
         <p
           className="text-base leading-relaxed"
           style={{
@@ -53,7 +50,6 @@ const Forbidden = () => {
           administrator or return to a safe area.
         </p>
 
-        {/* Action */}
         <Link
           to="/"
           style={{

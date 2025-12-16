@@ -16,12 +16,15 @@ export default function Features() {
 
   const textFromRight = {
     hidden: { opacity: 0, x: 100 },
-    visible: { opacity: 1, x: 0, transition: { duration: 1.5 , staggerChildren: 0.2 } },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 1.5, staggerChildren: 0.2 },
+    },
   };
 
   return (
-    <section        className="features-wrapper">
-      {/* LEFT SIDE WITH BACKGROUND */}
+    <section className="features-wrapper">
       <div className="features-left">
         <div>
           <motion.p
@@ -51,10 +54,10 @@ export default function Features() {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            ClubSphere is built to support clubs of all kinds — from tech groups and
-            fitness clubs to art circles and hobby communities. With tools for
-            membership, event management, payments, and growth insights, your club
-            can focus on what truly matters: people and passion.
+            ClubSphere is built to support clubs of all kinds — from tech groups
+            and fitness clubs to art circles and hobby communities. With tools
+            for membership, event management, payments, and growth insights,
+            your club can focus on what truly matters: people and passion.
           </motion.p>
 
           <motion.button
@@ -70,7 +73,6 @@ export default function Features() {
         </div>
       </div>
 
-      {/* RIGHT SIDE FEATURE LIST */}
       <div className="features-right">
         <div className="feature-item">
           <div className="feature-icon">
@@ -84,8 +86,8 @@ export default function Features() {
           >
             <h3>Dedicated Club Management</h3>
             <p>
-              Manage members, roles, announcements, and internal operations — all
-              from one dashboard.
+              Manage members, roles, announcements, and internal operations —
+              all from one dashboard.
             </p>
           </motion.div>
         </div>

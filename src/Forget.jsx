@@ -13,7 +13,7 @@ export default function Forget() {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm();
 
   const onSubmit = (data) => {
@@ -24,7 +24,8 @@ export default function Forget() {
           title: "Reset Link Sent!",
           allowOutsideClick: false,
           text: "Please check your email to reset your password.",
-          confirmButtonText: "OK",
+          showConfirmButton: false,
+          timer: 2000,
         });
 
         reset();
@@ -44,18 +45,14 @@ export default function Forget() {
 
       <div className="register-container">
         <form onSubmit={handleSubmit(onSubmit)} className="register-card">
-
           <h2 className="register-title">Reset Your Password</h2>
 
-
-          {/* EMAIL FIELD */}
           <div className="input-group">
             <label>Email</label>
             <input type="email" {...register("email", { required: true })} />
             {errors.email && <p className="error-text">Email is required</p>}
           </div>
 
-          {/* SUBMIT BUTTON */}
           <button className="register-btn forget-btn" type="submit">
             Send Reset Link
           </button>
@@ -63,11 +60,8 @@ export default function Forget() {
           <p className="login-link">
             Remember your password? <Link to="/login">Login</Link>
           </p>
-
         </form>
       </div>
-
     </div>
   );
 }
-

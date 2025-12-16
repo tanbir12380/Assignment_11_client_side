@@ -89,7 +89,8 @@ const MyClub = () => {
                   </p>
                 </div>
 
-                <button onClick={()=>{
+              <div className="managerClubButtons">
+                  <button onClick={()=>{
                   navigate(`/clubDetail/${club._id}`)
                 }}>
                   <NavLink to={`/clubDetail/${club._id}`}>
@@ -97,6 +98,12 @@ const MyClub = () => {
                     See Details <FaArrowRightLong />
                   </NavLink>
                 </button>
+                 <button onClick={()=>{
+                                  navigate(`/dashboard/updateClub/${club._id}`)
+                                }}>
+                                 <NavLink to={`/dashboard/updateClub/${club._id}`}> Update club <FaArrowRightLong /></NavLink>
+                                </button>
+              </div>
               </div>
             </div>
           ))}

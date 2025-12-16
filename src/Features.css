@@ -9,7 +9,6 @@
   overflow: hidden;
 }
 
-/* ================= LEFT SIDE ================= */
 .features-left {
   background: url("/banner3.jpg");
   color: #fff;
@@ -69,7 +68,6 @@
   background: var(--bg-secondary);
 }
 
-/* ================= RIGHT SIDE ================= */
 .features-right {
   background: var(--bg-primary);
   padding: 70px 50px;

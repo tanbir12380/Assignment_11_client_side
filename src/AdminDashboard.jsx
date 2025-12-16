@@ -1,22 +1,28 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import "./AdminDashboard.css";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 import { useContext } from "react";
 import { AuthContext } from "./AuthContext";
 
-
 const AdminDashboard = () => {
-
-  const {user}= useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   const { data, isLoading } = useQuery({
     queryKey: ["adminStats"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3000/admin-dashboard-stats",{
-        headers:{
-          accesstoken: user.accessToken
-        }
+      const res = await fetch("http://localhost:3000/admin-dashboard-stats", {
+        headers: {
+          accesstoken: user.accessToken,
+        },
       });
       if (!res.ok) throw new Error("Failed to fetch dashboard stats");
       return res.json();
@@ -26,10 +32,10 @@ const AdminDashboard = () => {
   const { data: allClubs, isLoading: isLoading1 } = useQuery({
     queryKey: ["clubs"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3000/clubs",{
-        headers:{
-          accesstoken: user.accessToken
-        }
+      const res = await fetch("http://localhost:3000/clubs", {
+        headers: {
+          accesstoken: user.accessToken,
+        },
       });
       return res.json();
     },
@@ -65,19 +71,22 @@ const AdminDashboard = () => {
       >
         Admin Dashboard
       </h2>
-       <h3 style={{  
+      <h3
+        style={{
           fontFamily: "bebas neue",
           fontSize: "25px",
-         textAlign: "center",
-          marginTop: "50px" }}>Summary Cards</h3>
+          textAlign: "center",
+          marginTop: "50px",
+        }}
+      >
+        Summary Cards
+      </h3>
       <div className="dashboard-container">
-        {/* Total Users */}
         <div className="dashboard-card">
           <h3>Total Users</h3>
           <p>{data.totalUsers}</p>
         </div>
 
-        {/* Total Clubs */}
         <div className="dashboard-card">
           <h3>Total Clubs</h3>
           <p>{data.totalClubs}</p>
@@ -87,47 +96,54 @@ const AdminDashboard = () => {
           </small>
         </div>
 
-        {/* Total Events */}
         <div className="dashboard-card">
           <h3>Total Events</h3>
           <p>{data.totalEvents}</p>
         </div>
 
-        {/* Total Memberships */}
         <div className="dashboard-card">
           <h3>Total Memberships</h3>
           <p>{data.totalMemberships}</p>
         </div>
 
-        {/* Total Payments Amount */}
         <div className="dashboard-card">
           <h3>Total Payments</h3>
           <p>${data.totalPaymentsAmount}</p>
         </div>
       </div>
 
-  <h3 style={{  
+      <h3
+        style={{
           fontFamily: "bebas neue",
           fontSize: "25px",
-          marginBottom:'20px',
-         textAlign: "center",
-          marginTop: "50px" }}>Club Members Chart</h3>
+          marginBottom: "20px",
+          textAlign: "center",
+          marginTop: "50px",
+        }}
+      >
+        Club Members Chart
+      </h3>
       <div style={{ width: "100%", height: 600 }}>
-       
-<div style={{
-  width:'100%',
-  overflowX:'scroll'
-}}>
-            <BarChart data={allClubs} style={{minWidth:'1000px'}} width="100%" height={600}>
-            <CartesianGrid  />
-            <XAxis dataKey="clubName"   interval={0} />
+        <div
+          style={{
+            width: "100%",
+            overflowX: "scroll",
+          }}
+        >
+          <BarChart
+            data={allClubs}
+            style={{ minWidth: "1000px" }}
+            width="100%"
+            height={600}
+          >
+            <CartesianGrid />
+            <XAxis dataKey="clubName" interval={0} />
             <YAxis />
             <Tooltip />
             <Bar dataKey="memberCount" fill="rgb(29, 77, 55)" />
           </BarChart>
-</div>
+        </div>
       </div>
-
     </>
   );
 };

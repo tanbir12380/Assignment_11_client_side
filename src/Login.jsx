@@ -3,8 +3,8 @@ import "./Register.css";
 import Header from "./Header";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "./AuthContext";
-import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 export default function LoginForm() {
   const { SignInUser, signInWithGoogle, userLocationS, setUserLocation } =
@@ -22,22 +22,73 @@ export default function LoginForm() {
   const handleSignIn = (data) => {
     const { email, password } = data;
 
+    Swal.fire({
+      title: "Processing...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
     SignInUser(email, password)
       .then(() => {
         reset();
+        Swal.close();
+
+        Swal.fire({
+          icon: "success",
+          allowOutsideClick: false,
+          title: "Your are logged in successfully!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         navigate(userLocationS || "/");
         setUserLocation(null);
       })
       .catch((error) => {
-        toast(error.message.slice(9));
+        Swal.close();
+        Swal.fire({
+          icon: "error",
+          allowOutsideClick: false,
+          title: "Failed",
+          text: error.message.slice(9),
+        });
       });
   };
 
   const signWithGoogle1 = () => {
-    signInWithGoogle().then(() => {
-      navigate(userLocationS || "/");
-      setUserLocation(null);
+    Swal.fire({
+      title: "Processing...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
     });
+    signInWithGoogle()
+      .then(() => {
+        Swal.close();
+
+        Swal.fire({
+          icon: "success",
+          allowOutsideClick: false,
+          title: "Your are logged in successfully!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate(userLocationS || "/");
+        setUserLocation(null);
+      })
+      .catch((error) => {
+        Swal.close();
+        Swal.fire({
+          icon: "error",
+          allowOutsideClick: false,
+          title: "Failed",
+          text: error.message.slice(9),
+        });
+      });
   };
 
   return (
@@ -48,7 +99,6 @@ export default function LoginForm() {
         <form onSubmit={handleSubmit(handleSignIn)} className="register-card">
           <h2>Login to your Account</h2>
 
-          {/* EMAIL */}
           <div className="input-group">
             <label>Email</label>
             <input
@@ -59,7 +109,6 @@ export default function LoginForm() {
             {errors.email && <p className="error-text">Email is required</p>}
           </div>
 
-          {/* PASSWORD */}
           <div className="input-group">
             <label>Password</label>
             <input
@@ -88,7 +137,6 @@ export default function LoginForm() {
             Don't have any account? <Link to="/register">Register</Link>
           </p>
 
-          {/* GOOGLE LOGIN */}
           <button
             type="button"
             onClick={signWithGoogle1}
