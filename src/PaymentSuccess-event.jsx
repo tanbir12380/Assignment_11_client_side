@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink, useSearchParams } from 'react-router';
+import "./paymentSucess.css";
 
 const PaymentSuccessEvent = () => {
 
@@ -24,18 +25,7 @@ const PaymentSuccessEvent = () => {
 
   return (
 
-       <div style={{
-      height: '100%',
-      width:'50%',
-      margin:'0px auto',
-      display:'flex',
-      flexDirection:'column',
-      justifyContent:'center',
-      alignItems:'center',
-      fontFamily:'Inter',
-      color:'var(--bg-primary)',
-      textAlign:'center'
-    }}>
+       <div className='paymentSuccess'>
       <h3 style={{
         fontSize:'40px',
         fontFamily:'bebas neue'

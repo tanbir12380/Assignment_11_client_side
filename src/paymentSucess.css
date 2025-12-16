@@ -1,0 +1,21 @@
+.paymentSucess{
+
+  height: 100%;
+  width: 50%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Inter", sans-serif;
+  color: var(--bg-primary);
+  text-align: center;
+
+}
+
+
+@media (max-width:768px){
+  .paymentSucess{
+    width:90% !important;
+  }
+}

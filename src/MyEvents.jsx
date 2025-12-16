@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { AuthContext } from "./AuthContext";
 import { useQuery } from "@tanstack/react-query";
 import { FaRegStar } from "react-icons/fa";
@@ -8,6 +8,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 
 const MyEvents = () => {
   const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
 
   const [userEvents, setEvents] = useState([]);
 
@@ -74,7 +75,9 @@ const MyEvents = () => {
             paddingBottom: "30px",
           }}
         >
-          <button className="contact-btn">
+          <button onClick={()=>{
+            navigate("/dashboard/createEvent")
+          }} className="contact-btn">
             <NavLink to="/dashboard/createEvent">
               <FaPlus></FaPlus> Create Event
             </NavLink>
@@ -112,7 +115,9 @@ const MyEvents = () => {
                   </p>
                 </div>
 
-                <button>
+                <button onClick={()=>{
+                  navigate(`/eventDetail/${event._id}`)
+                }}>
                   <NavLink to={`/eventDetail/${event._id}`}>
                     See Details <FaArrowRightLong />
                   </NavLink>

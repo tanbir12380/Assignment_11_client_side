@@ -12,7 +12,6 @@ const UserList = () => {
   const {
     data: users,
     isLoading,
-    isError,
     refetch,
   } = useQuery({
     queryKey: ["users"],
@@ -45,9 +44,21 @@ const UserList = () => {
     },
   });
 
-  if (isLoading) return <p style={{ textAlign: "center" }}>Loading users...</p>;
-  if (isError)
-    return <p style={{ textAlign: "center" }}>Error loading users</p>;
+  if (isLoading) return  <div
+        className="loaders3"
+        style={{
+          width: "100%",
+          flex: "1",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "500px",
+        }}
+      >
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+      </div>;
 
   return (
     <div className="user-list-container">

@@ -1,13 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { FaPlus } from "react-icons/fa";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { AuthContext } from "./AuthContext";
 import { FaRegStar } from "react-icons/fa";
 import { FaArrowRightLong } from "react-icons/fa6";
 
 const MyClub = () => {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const { data: userClubs, isLoading: clubsLoading } = useQuery({
     queryKey: ["userClubs", user.email],
@@ -57,7 +58,9 @@ const MyClub = () => {
             paddingBottom: "30px",
           }}
         >
-          <button className="contact-btn">
+          <button onClick={()=>{
+            navigate("/dashboard/createClub")
+          }} className="contact-btn">
             <NavLink to="/dashboard/createClub">
               <FaPlus></FaPlus> Create Club
             </NavLink>
@@ -86,7 +89,9 @@ const MyClub = () => {
                   </p>
                 </div>
 
-                <button>
+                <button onClick={()=>{
+                  navigate(`/clubDetail/${club._id}`)
+                }}>
                   <NavLink to={`/clubDetail/${club._id}`}>
                     {" "}
                     See Details <FaArrowRightLong />

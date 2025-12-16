@@ -68,21 +68,6 @@ const AuthProvider = ({ children }) => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   const fetchUserRole = async () => {
-  //     try {
-  //       const res = await fetch(`http://localhost:3000/user/${user.email}`);
-
-  //       const dbUser = await res.json();
-  //       setUserRole(dbUser?.role || null);
-  //     } catch (err) {
-  //       console.error("Failed to load user role:", err);
-  //       setUserRole(null);
-  //     }
-  //   };
-
-  //   fetchUserRole();
-  // }, [user]);
 
   const {
     data: dbUser,

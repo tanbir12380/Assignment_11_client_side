@@ -8,7 +8,7 @@ import { NavLink } from "react-router";
 const MyPayments = () => {
   const { user } = useContext(AuthContext);
 
-  const { data: payments = [] } = useQuery({
+  const { data: payments = [], isLoading } = useQuery({
     queryKey: ["myPayments", user?.email],
     queryFn: async () => {
       const res = await fetch(
@@ -22,9 +22,27 @@ const MyPayments = () => {
     enabled: !!user?.email,
   });
 
+  if(isLoading){
+    return  <div
+        className="loaders3"
+        style={{
+          width: "100%",
+          flex: "1",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "500px",
+        }}
+      >
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+      </div>
+  }
+
   return (
     <div className="payments-container">
-      <h2 className="payments-title">My Payments</h2>
+      <h2 className="payments-title">Your Payments</h2>
 
       <div className="payments-table-wrapper">
         <table className="payments-table">

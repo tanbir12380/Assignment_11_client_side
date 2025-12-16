@@ -3,7 +3,7 @@ import Header from "./Header";
 import { AuthContext } from "./AuthContext";
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "./register.css";
 
 export default function CreateEvent() {
@@ -41,14 +41,8 @@ export default function CreateEvent() {
           accesstoken: user.accessToken },
         body: JSON.stringify(data),
       });
-
       return res.json();
-    },
-    onSuccess: () => {
-      toast.success("Event created successfully!");
-      reset();
-    },
-    onError: () => toast.error("Failed to create event."),
+    }
   });
 
   const handleFormSubmit = (formData) => {
@@ -69,7 +63,18 @@ export default function CreateEvent() {
       membercount: 0,
     };
 
-    createEventMutation.mutate(finalData);
+        try{
+      createEventMutation.mutate(finalData);
+     reset();
+         toast.success(
+          "Event is created successfully."
+        );
+        }
+    catch (error) {
+        toast.error(error.message);
+      }
+
+   
   };
 
   if (clubsLoading)
@@ -205,6 +210,7 @@ export default function CreateEvent() {
           </button>
         </form>
       </div>
+            <ToastContainer />
     </div>
   );
 }

@@ -8,9 +8,7 @@ const MemberDashboard = () => {
 
   const {
     data,
-    isLoading,
-    isError,
-    error,
+    isLoading
   } = useQuery({
     queryKey: ["memberDashboard", user?.email],
     enabled: !!user?.email,
@@ -27,11 +25,21 @@ const MemberDashboard = () => {
   });
 
   if (isLoading) {
-    return <p>Loading dashboard...</p>;
-  }
-
-  if (isError) {
-    return <p>Error: {error.message}</p>;
+    return  <div
+        className="loaders3"
+        style={{
+          width: "100%",
+          flex: "1",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "500px",
+        }}
+      >
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+      </div>;
   }
 
   return (

@@ -11,7 +11,7 @@ const MyJoinedEvent = () => {
   const { user } = useContext(AuthContext);
   const [events, setEvents] = useState([]);
 
-  const { data: allEvents } = useQuery({
+  const { data: allEvents , isLoading : loading1 } = useQuery({
     queryKey: ["event"],
     queryFn: async () => {
       const res = await fetch("http://localhost:3000/events");
@@ -19,8 +19,9 @@ const MyJoinedEvent = () => {
     },
   });
 
-  const { data: membershipIds } = useQuery({
+  const { data: membershipIds  , isLoading:loading2} = useQuery({
     queryKey: ["membership", user?.email],
+      enabled: !!user?.email,
     queryFn: async () => {
       const res = await fetch(
         `http://localhost:3000/get-membership-event/${user.email}`, {
@@ -48,6 +49,26 @@ const MyJoinedEvent = () => {
 
     findTheJoinedEvents();
   }, [allEvents, membershipIds]);
+
+
+  if(loading1 || loading2){
+    return  <div
+        className="loaders3"
+        style={{
+          width: "100%",
+          flex: "1",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "500px",
+        }}
+      >
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+      </div>
+  }
+
 
   return (
     <div >

@@ -4,7 +4,7 @@ import { Link } from "react-router";
 import { AuthContext } from "./AuthContext";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function CreateClub() {
   const { user } = useContext(AuthContext);
@@ -28,17 +28,12 @@ export default function CreateClub() {
       });
 
       return res.json();
-    },
-    onSuccess: () => {
-      toast.success("Club created successfully!");
-      reset();
-    },
-    onError: () => {
-      toast.error("Failed to create club.");
-    },
+      
+
+    }
   });
 
-  const handleFormSubmit = (formData) => {
+  const handleFormSubmit = async (formData) => {
     const now = new Date().toISOString();
 
     const finalData = {
@@ -56,7 +51,17 @@ export default function CreateClub() {
       eventCount: 0,
     };
 
-    createClubMutation.mutate(finalData);
+    try{
+ createClubMutation.mutate(finalData);
+ reset();
+     toast.success(
+      "Club is created successfully. Wait for admin approval."
+    );
+    }
+catch (error) {
+    toast.error(error.message);
+  }
+   
   };
 
   return (
@@ -155,6 +160,7 @@ export default function CreateClub() {
           </button>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 }
