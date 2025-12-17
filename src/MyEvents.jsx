@@ -18,7 +18,7 @@ const MyEvents = () => {
     isLoading: clubsLoading,
     refetch,
   } = useQuery({
-    queryKey: ["userClubs", user.email],
+    queryKey: ["userEvents", user.email],
     queryFn: async () => {
       const res = await fetch(`http://localhost:3000/getEvents/${user.email}`, {
         headers: {
@@ -86,13 +86,7 @@ const MyEvents = () => {
         <h3>
           Your <span> Events</span>
         </h3>
-        <div
-          style={{
-            width: "100%",
-            paddingLeft: "220px",
-            paddingBottom: "30px",
-          }}
-        >
+        <div className="createEventButton">
           <button
             onClick={() => {
               navigate("/dashboard/createEvent");
@@ -153,16 +147,38 @@ const MyEvents = () => {
                   </button>
                   <button
                     onClick={() => {
-                      deleteEventMutation.mutate(event._id);
-
                       Swal.fire({
-                        icon: "success",
-                        allowOutsideClick: false,
-                        title: "Event is deleted!",
-                        showConfirmButton: false,
-                        timer: 1500,
+                        title: "Are you sure?",
+                        text: "You won't be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        cancelButtonColor: "rgba(160, 0, 0, 1)",
+                        confirmButtonColor: "rgb(29, 77, 55)",
+                        confirmButtonText: "Yes, delete it!",
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          deleteEventMutation.mutate(event._id, {
+                            onSuccess: () => {
+                              Swal.fire({
+                                icon: "success",
+                                allowOutsideClick: false,
+                                title: "Event is deleted!",
+                                showConfirmButton: false,
+                                timer: 1500,
+                              });
+
+                              refetch();
+                            },
+                            onError: () => {
+                              Swal.fire({
+                                icon: "error",
+                                title: "Failed to delete",
+                                text: "Something went wrong. Please try again.",
+                              });
+                            },
+                          });
+                        }
                       });
-                      refetch();
                     }}
                   >
                     Delete Event <FaArrowRightLong />

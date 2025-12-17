@@ -219,12 +219,21 @@ const ClubDetails = () => {
           <motion.button
             className="contact-btn"
             onClick={handleBuy}
-            disabled={isMember}
+            disabled={
+              isMember || club.status == "pending" || club.status == "rejected"
+            }
             whileHover={{ scale: isMember ? 1 : 1.05 }}
             whileTap={{ scale: 0.95 }}
             variants={itemVariants}
           >
-            {isMember ? "Already Joined" : "Join Club"} <FaArrowRightLong />
+            {isMember
+              ? "Already Joined"
+              : club.status == "pending"
+              ? "Pending Approval"
+              : club.status == "rejected"
+              ? "Rejected club"
+              : "Join Club"}
+            <FaArrowRightLong />
           </motion.button>
         </div>
       </motion.div>

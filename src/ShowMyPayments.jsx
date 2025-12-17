@@ -12,18 +12,21 @@ const MyPayments = () => {
     queryKey: ["myPayments", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:3000/get-my-payments/${user.email}`,{
-        headers:{
-          accesstoken: user.accessToken
-        }}
+        `http://localhost:3000/get-my-payments/${user.email}`,
+        {
+          headers: {
+            accesstoken: user.accessToken,
+          },
+        }
       );
       return res.json();
     },
     enabled: !!user?.email,
   });
 
-  if(isLoading){
-    return  <div
+  if (isLoading) {
+    return (
+      <div
         className="loaders3"
         style={{
           width: "100%",
@@ -38,6 +41,7 @@ const MyPayments = () => {
         <span className="loading loading-bars loading-xl"></span>
         <span className="loading loading-bars loading-xl"></span>
       </div>
+    );
   }
 
   return (

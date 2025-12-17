@@ -51,13 +51,7 @@ const MyClub = () => {
         <h3>
           Your <span>Clubs</span>
         </h3>
-        <div
-          style={{
-            width: "100%",
-            paddingLeft: "220px",
-            paddingBottom: "30px",
-          }}
-        >
+        <div className="createEventButton">
           <button
             onClick={() => {
               navigate("/dashboard/createClub");
