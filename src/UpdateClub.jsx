@@ -4,37 +4,31 @@ import { Link, useParams } from "react-router";
 import { AuthContext } from "./AuthContext";
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import {  ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
 
 export default function UpdateClub() {
   const { user } = useContext(AuthContext);
-  const {id} = useParams();
+  const { id } = useParams();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm();
 
-
-    const {
-    data: club,
-    isLoading,
-  } = useQuery({
+  const { data: club, isLoading } = useQuery({
     queryKey: ["club", id],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/clubs/${id}`,{
-        headers:{
-          accesstoken: user.accessToken
-        }
+      const res = await fetch(`http://localhost:3000/clubs/${id}`, {
+        headers: {
+          accesstoken: user.accessToken,
+        },
       });
       console.log(id);
       return res.json();
     },
   });
-
 
   const updateClubMutation = useMutation({
     mutationFn: async (data) => {
@@ -42,19 +36,17 @@ export default function UpdateClub() {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
-          accesstoken: user.accessToken
+          accesstoken: user.accessToken,
         },
         body: JSON.stringify(data),
       });
 
       return res.json();
-      
-
-    }
+    },
   });
 
   const handleFormSubmit = async (formData) => {
-    const now = new Date().toISOString();
+    const now = new Date();
 
     const finalData = {
       clubName: formData.clubName,
@@ -65,35 +57,31 @@ export default function UpdateClub() {
       membershipFee: parseInt(formData.membershipFee),
       status: "pending",
       managerEmail: user.email,
-      createdAt: now,
       updatedAt: now,
-      memberCount: 0,
-      eventCount: 0,
     };
 
-    try{
- updateClubMutation.mutate(finalData);
- reset();
-                  Swal.fire({
-                     icon: "success",
-                     allowOutsideClick: false,
-                     title: "Your club is updated successfully!",
-                       showConfirmButton: false,
-       timer: 1500})
+    try {
+      updateClubMutation.mutate(finalData);
+      Swal.fire({
+        icon: "success",
+        allowOutsideClick: false,
+        title: "Your club is updated successfully!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        allowOutsideClick: false,
+        title: "Failed",
+        text: error.message.slice(9),
+      });
     }
-catch (error) {
-     Swal.fire({
-                icon: "error",
-                allowOutsideClick: false,
-                title: "Failed",
-                text: error.message.slice(9),
-              });
-  }
-   
   };
 
-  if(isLoading){
-    return      <div
+  if (isLoading) {
+    return (
+      <div
         className="loaders3"
         style={{
           width: "100%",
@@ -108,6 +96,7 @@ catch (error) {
         <span className="loading loading-bars loading-xl"></span>
         <span className="loading loading-bars loading-xl"></span>
       </div>
+    );
   }
 
   return (
@@ -122,7 +111,11 @@ catch (error) {
           {/* CLUB NAME */}
           <div className="input-group">
             <label>Club Name</label>
-            <input defaultValue={club.clubName} type="text" {...register("clubName", { required: true })} />
+            <input
+              defaultValue={club.clubName}
+              type="text"
+              {...register("clubName", { required: true })}
+            />
             {errors.clubName && (
               <p className="error-text">Club name is required</p>
             )}
@@ -132,7 +125,7 @@ catch (error) {
           <div className="input-group">
             <label>Description</label>
             <textarea
-            defaultValue={club.description}
+              defaultValue={club.description}
               style={{
                 width: "100%",
                 border: "1px solid rgba(219, 219, 219, 0.802)",
@@ -150,7 +143,7 @@ catch (error) {
           <div className="input-group">
             <label>Category</label>
             <input
-             defaultValue={club.category}
+              defaultValue={club.category}
               type="text"
               {...register("category", { required: true })}
               placeholder="e.g. Photography, Tech, Sports"
@@ -163,7 +156,11 @@ catch (error) {
           {/* LOCATION */}
           <div className="input-group">
             <label>Location (City / Area)</label>
-            <input  defaultValue={club.location} type="text" {...register("location", { required: true })} />
+            <input
+              defaultValue={club.location}
+              type="text"
+              {...register("location", { required: true })}
+            />
             {errors.location && (
               <p className="error-text">Location is required</p>
             )}
@@ -173,7 +170,7 @@ catch (error) {
           <div className="input-group">
             <label>Banner Image URL</label>
             <input
-            defaultValue={club.bannerImage}
+              defaultValue={club.bannerImage}
               type="text"
               {...register("bannerImage", { required: true })}
             />
@@ -186,7 +183,7 @@ catch (error) {
           <div className="input-group">
             <label>Membership Fee</label>
             <input
-             defaultValue={club.membershipFee}
+              defaultValue={club.membershipFee}
               type="number"
               {...register("membershipFee", { required: true })}
             />
@@ -202,9 +199,7 @@ catch (error) {
           </div>
 
           {/* SUBMIT BUTTON */}
-          <button
-            className="register-btn"
-          >
+          <button className="register-btn">
             {updateClubMutation.isPending ? "Updating..." : "Update Club"}
           </button>
         </form>

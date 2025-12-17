@@ -55,7 +55,7 @@ const ClubManagerDashboard = () => {
 
       <div className="dashboard-container">
         <div className="dashboard-card">
-          <h3>Total Clubs</h3>
+          <h3>Total Clubs you manage</h3>
           <p>{data.totalClubs}</p>
           <small>
             Pending: {data.pendingClubs} | Approved: {data.approvedClubs} |

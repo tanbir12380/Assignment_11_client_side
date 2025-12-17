@@ -9,14 +9,17 @@ const ClubMembersTable = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["managerMembers", user?.email],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/clubManager-dashboard-ClubMember/${user.email}`,{
-        headers:{
-          accesstoken: user.accessToken
+      const res = await fetch(
+        `http://localhost:3000/clubManager-dashboard-ClubMember/${user.email}`,
+        {
+          headers: {
+            accesstoken: user.accessToken,
+          },
         }
-      });
-         const jsonData = await res.json(); 
-    console.log(jsonData); 
-    return jsonData;
+      );
+      const jsonData = await res.json();
+      console.log(jsonData);
+      return jsonData;
     },
     enabled: !!user?.email,
   });
@@ -38,39 +41,47 @@ const ClubMembersTable = () => {
         <span className="loading loading-bars loading-xl"></span>
       </div>
     );
-
   }
 
-
-
   return (
-    <div className="payments-container">
-      <h2 className="payments-title">Club Members</h2>
+    <div className="payments-container" style={{ padding: "20px" }}>
+      <h1 className="payments-title">My Club Members</h1>
 
-<div className="payments-table-wrapper"><table className="payments-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>User Email</th>
-              <th>Club ID</th>
-              <th>Cost</th>
-              <th>Joined At</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((member, index) => (
-              <tr key={member._id}>
-                <td>{index + 1}</td>
-                <td>{member.userEmail}</td>
-                <td>{member.clubId}</td>
-                <td>${member.cost}</td>
-                <td>{new Date(member.joinedAt).toLocaleDateString()}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table></div>
+      {data?.map((club, index) => (
+        <>
+          <h2
+            style={{
+              fontFamily: "bebas neue",
+              fontSize: "22px",
+              textAlign: "center",
+              marginTop: "50px",
+            }}
+          >
+            {club.clubName}
+          </h2>
+          <div className="payments-table-wrapper" key={index}>
+            <table className="payments-table">
+              <thead>
+                <tr>
+                  <th>Email</th>
+                  <th>Cost</th>
+                  <th>Joined At</th>
+                </tr>
+              </thead>
 
-
+              <tbody>
+                {club?.members?.map((member, i) => (
+                  <tr key={i}>
+                    <td>{member.userEmail}</td>
+                    <td>${member.cost}</td>
+                    <td>{new Date(member.joinedAt).toLocaleDateString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
+      ))}
     </div>
   );
 };

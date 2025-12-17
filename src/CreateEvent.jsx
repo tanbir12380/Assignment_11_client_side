@@ -16,20 +16,21 @@ export default function CreateEvent() {
     formState: { errors },
     reset,
     watch,
-  } = useForm({
-    defaultValues: { isPaid: "false" },
-  });
+  } = useForm();
 
   const isPaidValue = watch("isPaid");
 
   const { data: userClubs, isLoading: clubsLoading } = useQuery({
     queryKey: ["userClubs", user.email],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/getClubs/${user.email}`, {
-        headers: {
-          accesstoken: user.accessToken,
-        },
-      });
+      const res = await fetch(
+        `http://localhost:3000/getClubsApproved/${user.email}`,
+        {
+          headers: {
+            accesstoken: user.accessToken,
+          },
+        }
+      );
       return res.json();
     },
   });
@@ -49,7 +50,7 @@ export default function CreateEvent() {
   });
 
   const handleFormSubmit = (formData) => {
-    const now = new Date().toISOString();
+    const now = new Date();
 
     const finalData = {
       clubId: formData.clubId,

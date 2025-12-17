@@ -34,6 +34,7 @@ import MemberDashboard from "./MemberDashboard";
 import ClubMembersTable from "./ClubMembersTable";
 import EventMembersTable from "./EventMembersTable";
 import UpdateClub from "./UpdateClub";
+import UpdateEvent from "./UpdateEvent";
 
 export const router = createBrowserRouter([
   {
@@ -97,10 +98,13 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: (
-         <PrivateRoute> <RoleBasedDashboard></RoleBasedDashboard></PrivateRoute>
+          <PrivateRoute>
+            {" "}
+            <RoleBasedDashboard></RoleBasedDashboard>
+          </PrivateRoute>
         ),
       },
-       {
+      {
         path: "adminDashboard",
         element: (
           <PrivateRoute>
@@ -111,12 +115,22 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path:'clubManagerDashboard',
-        element:<PrivateRoute><PrivateRoute_Manager><ClubManagerDashboard></ClubManagerDashboard></PrivateRoute_Manager></PrivateRoute>
+        path: "clubManagerDashboard",
+        element: (
+          <PrivateRoute>
+            <PrivateRoute_Manager>
+              <ClubManagerDashboard></ClubManagerDashboard>
+            </PrivateRoute_Manager>
+          </PrivateRoute>
+        ),
       },
       {
-        path:'memberDashboard',
-        element: <PrivateRoute><MemberDashboard></MemberDashboard></PrivateRoute>
+        path: "memberDashboard",
+        element: (
+          <PrivateRoute>
+            <MemberDashboard></MemberDashboard>
+          </PrivateRoute>
+        ),
       },
       {
         path: "myClub",
@@ -129,12 +143,24 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path:'updateClub/:id',
-        element:   <PrivateRoute>
+        path: "updateClub/:id",
+        element: (
+          <PrivateRoute>
             <PrivateRoute_Manager>
               <UpdateClub></UpdateClub>
             </PrivateRoute_Manager>
           </PrivateRoute>
+        ),
+      },
+      {
+        path: "eventUpdate/:id",
+        element: (
+          <PrivateRoute>
+            <PrivateRoute_Manager>
+              <UpdateEvent></UpdateEvent>
+            </PrivateRoute_Manager>
+          </PrivateRoute>
+        ),
       },
       {
         path: "manageClubAdmin",
@@ -146,7 +172,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-     
+
       {
         path: "createClub",
         element: (
@@ -178,8 +204,8 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path:'clubMembersTable',
-          element: (
+        path: "clubMembersTable",
+        element: (
           <PrivateRoute>
             <PrivateRoute_Manager>
               <ClubMembersTable></ClubMembersTable>
@@ -187,9 +213,9 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-       {
-        path:'eventMembersTable',
-          element: (
+      {
+        path: "eventMembersTable",
+        element: (
           <PrivateRoute>
             <PrivateRoute_Manager>
               <EventMembersTable></EventMembersTable>
@@ -249,7 +275,7 @@ export const router = createBrowserRouter([
     element: <Forbidden></Forbidden>,
   },
   {
-    path:"*",
-    element:<ForbiddenPro></ForbiddenPro>
-  }
+    path: "*",
+    element: <ForbiddenPro></ForbiddenPro>,
+  },
 ]);

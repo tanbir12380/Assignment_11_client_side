@@ -9,6 +9,7 @@ import { SquarePen } from "lucide-react";
 import { RiFolderUserLine } from "react-icons/ri";
 import { IoHomeSharp } from "react-icons/io5";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
+import { GiHamburgerMenu } from "react-icons/gi";
 import { HiOutlineMenu } from "react-icons/hi";
 import "./Dashboard.css";
 import { NavLink, Outlet, useNavigate } from "react-router";
@@ -23,7 +24,7 @@ const Dashboard = () => {
     <div className="drawer_container drawer lg:drawer-open">
       <nav className="navbar w-full dash-nav">
         <label id="menu-label" htmlFor="my-drawer-4" aria-label="open sidebar">
-          <HiOutlineMenu size={35}></HiOutlineMenu>
+          <GiHamburgerMenu size={32}></GiHamburgerMenu>
         </label>
         <div
           style={{
@@ -53,9 +54,10 @@ const Dashboard = () => {
         >
           <ul className=" w-full grow menu  dash-side-bar">
             <li>
-              <button onClick={()=>{
-                navigate("/")
-              }}
+              <button
+                onClick={() => {
+                  navigate("/");
+                }}
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Homepage"
               >
@@ -71,9 +73,10 @@ const Dashboard = () => {
             {userRole === "admin" && (
               <>
                 <li>
-                  <button  onClick={()=>{
-                navigate("/dashboard/adminDashboard")
-              }}
+                  <button
+                    onClick={() => {
+                      navigate("/dashboard/adminDashboard");
+                    }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Overiew"
                   >
@@ -86,9 +89,10 @@ const Dashboard = () => {
                 </li>
 
                 <li>
-                  <button onClick={()=>{
-                navigate("/dashboard/users")
-              }}
+                  <button
+                    onClick={() => {
+                      navigate("/dashboard/users");
+                    }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Manage users"
                   >
@@ -103,9 +107,10 @@ const Dashboard = () => {
                 </li>
 
                 <li>
-                  <button onClick={()=>{
-                navigate("/dashboard/manageClubAdmin")
-              }}
+                  <button
+                    onClick={() => {
+                      navigate("/dashboard/manageClubAdmin");
+                    }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Manage clubs"
                   >
@@ -120,9 +125,10 @@ const Dashboard = () => {
                 </li>
 
                 <li>
-                  <button onClick={()=>{
-                navigate("/dashboard/allPayments")
-              }}
+                  <button
+                    onClick={() => {
+                      navigate("/dashboard/allPayments");
+                    }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Payments"
                   >
@@ -139,26 +145,27 @@ const Dashboard = () => {
             {/* club manager */}
             {userRole == "clubManager" && (
               <>
-
                 <li>
-                  <button onClick={()=>{
-                navigate("/dashboard/clubManagerDashboard")
-              }}
+                  <button
+                    onClick={() => {
+                      navigate("/dashboard/clubManagerDashboard");
+                    }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Overiew"
                   >
                     {/* manager overview  */}
-                   <NavLink to="/dashboard/clubManagerDashboard">
-                     <MdAdminPanelSettings size={35}></MdAdminPanelSettings>
-                    <span className="is-drawer-close:hidden">Overview</span>
-                   </NavLink>
+                    <NavLink to="/dashboard/clubManagerDashboard">
+                      <MdAdminPanelSettings size={35}></MdAdminPanelSettings>
+                      <span className="is-drawer-close:hidden">Overview</span>
+                    </NavLink>
                   </button>
                 </li>
 
                 <li>
-                  <button  onClick={()=>{
-                navigate("/dashboard/myClub")
-              }}
+                  <button
+                    onClick={() => {
+                      navigate("/dashboard/myClub");
+                    }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="My Clubs"
                   >
@@ -171,26 +178,28 @@ const Dashboard = () => {
                 </li>
 
                 <li>
-                  <button onClick={()=>{
-                navigate("/dashboard/clubMembersTable")
-              }}
+                  <button
+                    onClick={() => {
+                      navigate("/dashboard/clubMembersTable");
+                    }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Clubs members"
                   >
                     {/* manager - my clubs members  */}
-                   <NavLink to="/dashboard/clubMembersTable">
-                     <MdGroups2 size={35}></MdGroups2>
-                    <span className="is-drawer-close:hidden">
-                      Clubs members
-                    </span>
-                   </NavLink>
+                    <NavLink to="/dashboard/clubMembersTable">
+                      <MdGroups2 size={35}></MdGroups2>
+                      <span className="is-drawer-close:hidden">
+                        Clubs members
+                      </span>
+                    </NavLink>
                   </button>
                 </li>
 
                 <li>
-                  <button  onClick={()=>{
-                navigate("/dashboard/myEvent")
-              }}
+                  <button
+                    onClick={() => {
+                      navigate("/dashboard/myEvent");
+                    }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Event management"
                   >
@@ -207,19 +216,20 @@ const Dashboard = () => {
                 </li>
 
                 <li>
-                  <button onClick={()=>{
-                navigate("/dashboard/eventMembersTable")
-              }}
+                  <button
+                    onClick={() => {
+                      navigate("/dashboard/eventMembersTable");
+                    }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Event registration"
                   >
                     {/* manager - my events register eventMembersTable */}
-                   <NavLink to="/dashboard/eventMembersTable">
-                     <SquarePen size={35} />
-                    <span className="is-drawer-close:hidden">
-                      Event registration
-                    </span>
-                   </NavLink>
+                    <NavLink to="/dashboard/eventMembersTable">
+                      <SquarePen size={35} />
+                      <span className="is-drawer-close:hidden">
+                        Event registration
+                      </span>
+                    </NavLink>
                   </button>
                 </li>
               </>
@@ -230,24 +240,26 @@ const Dashboard = () => {
             {userRole == "member" && (
               <>
                 <li>
-                  <button  onClick={()=>{
-                navigate("/dashboard/memberDashboard")
-              }}
+                  <button
+                    onClick={() => {
+                      navigate("/dashboard/memberDashboard");
+                    }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Overiew"
                   >
                     {/* member overview  */}
-                   <NavLink to="/dashboard/memberDashboard">
-                     <RiFolderUserLine size={35}></RiFolderUserLine>
-                    <span className="is-drawer-close:hidden">Overview</span>
-                   </NavLink>
+                    <NavLink to="/dashboard/memberDashboard">
+                      <RiFolderUserLine size={35}></RiFolderUserLine>
+                      <span className="is-drawer-close:hidden">Overview</span>
+                    </NavLink>
                   </button>
                 </li>
 
                 <li>
-                  <button  onClick={()=>{
-                navigate("/dashboard/myJoinedClubs")
-              }}
+                  <button
+                    onClick={() => {
+                      navigate("/dashboard/myJoinedClubs");
+                    }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="My Clubs"
                   >
@@ -260,9 +272,10 @@ const Dashboard = () => {
                 </li>
 
                 <li>
-                  <button onClick={()=>{
-                navigate("/dashboard/myJoinedEvents")
-              }}
+                  <button
+                    onClick={() => {
+                      navigate("/dashboard/myJoinedEvents");
+                    }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="My Event"
                   >
@@ -277,9 +290,10 @@ const Dashboard = () => {
                 </li>
 
                 <li>
-                  <button  onClick={()=>{
-                navigate("/dashboard/myPayments")
-              }}
+                  <button
+                    onClick={() => {
+                      navigate("/dashboard/myPayments");
+                    }}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Payments"
                   >

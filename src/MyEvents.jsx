@@ -2,9 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router";
 import { AuthContext } from "./AuthContext";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { FaRegStar } from "react-icons/fa";
 import { FaArrowRightLong } from "react-icons/fa6";
+import Swal from "sweetalert2";
 
 const MyEvents = () => {
   const { user } = useContext(AuthContext);
@@ -12,7 +13,11 @@ const MyEvents = () => {
 
   const [userEvents, setEvents] = useState([]);
 
-  const { data, isLoading: clubsLoading } = useQuery({
+  const {
+    data,
+    isLoading: clubsLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["userClubs", user.email],
     queryFn: async () => {
       const res = await fetch(`http://localhost:3000/getEvents/${user.email}`, {
@@ -20,6 +25,19 @@ const MyEvents = () => {
           accesstoken: user.accessToken,
         },
       });
+      return res.json();
+    },
+  });
+
+  const deleteEventMutation = useMutation({
+    mutationFn: async (eventId) => {
+      const res = await fetch(`http://localhost:3000/events/${eventId}`, {
+        method: "DELETE",
+        headers: {
+          accesstoken: user.accessToken,
+        },
+      });
+
       return res.json();
     },
   });
@@ -114,15 +132,42 @@ const MyEvents = () => {
                   </p>
                 </div>
 
-                <button
-                  onClick={() => {
-                    navigate(`/eventDetail/${event._id}`);
-                  }}
-                >
-                  <NavLink to={`/eventDetail/${event._id}`}>
-                    See Details <FaArrowRightLong />
-                  </NavLink>
-                </button>
+                <div className="managerClubButtons">
+                  <button
+                    onClick={() => {
+                      navigate(`/eventDetail/${event._id}`);
+                    }}
+                  >
+                    <NavLink to={`/eventDetail/${event._id}`}>
+                      See Details <FaArrowRightLong />
+                    </NavLink>
+                  </button>
+                  <button
+                    onClick={() => {
+                      navigate(`/dashboard/eventUpdate/${event._id}`);
+                    }}
+                  >
+                    <NavLink to={`/dashboard/eventUpdate/${event._id}`}>
+                      Update Event <FaArrowRightLong />
+                    </NavLink>
+                  </button>
+                  <button
+                    onClick={() => {
+                      deleteEventMutation.mutate(event._id);
+
+                      Swal.fire({
+                        icon: "success",
+                        allowOutsideClick: false,
+                        title: "Event is deleted!",
+                        showConfirmButton: false,
+                        timer: 1500,
+                      });
+                      refetch();
+                    }}
+                  >
+                    Delete Event <FaArrowRightLong />
+                  </button>
+                </div>
               </div>
             </div>
           ))}

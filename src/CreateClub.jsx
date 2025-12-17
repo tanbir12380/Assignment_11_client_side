@@ -33,7 +33,7 @@ export default function CreateClub() {
   });
 
   const handleFormSubmit = async (formData) => {
-    const now = new Date().toISOString();
+    const now = new Date();
 
     const finalData = {
       clubName: formData.clubName,

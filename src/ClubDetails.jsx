@@ -46,10 +46,10 @@ const ClubDetails = () => {
   } = useQuery({
     queryKey: ["club", id],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/clubs/${id}`,{
-        headers:{
-          accesstoken: user.accessToken
-        }
+      const res = await fetch(`http://localhost:3000/clubs/${id}`, {
+        headers: {
+          accesstoken: user.accessToken,
+        },
       });
       console.log(id);
       return res.json();
@@ -91,13 +91,13 @@ const ClubDetails = () => {
       });
       setToggole(!toggole);
       refetch();
-                    Swal.fire({
-                      icon: "success",
-                      allowOutsideClick: false,
-                      title: "Congratulations, You've successfully joined the club",
-                        showConfirmButton: false,
-        timer: 2000
-                    });
+      Swal.fire({
+        icon: "success",
+        allowOutsideClick: false,
+        title: "Congratulations, You've successfully joined the club",
+        showConfirmButton: false,
+        timer: 2000,
+      });
       return res.json();
     },
   });
@@ -148,49 +148,47 @@ const ClubDetails = () => {
       <p style={{ textAlign: "center", padding: "40px" }}>Error loading club</p>
     );
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.5 },
+    },
+  };
 
-        const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.5 },
-  },
-};
+  const itemVariants = {
+    hidden: { opacity: 0, y: 100 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 1, ease: "easeOut" },
+    },
+  };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 100 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 1, ease: "easeOut" },
-  },
-};
+  const itemVariants2 = {
+    hidden: { opacity: 0, y: -100 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 1, ease: "easeOut" },
+    },
+  };
 
-const itemVariants2 = {
-  hidden: { opacity: 0, y: -100 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 1, ease: "easeOut" },
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
-};
-
-
+  const cardVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  };
 
   return (
-       <motion.div
+    <motion.div
       className="group-details-container"
       initial="hidden"
       animate="visible"
+      viewport={{ once: true }}
       variants={containerVariants}
     >
       <Header />

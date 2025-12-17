@@ -13,10 +13,10 @@ const MyClub = () => {
   const { data: userClubs, isLoading: clubsLoading } = useQuery({
     queryKey: ["userClubs", user.email],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/getClubs/${user.email}`,{
-        headers:{
-          accesstoken: user.accessToken
-        }
+      const res = await fetch(`http://localhost:3000/getClubs/${user.email}`, {
+        headers: {
+          accesstoken: user.accessToken,
+        },
       });
       return res.json();
     },
@@ -58,9 +58,12 @@ const MyClub = () => {
             paddingBottom: "30px",
           }}
         >
-          <button onClick={()=>{
-            navigate("/dashboard/createClub")
-          }} className="contact-btn">
+          <button
+            onClick={() => {
+              navigate("/dashboard/createClub");
+            }}
+            className="contact-btn"
+          >
             <NavLink to="/dashboard/createClub">
               <FaPlus></FaPlus> Create Club
             </NavLink>
@@ -78,6 +81,7 @@ const MyClub = () => {
 
                 <div className="club-meta">
                   <span className="category">{club.category}</span>
+                  <span className="category">Status: {club.status}</span>
                   <span className="fee">${club.membershipFee}</span>
                 </div>
 
@@ -89,25 +93,49 @@ const MyClub = () => {
                   </p>
                 </div>
 
-              <div className="managerClubButtons">
-                  <button onClick={()=>{
-                  navigate(`/clubDetail/${club._id}`)
-                }}>
-                  <NavLink to={`/clubDetail/${club._id}`}>
-                    {" "}
-                    See Details <FaArrowRightLong />
-                  </NavLink>
-                </button>
-                 <button onClick={()=>{
-                                  navigate(`/dashboard/updateClub/${club._id}`)
-                                }}>
-                                 <NavLink to={`/dashboard/updateClub/${club._id}`}> Update club <FaArrowRightLong /></NavLink>
-                                </button>
-              </div>
+                <div className="managerClubButtons">
+                  <button
+                    onClick={() => {
+                      navigate(`/clubDetail/${club._id}`);
+                    }}
+                  >
+                    <NavLink to={`/clubDetail/${club._id}`}>
+                      {" "}
+                      See Details <FaArrowRightLong />
+                    </NavLink>
+                  </button>
+                  <button
+                    onClick={() => {
+                      navigate(`/dashboard/updateClub/${club._id}`);
+                    }}
+                  >
+                    <NavLink to={`/dashboard/updateClub/${club._id}`}>
+                      {" "}
+                      Update club <FaArrowRightLong />
+                    </NavLink>
+                  </button>
+                </div>
               </div>
             </div>
           ))}
         </div>
+        <h4
+          style={{
+            fontFamily: "bebas neue",
+            fontSize: "24px",
+            textAlign: "center",
+            paddingBottom: "5px",
+            paddingTop: "80px",
+          }}
+        >
+          Disclaimer for Club Managers
+        </h4>
+        <p>
+          If you update any approved club, it will be temporarily hidden from
+          members until an admin reviews and approves the changes. If your club
+          gets rejected, please update it accordingly. The club will then return
+          to pending status, and the admin may reconsider it for approval.
+        </p>
       </div>
     </div>
   );
