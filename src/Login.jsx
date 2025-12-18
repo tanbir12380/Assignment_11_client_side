@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router";
 import { AuthContext } from "./AuthContext";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { useMutation } from "@tanstack/react-query";
 
 export default function LoginForm() {
   const { SignInUser, signInWithGoogle, userLocationS, setUserLocation } =
@@ -18,6 +19,21 @@ export default function LoginForm() {
     reset,
     formState: { errors },
   } = useForm();
+
+  const saveUserMutation = useMutation({
+    mutationFn: async (userData) => {
+      const response = await fetch(
+        "https://assignment-11-server-phi-teal.vercel.app/user",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(userData),
+        }
+      );
+
+      return response.json();
+    },
+  });
 
   const handleSignIn = (data) => {
     const { email, password } = data;
@@ -68,7 +84,18 @@ export default function LoginForm() {
       },
     });
     signInWithGoogle()
-      .then(() => {
+      .then((response) => {
+        const user = response.user;
+        const userData = {
+          name: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+          role: "member",
+          createdAt: new Date().toISOString(),
+        };
+
+        saveUserMutation.mutate(userData);
+
         Swal.close();
 
         Swal.fire({
