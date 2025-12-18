@@ -2,6 +2,11 @@ Project name : ClubSphere
 
 Live URL: https://moonlit-fairy-36f102.netlify.app/
 
+Admin Email : mdkamrulhasantanbir0005@gmail.com
+Admin Password : 1234As
+Club Manager Email : mdkamrulhasantanbir0002@gmail.com
+Club Manager Password : 1234As
+
 Project Purpose :
 
 ClubSphere is a full-stack web application designed to help people discover, join, and manage local clubs and events.
