@@ -89,6 +89,14 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "payment-success",
+        element: <PaymentSuccess></PaymentSuccess>,
+      },
+      {
+        path: "payment-success-event",
+        element: <PaymentSuccessEvent></PaymentSuccessEvent>,
+      },
     ],
   },
   {
@@ -232,14 +240,6 @@ export const router = createBrowserRouter([
             </PrivateRoute_admin>
           </PrivateRoute>
         ),
-      },
-      {
-        path: "/dashboard/payment-success",
-        element: <PaymentSuccess></PaymentSuccess>,
-      },
-      {
-        path: "/dashboard/payment-success-event",
-        element: <PaymentSuccessEvent></PaymentSuccessEvent>,
       },
       {
         path: "/dashboard/myJoinedClubs",

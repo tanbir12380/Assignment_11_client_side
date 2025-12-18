@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink, useSearchParams } from "react-router";
 import "./paymentSucess.css";
+import Header from "./Header";
 
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
@@ -25,21 +26,25 @@ const PaymentSuccess = () => {
   if (session_id) saveMembership();
 
   return (
-    <div className="paymentSucess">
-      <h3
-        style={{
-          fontSize: "40px",
-          fontFamily: "bebas neue",
-        }}
-      >
-        Your payment has been received
-      </h3>
-      <p>
-        You've successfully joined the club! Your membership is now active, and
-        you can fully participate in all club activities and discussions.
-        Connect with other members, explore available resources, and make the
-        most of your membership. We're excited to welcome you to the community!
-      </p>
+    <div style={{ paddingTop: "20px" }}>
+      <Header></Header>
+      <div className="paymentSucess">
+        <h3
+          style={{
+            fontSize: "40px",
+            fontFamily: "bebas neue",
+          }}
+        >
+          Your payment has been received
+        </h3>
+        <p>
+          You've successfully joined the club! Your membership is now active,
+          and you can fully participate in all club activities and discussions.
+          Connect with other members, explore available resources, and make the
+          most of your membership. We're excited to welcome you to the
+          community!
+        </p>
+      </div>
     </div>
   );
 };
