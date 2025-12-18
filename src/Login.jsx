@@ -74,49 +74,47 @@ export default function LoginForm() {
       });
   };
 
-  const signWithGoogle1 = () => {
-    Swal.fire({
-      title: "Processing...",
-      text: "Please wait",
-      allowOutsideClick: false,
-      didOpen: () => {
-        Swal.showLoading();
-      },
-    });
-    signInWithGoogle()
-      .then((response) => {
-        const user = response.user;
-        const userData = {
-          name: user.displayName,
-          email: user.email,
-          photoURL: user.photoURL,
-          role: "member",
-          createdAt: new Date().toISOString(),
-        };
-
-        saveUserMutation.mutate(userData);
-
-        Swal.close();
-
-        Swal.fire({
-          icon: "success",
-          allowOutsideClick: false,
-          title: "Your are logged in successfully!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        navigate(userLocationS || "/");
-        setUserLocation(null);
-      })
-      .catch((error) => {
-        Swal.close();
-        Swal.fire({
-          icon: "error",
-          allowOutsideClick: false,
-          title: "Failed",
-          text: error.message.slice(9),
-        });
+  const signWithGoogle1 = async () => {
+    try {
+      Swal.fire({
+        title: "Processing...",
+        text: "Please wait",
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading(),
       });
+
+      const response = await signInWithGoogle();
+      const user = response.user;
+
+      const userData = {
+        name: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
+        role: "member",
+        createdAt: new Date().toISOString(),
+      };
+
+      const result = await saveUserMutation.mutateAsync(userData);
+
+      Swal.close();
+
+      Swal.fire({
+        icon: "success",
+        title: result.message || "You are logged in successfully!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+      navigate(userLocationS || "/");
+      setUserLocation(null);
+    } catch (error) {
+      Swal.close();
+      Swal.fire({
+        icon: "error",
+        title: "Failed",
+        text: error?.message || "Something went wrong",
+      });
+    }
   };
 
   return (

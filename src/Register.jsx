@@ -43,7 +43,7 @@ export default function RegisterForm() {
     },
   });
 
-  const handleFormSubmit = (data) => {
+  const handleFormSubmit = async (data) => {
     const { name, photo, email, password } = data;
 
     if (!passwordRegex.test(password)) {
@@ -62,93 +62,87 @@ export default function RegisterForm() {
       },
     });
 
-    createUser(email, password)
-      .then((response) => {
-        const user = response.user;
+    try {
+      const response = await createUser(email, password);
+      const user = response.user;
 
-        updateUsersDetails(user, name, photo)
-          .then(() => {
-            reset();
+      await updateUsersDetails(user, name, photo);
+      reset();
 
-            const userData = {
-              name,
-              email,
-              photoURL: photo,
-              role: "member",
-              createdAt: new Date().toISOString(),
-            };
+      const userData = {
+        name,
+        email,
+        photoURL: photo,
+        role: "member",
+        createdAt: new Date().toISOString(),
+      };
 
-            saveUserMutation.mutate(userData);
+      await saveUserMutation.mutateAsync(userData);
 
-            Swal.close();
+      Swal.close();
 
-            Swal.fire({
-              icon: "success",
-              allowOutsideClick: false,
-              title: "Your Account is registered successfully!",
-              showConfirmButton: false,
-              timer: 2000,
-            });
-
-            navigate(userLocationS || "/");
-            setUserLocation(null);
-          })
-          .catch(() => {});
-      })
-      .catch((error) => {
-        Swal.close();
-        Swal.fire({
-          icon: "error",
-          allowOutsideClick: false,
-          title: "Failed",
-          text: error.message.slice(9),
-        });
+      Swal.fire({
+        icon: "success",
+        allowOutsideClick: false,
+        title: "Your Account is registered successfully!",
+        showConfirmButton: false,
+        timer: 2000,
       });
+
+      navigate(userLocationS || "/");
+      setUserLocation(null);
+    } catch (error) {
+      Swal.close();
+      Swal.fire({
+        icon: "error",
+        allowOutsideClick: false,
+        title: "Failed",
+        text: error?.message?.slice(9),
+      });
+    }
   };
 
-  const signWithGoogle1 = () => {
-    Swal.fire({
-      title: "Processing...",
-      text: "Please wait",
-      allowOutsideClick: false,
-      didOpen: () => {
-        Swal.showLoading();
-      },
-    });
-
-    signInWithGoogle()
-      .then((response) => {
-        const user = response.user;
-        const userData = {
-          name: user.displayName,
-          email: user.email,
-          photoURL: user.photoURL,
-          role: "member",
-          createdAt: new Date().toISOString(),
-        };
-
-        saveUserMutation.mutate(userData);
-        Swal.close();
-
-        Swal.fire({
-          icon: "success",
-          allowOutsideClick: false,
-          title: "Your Account is registered successfully!",
-          showConfirmButton: false,
-          timer: 2000,
-        });
-        navigate(userLocationS || "/");
-        setUserLocation(null);
-      })
-      .catch((error) => {
-        Swal.close();
-        Swal.fire({
-          icon: "error",
-          allowOutsideClick: false,
-          title: "Failed",
-          text: error.message.slice(9),
-        });
+  const signWithGoogle1 = async () => {
+    try {
+      Swal.fire({
+        title: "Processing...",
+        text: "Please wait",
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading(),
       });
+
+      const response = await signInWithGoogle();
+      const user = response.user;
+
+      const userData = {
+        name: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
+        role: "member",
+        createdAt: new Date().toISOString(),
+      };
+
+      const result = await saveUserMutation.mutateAsync(userData);
+
+      Swal.close();
+
+      Swal.fire({
+        icon: "success",
+        title: result.message || "You are logged in successfully!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+      navigate(userLocationS || "/");
+      setUserLocation(null);
+    } catch (error) {
+      Swal.close();
+      Swal.fire({
+        icon: "error",
+        title: "Failed",
+        text: error?.message,
+      });
+    }
   };
 
   return (
