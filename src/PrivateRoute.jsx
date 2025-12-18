@@ -14,7 +14,7 @@ const PrivateRoute = ({ children }) => {
     }
   }, [user, loading, location.pathname, setUserLocation]);
 
-  console.log("from private Route");
+  console.log("from private Route", location);
 
   if (loading || isFetching || isLoading) {
     return (

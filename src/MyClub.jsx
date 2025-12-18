@@ -13,11 +13,14 @@ const MyClub = () => {
   const { data: userClubs, isLoading: clubsLoading } = useQuery({
     queryKey: ["userClubs", user.email],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/getClubs/${user.email}`, {
-        headers: {
-          accesstoken: user.accessToken,
-        },
-      });
+      const res = await fetch(
+        `https://assignment-11-server-rosy-five.vercel.app/getClubs/${user.email}`,
+        {
+          headers: {
+            accesstoken: user.accessToken,
+          },
+        }
+      );
       return res.json();
     },
   });
@@ -48,7 +51,7 @@ const MyClub = () => {
         className="latest-clubs-section"
         style={{ backgroundColor: "white", paddingTop: "0" }}
       >
-        <h3>
+        <h3 style={{ fontSize: "30px" }}>
           Your <span>Clubs</span>
         </h3>
         <div className="createEventButton">
@@ -81,10 +84,6 @@ const MyClub = () => {
 
                 <div className="group-info-middle">
                   <p>{club.memberCount} members</p>
-
-                  <p>
-                    {club.rating} <FaRegStar />
-                  </p>
                 </div>
 
                 <div className="managerClubButtons">

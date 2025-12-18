@@ -10,7 +10,7 @@ const EventMembersTable = () => {
     queryKey: ["managerMembers", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:3000/clubManager-dashboard-EventMember/${user.email}`,
+        `https://assignment-11-server-rosy-five.vercel.app/clubManager-dashboard-EventMember/${user.email}`,
         {
           headers: {
             accesstoken: user.accessToken,
@@ -46,7 +46,7 @@ const EventMembersTable = () => {
 
   return (
     <div className="payments-container" style={{ padding: "20px" }}>
-      <h1 className="payments-title">My Event Perticipents</h1>
+      <h1 className="payments-title">your Event Perticipents</h1>
 
       {data?.map((event, index) => (
         <div key={index}>

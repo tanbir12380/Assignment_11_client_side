@@ -11,11 +11,14 @@ const Profile = () => {
   const { data: fullUser, isLoading } = useQuery({
     queryKey: ["user", user?.email],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/user/${user.email}`,{
-        headers:{
-          accesstoken: user.accessToken
+      const res = await fetch(
+        `https://assignment-11-server-rosy-five.vercel.app/user/${user.email}`,
+        {
+          headers: {
+            accesstoken: user.accessToken,
+          },
         }
-      });
+      );
       return res.json();
     },
   });
@@ -23,7 +26,6 @@ const Profile = () => {
   if (isLoading) return <p>Loading profile...</p>;
 
   if (!fullUser) return null;
-
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -36,13 +38,17 @@ const Profile = () => {
   };
 
   const photoVariants = {
-    hidden: { opacity: 0, y: -80 }, 
+    hidden: { opacity: 0, y: -80 },
     visible: { opacity: 1, y: 0, transition: { duration: 1, ease: "easeOut" } },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 50 }, 
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
   };
 
   return (

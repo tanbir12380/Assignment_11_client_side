@@ -130,6 +130,51 @@ label {
   color: red;
 }
 
+@media (max-width: 1500px) {
+  .register-card {
+    min-width: 30%;
+  }
+  .create-club-card {
+    min-width: 38%;
+  }
+}
+
+@media (max-width: 1400px) {
+  .register-card {
+    min-width: 35%;
+  }
+  .create-club-card {
+    min-width: 42%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .register-card {
+    min-width: 38%;
+  }
+  .create-club-card {
+    min-width: 47%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .register-card {
+    min-width: 42%;
+  }
+  .create-club-card {
+    min-width: 52%;
+  }
+}
+
+@media (max-width: 900px) {
+  .register-card {
+    min-width: 50%;
+  }
+  .create-club-card {
+    min-width: 57%;
+  }
+}
+
 @media (max-width: 768px) {
   .register-card {
     width: 100%;

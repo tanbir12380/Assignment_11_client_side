@@ -22,19 +22,24 @@ const Dashboard = () => {
 
   return (
     <div className="drawer_container drawer lg:drawer-open">
-      <nav className="navbar w-full dash-nav">
+      <nav className="navbar dash-nav">
         <label id="menu-label" htmlFor="my-drawer-4" aria-label="open sidebar">
           <GiHamburgerMenu size={32}></GiHamburgerMenu>
         </label>
         <div
           style={{
             cursor: "pointer",
-          }}
-          onClick={() => {
-            navigate("/");
+            display: "flex",
+            justifyContent: "center",
           }}
         >
-          ClubSphere
+          <h2
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            ClubSphere
+          </h2>
         </div>
       </nav>
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />

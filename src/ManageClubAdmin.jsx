@@ -4,32 +4,40 @@ import "./ShowAllPayments.css";
 import Swal from "sweetalert2";
 import { BsInfoSquareFill } from "react-icons/bs";
 import { AuthContext } from "./AuthContext";
+import { useNavigate } from "react-router";
 
 const ManageClubAdmin = () => {
   const [modalData, setModalData] = useState({});
   const modalRef = useRef();
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const { data, refetch, isLoading } = useQuery({
     queryKey: ["clubs"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3000/clubsAdminList", {
-        headers: {
-          accesstoken: user.accessToken,
-        },
-      });
+      const res = await fetch(
+        "https://assignment-11-server-rosy-five.vercel.app/clubsAdminList",
+        {
+          headers: {
+            accesstoken: user.accessToken,
+          },
+        }
+      );
       return res.json();
     },
   });
 
   const approveMutation = useMutation({
     mutationFn: async (clubId) => {
-      const res = await fetch(`http://localhost:3000/clubApprove/${clubId}`, {
-        method: "PATCH",
-        headers: {
-          accesstoken: user.accessToken,
-        },
-      });
+      const res = await fetch(
+        `https://assignment-11-server-rosy-five.vercel.app/clubApprove/${clubId}`,
+        {
+          method: "PATCH",
+          headers: {
+            accesstoken: user.accessToken,
+          },
+        }
+      );
       refetch();
       return res.json();
     },
@@ -37,12 +45,15 @@ const ManageClubAdmin = () => {
 
   const rejectMutation = useMutation({
     mutationFn: async (clubId) => {
-      const res = await fetch(`http://localhost:3000/clubReject/${clubId}`, {
-        method: "PATCH",
-        headers: {
-          accesstoken: user.accessToken,
-        },
-      });
+      const res = await fetch(
+        `https://assignment-11-server-rosy-five.vercel.app/clubReject/${clubId}`,
+        {
+          method: "PATCH",
+          headers: {
+            accesstoken: user.accessToken,
+          },
+        }
+      );
       refetch();
       return res.json();
     },
@@ -61,7 +72,13 @@ const ManageClubAdmin = () => {
       if (result.isConfirmed) {
         approveMutation.mutate(clubId, {
           onSuccess: () => {
-            Swal.fire("Approved!", "The club has been approved.", "success");
+            Swal.fire({
+              icon: "success",
+              allowOutsideClick: false,
+              title: "The club has been approved.",
+              showConfirmButton: false,
+              timer: 1000,
+            });
           },
           onError: () => {
             Swal.fire("Error!", "Failed to approve the club.", "error");
@@ -116,11 +133,7 @@ const ManageClubAdmin = () => {
 
   return (
     <div className="payments-container">
-      <dialog
-        ref={modalRef}
-        id="my_modal_5"
-        className="modal modal-bottom sm:modal-middle"
-      >
+      <dialog ref={modalRef} id="my_modal_5" className="modal modal-middle">
         <div className="modal-box">
           <h3
             style={{
@@ -144,8 +157,40 @@ const ManageClubAdmin = () => {
           <p>Events : {modalData.eventCount}</p>
 
           <div className="modal-action">
-            <form method="dialog">
-              <button className="btn">Close</button>
+            <form
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "100%",
+                gap: "20px",
+              }}
+              method="dialog"
+            >
+              <button
+                style={{
+                  flex: "1",
+                  maxWidth: "200px",
+                  minHeight: "50px",
+                  fontSize: "16px",
+                }}
+                onClick={() => {
+                  navigate(`/clubDetail/${modalData._id}`);
+                }}
+                className="btn"
+              >
+                See more Details
+              </button>
+              <button
+                style={{
+                  flex: "1",
+                  maxWidth: "200px",
+                  minHeight: "50px",
+                  fontSize: "16px",
+                }}
+                className="btn"
+              >
+                Close
+              </button>
             </form>
           </div>
         </div>

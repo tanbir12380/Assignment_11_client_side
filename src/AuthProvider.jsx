@@ -42,13 +42,13 @@ const AuthProvider = ({ children }) => {
   };
 
   const SignOutFromApp = () => {
-          Swal.fire({
-            icon: "success",
-            allowOutsideClick: false,
-            title: "Your are logged out successfully!",
-              showConfirmButton: false,
-      timer: 1500
-          });
+    Swal.fire({
+      icon: "success",
+      allowOutsideClick: false,
+      title: "Your are logged out successfully!",
+      showConfirmButton: false,
+      timer: 1500,
+    });
     return signOut(auth);
   };
 
@@ -74,19 +74,22 @@ const AuthProvider = ({ children }) => {
     };
   }, []);
 
-
   const {
     data: dbUser,
     isLoading,
     isFetching,
+    refetch: refetchRole,
   } = useQuery({
     queryKey: ["dbUser", user?.email],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/user/${user.email}`,{
-        headers:{
-          accesstoken: user.accessToken
+      const res = await fetch(
+        `https://assignment-11-server-rosy-five.vercel.app/user/${user.email}`,
+        {
+          headers: {
+            accesstoken: user.accessToken,
+          },
         }
-      });
+      );
       return res.json();
     },
     enabled: !!user?.email,
@@ -98,6 +101,7 @@ const AuthProvider = ({ children }) => {
     SignInUser,
     SignOutFromApp,
     userRole: dbUser?.role,
+    refetchRole,
     loading,
     isLoading,
     isFetching,

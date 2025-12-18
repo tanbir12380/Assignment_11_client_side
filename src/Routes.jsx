@@ -243,17 +243,25 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard/myJoinedClubs",
-        element: <MyJoinedClubs></MyJoinedClubs>,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <MyJoinedClubs></MyJoinedClubs>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/myJoinedEvents",
-        element: <MyJoinedEvent></MyJoinedEvent>,
+        element: (
+          <PrivateRoute>
+            <MyJoinedEvent></MyJoinedEvent>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/allPayments",
         element: (
           <PrivateRoute>
-            {" "}
             <PrivateRoute_admin>
               <AllPayments></AllPayments>
             </PrivateRoute_admin>

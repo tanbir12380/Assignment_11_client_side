@@ -11,23 +11,27 @@ const MyJoinedEvent = () => {
   const { user } = useContext(AuthContext);
   const [events, setEvents] = useState([]);
 
-  const { data: allEvents , isLoading : loading1 } = useQuery({
+  const { data: allEvents, isLoading: loading1 } = useQuery({
     queryKey: ["event"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3000/events");
+      const res = await fetch(
+        "https://assignment-11-server-rosy-five.vercel.app/events"
+      );
       return res.json();
     },
   });
 
-  const { data: membershipIds  , isLoading:loading2} = useQuery({
+  const { data: membershipIds, isLoading: loading2 } = useQuery({
     queryKey: ["membership", user?.email],
-      enabled: !!user?.email,
+    enabled: !!user?.email,
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:3000/get-membership-event/${user.email}`, {
-          headers:{
-          accesstoken: user.accessToken
-        }}
+        `https://assignment-11-server-rosy-five.vercel.app/get-membership-event/${user.email}`,
+        {
+          headers: {
+            accesstoken: user.accessToken,
+          },
+        }
       );
       return res.json();
     },
@@ -50,9 +54,9 @@ const MyJoinedEvent = () => {
     findTheJoinedEvents();
   }, [allEvents, membershipIds]);
 
-
-  if(loading1 || loading2){
-    return  <div
+  if (loading1 || loading2) {
+    return (
+      <div
         className="loaders3"
         style={{
           width: "100%",
@@ -67,23 +71,22 @@ const MyJoinedEvent = () => {
         <span className="loading loading-bars loading-xl"></span>
         <span className="loading loading-bars loading-xl"></span>
       </div>
+    );
   }
 
-
   return (
-    <div >
-       <h2
+    <div>
+      <h2
         style={{
           fontFamily: "bebas neue",
           fontSize: "30px",
           textAlign: "center",
-          marginBottom:'20px'
+          marginBottom: "20px",
         }}
       >
         Events you joined
       </h2>
       <div>
-       
         <div className="latest-clubs-container">
           {events.map((event) => (
             <div className="club-card" key={event._id}>

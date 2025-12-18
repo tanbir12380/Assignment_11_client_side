@@ -22,11 +22,14 @@ const ClubDetails = () => {
 
     const checkMembership = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/check-club-register`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: user.email, id }),
-        });
+        const res = await fetch(
+          `https://assignment-11-server-rosy-five.vercel.app/check-club-register`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: user.email, id }),
+          }
+        );
 
         const data = await res.json();
         if (data) setIsMember(true);
@@ -46,11 +49,14 @@ const ClubDetails = () => {
   } = useQuery({
     queryKey: ["club", id],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/clubs/${id}`, {
-        headers: {
-          accesstoken: user.accessToken,
-        },
-      });
+      const res = await fetch(
+        `https://assignment-11-server-rosy-five.vercel.app/clubs/${id}`,
+        {
+          headers: {
+            accesstoken: user.accessToken,
+          },
+        }
+      );
       console.log(id);
       return res.json();
     },
@@ -58,13 +64,16 @@ const ClubDetails = () => {
 
   const createCheckoutMutation = useMutation({
     mutationFn: async (paymentInfo) => {
-      const res = await fetch("http://localhost:3000/create-checkout-session", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(paymentInfo),
-      });
+      const res = await fetch(
+        "https://assignment-11-server-rosy-five.vercel.app/create-checkout-session",
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(paymentInfo),
+        }
+      );
 
       const data = await res.json();
       console.log("Backend Response:", data);
@@ -82,13 +91,16 @@ const ClubDetails = () => {
 
   const freeMembershipMutation = useMutation({
     mutationFn: async (membershipData) => {
-      const res = await fetch("http://localhost:3000/save-free-membership", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(membershipData),
-      });
+      const res = await fetch(
+        "https://assignment-11-server-rosy-five.vercel.app/save-free-membership",
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(membershipData),
+        }
+      );
       setToggole(!toggole);
       refetch();
       Swal.fire({
@@ -195,7 +207,11 @@ const ClubDetails = () => {
 
       <motion.div className="group-details-card" variants={cardVariants}>
         <motion.div className="group-banner" variants={itemVariants2}>
-          <img src={club.bannerImage} alt={club.clubName} />
+          <img
+            style={{ objectPosition: "top center" }}
+            src={club.bannerImage}
+            alt={club.clubName}
+          />
         </motion.div>
 
         <div className="group-content">
@@ -205,6 +221,7 @@ const ClubDetails = () => {
 
           <motion.div className="group-meta" variants={itemVariants}>
             <span>Category: {club.category}</span>
+            <span>Location : {club.location}</span>
             <span>Membership Fee: ${club.membershipFee}</span>
           </motion.div>
 

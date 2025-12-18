@@ -4,21 +4,14 @@ import { NavLink, useNavigate } from "react-router";
 import { AuthContext } from "./AuthContext";
 import { GiHamburgerMenu } from "react-icons/gi";
 import "./Header.css";
-import { motion } from "framer-motion";
 
 const Header = () => {
   const { user } = useContext(AuthContext);
   const { SignOutFromApp } = useContext(AuthContext);
   const navigate = useNavigate();
-    const sectionVariants = {
-    hidden: { opacity: 0, y: -30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, staggerChildren: 0.15 } },
-  };
+
   return (
-    <motion.div         variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }} className="header">
+    <div className="header">
       <h1
         style={{
           cursor: "pointer",
@@ -120,7 +113,7 @@ const Header = () => {
           </ul>
         </nav>
       </aside>
-    </motion.div>
+    </div>
   );
 };
 

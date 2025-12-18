@@ -17,14 +17,21 @@ export default function UpdateClub() {
     formState: { errors },
   } = useForm();
 
-  const { data: club, isLoading } = useQuery({
+  const {
+    data: club,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["club", id],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/clubs/${id}`, {
-        headers: {
-          accesstoken: user.accessToken,
-        },
-      });
+      const res = await fetch(
+        `https://assignment-11-server-rosy-five.vercel.app/clubs/${id}`,
+        {
+          headers: {
+            accesstoken: user.accessToken,
+          },
+        }
+      );
       console.log(id);
       return res.json();
     },
@@ -32,14 +39,17 @@ export default function UpdateClub() {
 
   const updateClubMutation = useMutation({
     mutationFn: async (data) => {
-      const res = await fetch(`http://localhost:3000/clubs/${id}`, {
-        method: "PATCH",
-        headers: {
-          "content-type": "application/json",
-          accesstoken: user.accessToken,
-        },
-        body: JSON.stringify(data),
-      });
+      const res = await fetch(
+        `https://assignment-11-server-rosy-five.vercel.app/clubs/${id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "content-type": "application/json",
+            accesstoken: user.accessToken,
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       return res.json();
     },
@@ -61,7 +71,8 @@ export default function UpdateClub() {
     };
 
     try {
-      updateClubMutation.mutate(finalData);
+      await updateClubMutation.mutateAsync(finalData);
+      refetch();
       Swal.fire({
         icon: "success",
         allowOutsideClick: false,

@@ -5,6 +5,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import Header from "./Header";
 import { useQuery } from "@tanstack/react-query";
 import { NavLink, useNavigate } from "react-router";
+import { FaSearch } from "react-icons/fa";
 
 const AllEvent = () => {
   const [events, setEvents] = useState([]);
@@ -17,7 +18,7 @@ const AllEvent = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["events", searchKey, sortBy],
     queryFn: async () => {
-      let url = `http://localhost:3000/events?`;
+      let url = `https://assignment-11-server-rosy-five.vercel.app/events?`;
       if (searchKey) url += `search=${searchKey}&`;
       if (sortBy) url += `sortBy=${sortBy}&`;
       const res = await fetch(url);
@@ -84,52 +85,53 @@ const AllEvent = () => {
           </div>
         ) : (
           <div className="latest-clubs-container">
-            {events.map((event) => (
-              <div className="club-card" key={event._id}>
-                <div>
-                  <img src={event?.bannerImage} alt={event.title} />
-                </div>
-
-                <div>
-                  <h4>{event.title}</h4>
-
-                  <div className="club-meta">
-                    <span className="category">{event.location}</span>
-                    {event.isPaid && (
-                      <span className="fee">${event.eventFee}</span>
-                    )}
-                    {!event.isPaid && <span className="fee">Free</span>}
+            {events.length > 0 ? (
+              events.map((event) => (
+                <div className="club-card" key={event._id}>
+                  <div>
+                    <img src={event?.bannerImage} alt={event.title} />
                   </div>
 
-                  <div className="group-info-middle">
-                    <p>
-                      Date: {new Date(event.eventDate).toLocaleDateString()}
-                    </p>
-                    {event.maxAttendees && (
-                      <p>Max Attendees: {event.maxAttendees}</p>
-                    )}
-                    <p>
-                      {event.rating} <FaRegStar />
-                    </p>
-                  </div>
+                  <div>
+                    <h4>{event.title}</h4>
 
-                  <button
-                    onClick={() => {
-                      navigate(`/eventDetail/${event._id}`);
-                    }}
-                  >
-                    <NavLink to={`/eventDetail/${event._id}`}>
-                      See Details <FaArrowRightLong />
-                    </NavLink>
-                  </button>
+                    <div className="club-meta">
+                      <span className="category">{event.location}</span>
+                      <span className="fee">
+                        {event.eventFee > 0 ? `Fee:$${event.eventFee}` : "Free"}
+                      </span>
+                    </div>
+
+                    <div className="group-info-middle">
+                      <p>
+                        Date: {new Date(event.eventDate).toLocaleDateString()}
+                      </p>
+                      {event.maxAttendees && (
+                        <p>Max Attendees: {event.maxAttendees}</p>
+                      )}
+                      <p>
+                        {event.rating} <FaRegStar />
+                      </p>
+                    </div>
+
+                    <button
+                      onClick={() => {
+                        navigate(`/eventDetail/${event._id}`);
+                      }}
+                    >
+                      <NavLink to={`/eventDetail/${event._id}`}>
+                        See Details <FaArrowRightLong />
+                      </NavLink>
+                    </button>
+                  </div>
                 </div>
+              ))
+            ) : (
+              <div className="no-data">
+                <FaSearch className="no-data-icon" />
+                <h4>No events found</h4>
+                <p>Try changing your search or filters</p>
               </div>
-            ))}
-
-            {events.length === 0 && (
-              <p style={{ textAlign: "center", padding: "20px" }}>
-                No events available
-              </p>
             )}
           </div>
         )}

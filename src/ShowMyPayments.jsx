@@ -12,7 +12,7 @@ const MyPayments = () => {
     queryKey: ["myPayments", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:3000/get-my-payments/${user.email}`,
+        `https://assignment-11-server-rosy-five.vercel.app/get-my-payments/${user.email}`,
         {
           headers: {
             accesstoken: user.accessToken,

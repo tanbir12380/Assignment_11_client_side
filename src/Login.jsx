@@ -43,6 +43,7 @@ export default function LoginForm() {
           showConfirmButton: false,
           timer: 1500,
         });
+        console.log("from login we are going to", userLocationS);
         navigate(userLocationS || "/");
         setUserLocation(null);
       })

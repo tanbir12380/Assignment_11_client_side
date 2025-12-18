@@ -19,11 +19,14 @@ const AdminDashboard = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["adminStats"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3000/admin-dashboard-stats", {
-        headers: {
-          accesstoken: user.accessToken,
-        },
-      });
+      const res = await fetch(
+        "https://assignment-11-server-rosy-five.vercel.app/admin-dashboard-stats",
+        {
+          headers: {
+            accesstoken: user.accessToken,
+          },
+        }
+      );
       if (!res.ok) throw new Error("Failed to fetch dashboard stats");
       return res.json();
     },
@@ -32,11 +35,14 @@ const AdminDashboard = () => {
   const { data: allClubs, isLoading: isLoading1 } = useQuery({
     queryKey: ["clubs"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3000/clubs", {
-        headers: {
-          accesstoken: user.accessToken,
-        },
-      });
+      const res = await fetch(
+        "https://assignment-11-server-rosy-five.vercel.app/clubs",
+        {
+          headers: {
+            accesstoken: user.accessToken,
+          },
+        }
+      );
       return res.json();
     },
   });

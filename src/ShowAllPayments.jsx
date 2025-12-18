@@ -9,11 +9,14 @@ const AllPayments = () => {
   const { data: payments = [], isLoading } = useQuery({
     queryKey: ["payments"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3000/get-all-payments", {
-        headers: {
-          accesstoken: user.accessToken,
-        },
-      });
+      const res = await fetch(
+        "https://assignment-11-server-rosy-five.vercel.app/get-all-payments",
+        {
+          headers: {
+            accesstoken: user.accessToken,
+          },
+        }
+      );
       return res.json();
     },
   });

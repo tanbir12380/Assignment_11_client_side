@@ -10,7 +10,7 @@ const ClubMembersTable = () => {
     queryKey: ["managerMembers", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:3000/clubManager-dashboard-ClubMember/${user.email}`,
+        `https://assignment-11-server-rosy-five.vercel.app/clubManager-dashboard-ClubMember/${user.email}`,
         {
           headers: {
             accesstoken: user.accessToken,
@@ -45,10 +45,10 @@ const ClubMembersTable = () => {
 
   return (
     <div className="payments-container" style={{ padding: "20px" }}>
-      <h1 className="payments-title">My Club Members</h1>
+      <h1 className="payments-title">your Club Members</h1>
 
       {data?.map((club, index) => (
-        <>
+        <div key={index}>
           <h2
             style={{
               fontFamily: "bebas neue",
@@ -59,7 +59,7 @@ const ClubMembersTable = () => {
           >
             {club.clubName}
           </h2>
-          <div className="payments-table-wrapper" key={index}>
+          <div className="payments-table-wrapper">
             <table className="payments-table">
               <thead>
                 <tr>
@@ -80,7 +80,7 @@ const ClubMembersTable = () => {
               </tbody>
             </table>
           </div>
-        </>
+        </div>
       ))}
     </div>
   );

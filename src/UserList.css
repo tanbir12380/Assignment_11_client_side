@@ -33,6 +33,15 @@
   color: #fff;
 }
 
+tbody img {
+  transition: all 1.5s ease;
+  border: 1px solid var(--bg-secondary);
+}
+
+tbody img:hover {
+  transform: scale(2.5);
+}
+
 .admin-btn {
   background-color: var(--bg-primary);
 }
@@ -63,4 +72,5 @@
 
 .user-list-container {
   overflow-x: scroll;
+  padding-top: 0;
 }

@@ -5,6 +5,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import Header from "./Header";
 import { useQuery } from "@tanstack/react-query";
 import { NavLink, useNavigate } from "react-router";
+import { FaSearch } from "react-icons/fa";
 
 const AllClubs = () => {
   const [clubs, setClubs] = useState([]);
@@ -15,7 +16,7 @@ const AllClubs = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["clubs", searchKey, selectCategory, sortBy],
     queryFn: async () => {
-      let url = `http://localhost:3000/clubs?`;
+      let url = `https://assignment-11-server-rosy-five.vercel.app/clubs?`;
       if (searchKey) url += `search=${searchKey}&`;
       if (selectCategory) url += `category=${selectCategory}&`;
       if (sortBy) url += `sortBy=${sortBy}&`;
@@ -27,7 +28,9 @@ const AllClubs = () => {
   const { data: categories, isLoading: loading3 } = useQuery({
     queryKey: ["category"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3000/clubCategories");
+      const res = await fetch(
+        "https://assignment-11-server-rosy-five.vercel.app/clubCategories"
+      );
       return res.json();
     },
   });
@@ -103,41 +106,49 @@ const AllClubs = () => {
           </div>
         ) : (
           <div className="latest-clubs-container">
-            {clubs.map((club) => (
-              <div className="club-card" key={club._id}>
-                <div>
-                  <img src={club.bannerImage} alt={club.clubName} />
-                </div>
-
-                <div>
-                  <h4>{club.clubName}</h4>
-
-                  <div className="club-meta">
-                    <span className="category">{club.category}</span>
-                    <span className="fee">${club.membershipFee}</span>
+            {clubs.length > 0 ? (
+              clubs.map((club) => (
+                <div className="club-card" key={club._id}>
+                  <div>
+                    <img src={club.bannerImage} alt={club.clubName} />
                   </div>
 
-                  <div className="group-info-middle">
-                    <p>{club.memberCount} members</p>
+                  <div>
+                    <h4>{club.clubName}</h4>
 
-                    <p>
-                      {club.rating} <FaRegStar />
-                    </p>
+                    <div className="club-meta">
+                      <span className="category">{club.category}</span>
+                      <span className="fee">${club.membershipFee}</span>
+                    </div>
+
+                    <div className="group-info-middle">
+                      <p>{club.memberCount} members</p>
+
+                      <p>
+                        {club.rating} <FaRegStar />
+                      </p>
+                    </div>
+
+                    <button
+                      onClick={() => {
+                        navigate(`/clubDetail/${club._id}`);
+                      }}
+                    >
+                      <NavLink to={`/clubDetail/${club._id}`}>
+                        {" "}
+                        See Details <FaArrowRightLong />
+                      </NavLink>
+                    </button>
                   </div>
-
-                  <button
-                    onClick={() => {
-                      navigate(`/clubDetail/${club._id}`);
-                    }}
-                  >
-                    <NavLink to={`/clubDetail/${club._id}`}>
-                      {" "}
-                      See Details <FaArrowRightLong />
-                    </NavLink>
-                  </button>
                 </div>
+              ))
+            ) : (
+              <div className="no-data">
+                <FaSearch className="no-data-icon" />
+                <h4>No clubs found</h4>
+                <p>Try changing your search or filters</p>
               </div>
-            ))}
+            )}
           </div>
         )}
       </div>

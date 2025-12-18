@@ -27,7 +27,7 @@
 }
 
 .latest-clubs-container {
-  margin: 0 220px;
+  margin: 0 150px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   justify-content: space-between;
@@ -46,7 +46,7 @@
 
 .club-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 .club-card img {
@@ -147,8 +147,8 @@
 }
 
 .createEventButton {
-  width: 100%;
-  margin-left: 220px;
+  width: calc(100% - 150px);
+  margin-left: 150px;
   margin-bottom: 50px;
 }
 
@@ -160,7 +160,7 @@
   margin-bottom: 25px;
   padding: 10px 0;
   align-items: center;
-  margin: 0px 220px 30px 220px;
+  margin: 0px 150px 30px 150px;
   justify-content: flex-end;
 }
 
@@ -168,11 +168,12 @@
 .customizationData select {
   padding: 8px 12px;
   border: 1px solid rgba(200, 200, 200, 0.8);
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 14px;
   background-color: var(--bg-primary);
   color: white;
   cursor: pointer;
+  height: 45px;
   transition: all 0.2s ease;
   min-width: 250px;
 }
@@ -180,8 +181,8 @@
 /* Search input */
 .customizationData input[type="text"] {
   padding: 8px 12px;
-
-  border-radius: 6px;
+  height: 45px;
+  border-radius: 8px;
   font-size: 14px;
   background-color: var(--bg-primary);
   color: rgb(255, 255, 255);
@@ -192,7 +193,36 @@
   border-color: #4caf50;
 }
 
-@media (max-width: 1550px) {
+.no-data {
+  width: 100%;
+  padding: 50px 20px;
+  text-align: center;
+  color: #555;
+  grid-column: span 4;
+  font-family: "Inter";
+}
+
+.no-data-icon {
+  font-size: 40px;
+  color: #636363;
+  margin-bottom: 12px;
+  display: block;
+  margin: 12px auto;
+}
+
+.no-data h4 {
+  font-size: 25px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #474747;
+}
+
+.no-data p {
+  font-size: 18px;
+  color: #636363;
+}
+
+@media (max-width: 1600px) {
   .latest-clubs-container {
     margin: 0 100px;
   }
@@ -206,25 +236,25 @@
   }
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1400px) {
   .latest-clubs-container {
-    margin: 0 50px;
+    margin: 0 75px;
   }
   .createEventButton {
-    margin-left: 50px;
+    margin-left: 75px;
   }
   .customizationData {
-    margin: 0px 50px 30px 50px;
+    margin: 0px 75px 30px 75px;
   }
 }
 
-@media (max-width: 1150px) {
+@media (max-width: 1250px) {
   .latest-clubs-container {
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .latest-clubs-container {
     grid-template-columns: 1fr 1fr;
   }

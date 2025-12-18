@@ -20,23 +20,29 @@ const MyEvents = () => {
   } = useQuery({
     queryKey: ["userEvents", user.email],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/getEvents/${user.email}`, {
-        headers: {
-          accesstoken: user.accessToken,
-        },
-      });
+      const res = await fetch(
+        `https://assignment-11-server-rosy-five.vercel.app/getEvents/${user.email}`,
+        {
+          headers: {
+            accesstoken: user.accessToken,
+          },
+        }
+      );
       return res.json();
     },
   });
 
   const deleteEventMutation = useMutation({
     mutationFn: async (eventId) => {
-      const res = await fetch(`http://localhost:3000/events/${eventId}`, {
-        method: "DELETE",
-        headers: {
-          accesstoken: user.accessToken,
-        },
-      });
+      const res = await fetch(
+        `https://assignment-11-server-rosy-five.vercel.app/events/${eventId}`,
+        {
+          method: "DELETE",
+          headers: {
+            accesstoken: user.accessToken,
+          },
+        }
+      );
 
       return res.json();
     },
@@ -83,7 +89,7 @@ const MyEvents = () => {
         className="latest-clubs-section"
         style={{ backgroundColor: "white", paddingTop: "0" }}
       >
-        <h3>
+        <h3 style={{ fontSize: "30px" }}>
           Your <span> Events</span>
         </h3>
         <div className="createEventButton">
@@ -110,10 +116,9 @@ const MyEvents = () => {
 
                 <div className="club-meta">
                   <span className="category">{event.location}</span>
-                  {event.isPaid && (
-                    <span className="fee">${event.eventFee}</span>
-                  )}
-                  {!event.isPaid && <span className="fee">Free</span>}
+                  <span className="fee">
+                    {event.eventFee > 0 ? `Fee:$${event.eventFee}` : "Free"}
+                  </span>
                 </div>
 
                 <div className="group-info-middle">
@@ -187,12 +192,6 @@ const MyEvents = () => {
               </div>
             </div>
           ))}
-
-          {userEvents.length === 0 && (
-            <p style={{ textAlign: "center", padding: "20px" }}>
-              No events available
-            </p>
-          )}
         </div>
       </div>
     </div>

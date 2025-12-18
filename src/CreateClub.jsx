@@ -19,14 +19,17 @@ export default function CreateClub() {
 
   const createClubMutation = useMutation({
     mutationFn: async (data) => {
-      const res = await fetch("http://localhost:3000/clubs", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-          accesstoken: user.accessToken,
-        },
-        body: JSON.stringify(data),
-      });
+      const res = await fetch(
+        "https://assignment-11-server-rosy-five.vercel.app/clubs",
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            accesstoken: user.accessToken,
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       return res.json();
     },

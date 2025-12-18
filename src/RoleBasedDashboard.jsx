@@ -11,23 +11,26 @@ import PrivateRoute_admin from "./privateRoute_admin";
 import PrivateRoute_Manager from "./PrivateRoute_Manager";
 
 const RoleBasedDashboard = () => {
-  const {user,loading} = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
 
   const { data: fullUser, isLoading } = useQuery({
-  queryKey: ["user", user?.email],
-  queryFn: async () => {
-    const res = await fetch(`http://localhost:3000/user/${user.email}`,{
-        headers:{
-          accesstoken: user.accessToken
+    queryKey: ["user", user?.email],
+    queryFn: async () => {
+      const res = await fetch(
+        `https://assignment-11-server-rosy-five.vercel.app/user/${user.email}`,
+        {
+          headers: {
+            accesstoken: user.accessToken,
+          },
         }
-      });
-    return res.json();
-  },
-});
+      );
+      return res.json();
+    },
+  });
 
-
-if(isLoading || loading){
-  return      <div
+  if (isLoading || loading) {
+    return (
+      <div
         className="loaders3"
         style={{
           width: "100%",
@@ -42,13 +45,10 @@ if(isLoading || loading){
         <span className="loading loading-bars loading-xl"></span>
         <span className="loading loading-bars loading-xl"></span>
       </div>
-}
-
+    );
+  }
 
   if (!user) return <Navigate to="/login" />;
-
-
-
 
   if (fullUser?.role === "admin") {
     return (
@@ -68,7 +68,5 @@ if(isLoading || loading){
     return <Forbidden />;
   }
 };
-
-
 
 export default RoleBasedDashboard;

@@ -15,16 +15,13 @@ export default function CreateEvent() {
     handleSubmit,
     formState: { errors },
     reset,
-    watch,
   } = useForm();
-
-  const isPaidValue = watch("isPaid");
 
   const { data: userClubs, isLoading: clubsLoading } = useQuery({
     queryKey: ["userClubs", user.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:3000/getClubsApproved/${user.email}`,
+        `https://assignment-11-server-rosy-five.vercel.app/getClubsApproved/${user.email}`,
         {
           headers: {
             accesstoken: user.accessToken,
@@ -37,14 +34,17 @@ export default function CreateEvent() {
 
   const createEventMutation = useMutation({
     mutationFn: async (data) => {
-      const res = await fetch("http://localhost:3000/events", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          accesstoken: user.accessToken,
-        },
-        body: JSON.stringify(data),
-      });
+      const res = await fetch(
+        "https://assignment-11-server-rosy-five.vercel.app/events",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            accesstoken: user.accessToken,
+          },
+          body: JSON.stringify(data),
+        }
+      );
       return res.json();
     },
   });
@@ -59,12 +59,11 @@ export default function CreateEvent() {
       eventDate: formData.eventDate,
       location: formData.location,
       bannerImage: formData.bannerImage,
-      isPaid: formData.isPaid === "true",
-      eventFee: formData.isPaid === "true" ? Number(formData.eventFee) : 0,
+      eventFee: Number(formData.eventFee),
       maxAttendees: Number(formData.maxAttendees),
       createdAt: now,
       managerEmail: user.email,
-      membercount: 0,
+      memberCount: 0,
     };
 
     try {
@@ -113,6 +112,7 @@ export default function CreateEvent() {
           textAlign: "center",
           padding: "40px",
           fontFamily: "bebas neue",
+          fontSize: "24px",
         }}
       >
         You have no approved clubs to create events for.
@@ -192,25 +192,15 @@ export default function CreateEvent() {
           </div>
 
           <div className="input-group">
-            <label>Is Paid Event?</label>
-            <select {...register("isPaid", { required: true })}>
-              <option value="false">No</option>
-              <option value="true">Yes</option>
-            </select>
+            <label>Event Fee</label>
+            <input
+              type="number"
+              {...register("eventFee", { required: true })}
+            />
+            {errors.eventFee && (
+              <p className="error-text">Event fee is required</p>
+            )}
           </div>
-
-          {isPaidValue === "true" && (
-            <div className="input-group">
-              <label>Event Fee</label>
-              <input
-                type="number"
-                {...register("eventFee", { required: true })}
-              />
-              {errors.eventFee && (
-                <p className="error-text">Event fee is required</p>
-              )}
-            </div>
-          )}
 
           <div className="input-group">
             <label>Max Attendees</label>

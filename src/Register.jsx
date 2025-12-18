@@ -30,11 +30,14 @@ export default function RegisterForm() {
 
   const saveUserMutation = useMutation({
     mutationFn: async (userData) => {
-      const response = await fetch("http://localhost:3000/user", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(userData),
-      });
+      const response = await fetch(
+        "https://assignment-11-server-rosy-five.vercel.app/user",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(userData),
+        }
+      );
 
       return response.json();
     },

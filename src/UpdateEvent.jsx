@@ -12,19 +12,23 @@ export default function UpdateEvent() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
-  const isPaidValue = watch("isPaid");
-
   // 🔹 FETCH EVENT
-  const { data: event, isLoading } = useQuery({
+  const {
+    data: event,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["event", id],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:3000/event/${id}`, {
-        headers: { accesstoken: user.accessToken },
-      });
+      const res = await fetch(
+        `https://assignment-11-server-rosy-five.vercel.app/event/${id}`,
+        {
+          headers: { accesstoken: user.accessToken },
+        }
+      );
       return res.json();
     },
   });
@@ -32,33 +36,36 @@ export default function UpdateEvent() {
   // 🔹 UPDATE MUTATION
   const updateEventMutation = useMutation({
     mutationFn: async (data) => {
-      const res = await fetch(`http://localhost:3000/events/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          accesstoken: user.accessToken,
-        },
-        body: JSON.stringify(data),
-      });
+      const res = await fetch(
+        `https://assignment-11-server-rosy-five.vercel.app/events/${id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            accesstoken: user.accessToken,
+          },
+          body: JSON.stringify(data),
+        }
+      );
       return res.json();
     },
   });
 
-  const handleFormSubmit = (formData) => {
+  const handleFormSubmit = async (formData) => {
     const finalData = {
       title: formData.title,
       description: formData.description,
       bannerImage: formData.bannerImage,
       location: formData.location,
       eventDate: formData.eventDate,
-      isPaid: formData.isPaid === "true",
-      eventFee: formData.isPaid === "true" ? Number(formData.eventFee) : 0,
+      eventFee: Number(formData.eventFee),
       maxAttendees: Number(formData.maxAttendees),
       updatedAt: new Date(),
     };
 
     try {
-      updateEventMutation.mutate(finalData);
+      await updateEventMutation.mutateAsync(finalData);
+      refetch();
       Swal.fire({
         icon: "success",
         title: "Event updated successfully!",
@@ -166,35 +173,17 @@ export default function UpdateEvent() {
           )}
         </div>
 
-        {/* IS PAID */}
         <div className="input-group">
-          <label>Is Paid Event?</label>
-          <select
-            defaultValue={event?.isPaid ? "true" : "false"}
-            {...register("isPaid", { required: true })}
-          >
-            <option value="false">No</option>
-            <option value="true">Yes</option>
-          </select>
-          {errors.isPaid && (
-            <p className="error-text">Please select an option</p>
+          <label>Event Fee</label>
+          <input
+            type="number"
+            defaultValue={event?.eventFee}
+            {...register("eventFee", { required: true })}
+          />
+          {errors.eventFee && (
+            <p className="error-text">Event fee is required</p>
           )}
         </div>
-
-        {/* EVENT FEE */}
-        {isPaidValue === "true" && (
-          <div className="input-group">
-            <label>Event Fee</label>
-            <input
-              type="number"
-              defaultValue={event?.eventFee}
-              {...register("eventFee", { required: true })}
-            />
-            {errors.eventFee && (
-              <p className="error-text">Event fee is required</p>
-            )}
-          </div>
-        )}
 
         {/* MAX ATTENDEES */}
         <div className="input-group">
