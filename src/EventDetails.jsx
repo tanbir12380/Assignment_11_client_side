@@ -23,7 +23,7 @@ const EventDetails = () => {
     queryKey: ["event", id],
     queryFn: async () => {
       const res = await fetch(
-        `https://assignment-11-server-rosy-five.vercel.app/event/${id}`,
+        `https://assignment-11-server-phi-teal.vercel.app/event/${id}`,
         {
           headers: {
             accesstoken: user.accessToken,
@@ -40,7 +40,7 @@ const EventDetails = () => {
     enabled: !!event?.clubId,
     queryFn: async () => {
       const res = await fetch(
-        `https://assignment-11-server-rosy-five.vercel.app/clubs/${event.clubId}`,
+        `https://assignment-11-server-phi-teal.vercel.app/clubs/${event.clubId}`,
         {
           headers: {
             accesstoken: user.accessToken,
@@ -58,7 +58,7 @@ const EventDetails = () => {
     const checkMembership = async () => {
       try {
         const res = await fetch(
-          `https://assignment-11-server-rosy-five.vercel.app/check-event-register`,
+          `https://assignment-11-server-phi-teal.vercel.app/check-event-register`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -79,7 +79,7 @@ const EventDetails = () => {
   const createCheckoutMutation = useMutation({
     mutationFn: async (paymentInfo) => {
       const res = await fetch(
-        "https://assignment-11-server-rosy-five.vercel.app/create-checkout-session-event",
+        "https://assignment-11-server-phi-teal.vercel.app/create-checkout-session-event",
         {
           method: "POST",
           headers: {
@@ -106,7 +106,7 @@ const EventDetails = () => {
   const freeMembershipMutation = useMutation({
     mutationFn: async (membershipData) => {
       const res = await fetch(
-        "https://assignment-11-server-rosy-five.vercel.app/save-free-membership-event",
+        "https://assignment-11-server-phi-teal.vercel.app/save-free-membership-event",
         {
           method: "POST",
           headers: {

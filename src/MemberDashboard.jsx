@@ -11,7 +11,7 @@ const MemberDashboard = () => {
     enabled: !!user?.email,
     queryFn: async () => {
       const res = await fetch(
-        `https://assignment-11-server-rosy-five.vercel.app/memberDashboard/${user.email}`,
+        `https://assignment-11-server-phi-teal.vercel.app/memberDashboard/${user.email}`,
         {
           headers: {
             accesstoken: user.accessToken,

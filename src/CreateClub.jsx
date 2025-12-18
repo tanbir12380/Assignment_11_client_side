@@ -20,7 +20,7 @@ export default function CreateClub() {
   const createClubMutation = useMutation({
     mutationFn: async (data) => {
       const res = await fetch(
-        "https://assignment-11-server-rosy-five.vercel.app/clubs",
+        "https://assignment-11-server-phi-teal.vercel.app/clubs",
         {
           method: "POST",
           headers: {

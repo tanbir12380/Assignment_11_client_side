@@ -8,7 +8,7 @@ const PaymentSuccess = () => {
 
   const saveMembership = async () => {
     const res = await fetch(
-      "https://assignment-11-server-rosy-five.vercel.app/save-membership",
+      "https://assignment-11-server-phi-teal.vercel.app/save-membership",
       {
         method: "POST",
         headers: {

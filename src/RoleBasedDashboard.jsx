@@ -17,7 +17,7 @@ const RoleBasedDashboard = () => {
     queryKey: ["user", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `https://assignment-11-server-rosy-five.vercel.app/user/${user.email}`,
+        `https://assignment-11-server-phi-teal.vercel.app/user/${user.email}`,
         {
           headers: {
             accesstoken: user.accessToken,

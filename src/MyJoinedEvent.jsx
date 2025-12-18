@@ -15,7 +15,7 @@ const MyJoinedEvent = () => {
     queryKey: ["event"],
     queryFn: async () => {
       const res = await fetch(
-        "https://assignment-11-server-rosy-five.vercel.app/events"
+        "https://assignment-11-server-phi-teal.vercel.app/events"
       );
       return res.json();
     },
@@ -26,7 +26,7 @@ const MyJoinedEvent = () => {
     enabled: !!user?.email,
     queryFn: async () => {
       const res = await fetch(
-        `https://assignment-11-server-rosy-five.vercel.app/get-membership-event/${user.email}`,
+        `https://assignment-11-server-phi-teal.vercel.app/get-membership-event/${user.email}`,
         {
           headers: {
             accesstoken: user.accessToken,

@@ -25,7 +25,7 @@ export default function UpdateClub() {
     queryKey: ["club", id],
     queryFn: async () => {
       const res = await fetch(
-        `https://assignment-11-server-rosy-five.vercel.app/clubs/${id}`,
+        `https://assignment-11-server-phi-teal.vercel.app/clubs/${id}`,
         {
           headers: {
             accesstoken: user.accessToken,
@@ -40,7 +40,7 @@ export default function UpdateClub() {
   const updateClubMutation = useMutation({
     mutationFn: async (data) => {
       const res = await fetch(
-        `https://assignment-11-server-rosy-five.vercel.app/clubs/${id}`,
+        `https://assignment-11-server-phi-teal.vercel.app/clubs/${id}`,
         {
           method: "PATCH",
           headers: {

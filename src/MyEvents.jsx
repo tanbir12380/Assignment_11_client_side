@@ -21,7 +21,7 @@ const MyEvents = () => {
     queryKey: ["userEvents", user.email],
     queryFn: async () => {
       const res = await fetch(
-        `https://assignment-11-server-rosy-five.vercel.app/getEvents/${user.email}`,
+        `https://assignment-11-server-phi-teal.vercel.app/getEvents/${user.email}`,
         {
           headers: {
             accesstoken: user.accessToken,
@@ -35,7 +35,7 @@ const MyEvents = () => {
   const deleteEventMutation = useMutation({
     mutationFn: async (eventId) => {
       const res = await fetch(
-        `https://assignment-11-server-rosy-five.vercel.app/events/${eventId}`,
+        `https://assignment-11-server-phi-teal.vercel.app/events/${eventId}`,
         {
           method: "DELETE",
           headers: {

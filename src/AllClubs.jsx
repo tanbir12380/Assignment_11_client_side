@@ -16,7 +16,7 @@ const AllClubs = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["clubs", searchKey, selectCategory, sortBy],
     queryFn: async () => {
-      let url = `https://assignment-11-server-rosy-five.vercel.app/clubs?`;
+      let url = `https://assignment-11-server-phi-teal.vercel.app/clubs?`;
       if (searchKey) url += `search=${searchKey}&`;
       if (selectCategory) url += `category=${selectCategory}&`;
       if (sortBy) url += `sortBy=${sortBy}&`;
@@ -29,7 +29,7 @@ const AllClubs = () => {
     queryKey: ["category"],
     queryFn: async () => {
       const res = await fetch(
-        "https://assignment-11-server-rosy-five.vercel.app/clubCategories"
+        "https://assignment-11-server-phi-teal.vercel.app/clubCategories"
       );
       return res.json();
     },

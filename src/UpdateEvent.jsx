@@ -24,7 +24,7 @@ export default function UpdateEvent() {
     queryKey: ["event", id],
     queryFn: async () => {
       const res = await fetch(
-        `https://assignment-11-server-rosy-five.vercel.app/event/${id}`,
+        `https://assignment-11-server-phi-teal.vercel.app/event/${id}`,
         {
           headers: { accesstoken: user.accessToken },
         }
@@ -37,7 +37,7 @@ export default function UpdateEvent() {
   const updateEventMutation = useMutation({
     mutationFn: async (data) => {
       const res = await fetch(
-        `https://assignment-11-server-rosy-five.vercel.app/events/${id}`,
+        `https://assignment-11-server-phi-teal.vercel.app/events/${id}`,
         {
           method: "PATCH",
           headers: {

@@ -20,7 +20,7 @@ const AdminDashboard = () => {
     queryKey: ["adminStats"],
     queryFn: async () => {
       const res = await fetch(
-        "https://assignment-11-server-rosy-five.vercel.app/admin-dashboard-stats",
+        "https://assignment-11-server-phi-teal.vercel.app/admin-dashboard-stats",
         {
           headers: {
             accesstoken: user.accessToken,
@@ -36,7 +36,7 @@ const AdminDashboard = () => {
     queryKey: ["clubs"],
     queryFn: async () => {
       const res = await fetch(
-        "https://assignment-11-server-rosy-five.vercel.app/clubs",
+        "https://assignment-11-server-phi-teal.vercel.app/clubs",
         {
           headers: {
             accesstoken: user.accessToken,

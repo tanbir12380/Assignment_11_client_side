@@ -15,7 +15,7 @@ const MyJoinedClubs = () => {
     queryKey: ["clubs"],
     queryFn: async () => {
       const res = await fetch(
-        "https://assignment-11-server-rosy-five.vercel.app/clubs"
+        "https://assignment-11-server-phi-teal.vercel.app/clubs"
       );
       return res.json();
     },
@@ -26,7 +26,7 @@ const MyJoinedClubs = () => {
     enabled: !!user?.email,
     queryFn: async () => {
       const res = await fetch(
-        `https://assignment-11-server-rosy-five.vercel.app/get-membership/${user.email}`,
+        `https://assignment-11-server-phi-teal.vercel.app/get-membership/${user.email}`,
         {
           headers: {
             accesstoken: user.accessToken,

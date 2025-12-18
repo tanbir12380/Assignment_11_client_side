@@ -16,7 +16,7 @@ const ManageClubAdmin = () => {
     queryKey: ["clubs"],
     queryFn: async () => {
       const res = await fetch(
-        "https://assignment-11-server-rosy-five.vercel.app/clubsAdminList",
+        "https://assignment-11-server-phi-teal.vercel.app/clubsAdminList",
         {
           headers: {
             accesstoken: user.accessToken,
@@ -30,7 +30,7 @@ const ManageClubAdmin = () => {
   const approveMutation = useMutation({
     mutationFn: async (clubId) => {
       const res = await fetch(
-        `https://assignment-11-server-rosy-five.vercel.app/clubApprove/${clubId}`,
+        `https://assignment-11-server-phi-teal.vercel.app/clubApprove/${clubId}`,
         {
           method: "PATCH",
           headers: {
@@ -46,7 +46,7 @@ const ManageClubAdmin = () => {
   const rejectMutation = useMutation({
     mutationFn: async (clubId) => {
       const res = await fetch(
-        `https://assignment-11-server-rosy-five.vercel.app/clubReject/${clubId}`,
+        `https://assignment-11-server-phi-teal.vercel.app/clubReject/${clubId}`,
         {
           method: "PATCH",
           headers: {

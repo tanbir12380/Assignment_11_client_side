@@ -31,7 +31,7 @@ export default function RegisterForm() {
   const saveUserMutation = useMutation({
     mutationFn: async (userData) => {
       const response = await fetch(
-        "https://assignment-11-server-rosy-five.vercel.app/user",
+        "https://assignment-11-server-phi-teal.vercel.app/user",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

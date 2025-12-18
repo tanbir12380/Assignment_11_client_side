@@ -18,7 +18,7 @@ const AllEvent = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["events", searchKey, sortBy],
     queryFn: async () => {
-      let url = `https://assignment-11-server-rosy-five.vercel.app/events?`;
+      let url = `https://assignment-11-server-phi-teal.vercel.app/events?`;
       if (searchKey) url += `search=${searchKey}&`;
       if (sortBy) url += `sortBy=${sortBy}&`;
       const res = await fetch(url);

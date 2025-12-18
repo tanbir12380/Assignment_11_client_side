@@ -16,7 +16,7 @@ const AllClubs = () => {
     queryKey: ["clubs"],
     queryFn: async () => {
       const res = await fetch(
-        "https://assignment-11-server-rosy-five.vercel.app/recentClubs"
+        "https://assignment-11-server-phi-teal.vercel.app/recentClubs"
       );
       return res.json();
     },

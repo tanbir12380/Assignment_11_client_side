@@ -21,7 +21,7 @@ export default function CreateEvent() {
     queryKey: ["userClubs", user.email],
     queryFn: async () => {
       const res = await fetch(
-        `https://assignment-11-server-rosy-five.vercel.app/getClubsApproved/${user.email}`,
+        `https://assignment-11-server-phi-teal.vercel.app/getClubsApproved/${user.email}`,
         {
           headers: {
             accesstoken: user.accessToken,
@@ -35,7 +35,7 @@ export default function CreateEvent() {
   const createEventMutation = useMutation({
     mutationFn: async (data) => {
       const res = await fetch(
-        "https://assignment-11-server-rosy-five.vercel.app/events",
+        "https://assignment-11-server-phi-teal.vercel.app/events",
         {
           method: "POST",
           headers: {

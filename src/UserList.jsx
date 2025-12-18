@@ -29,7 +29,7 @@ const UserList = () => {
     queryKey: ["users"],
     queryFn: async () => {
       const res = await fetch(
-        "https://assignment-11-server-rosy-five.vercel.app/users",
+        "https://assignment-11-server-phi-teal.vercel.app/users",
         {
           headers: {
             accesstoken: user.accessToken,
@@ -43,7 +43,7 @@ const UserList = () => {
   const updateRoleMutation = useMutation({
     mutationFn: async ({ id, role }) => {
       const res = await fetch(
-        `https://assignment-11-server-rosy-five.vercel.app/users/${id}`,
+        `https://assignment-11-server-phi-teal.vercel.app/users/${id}`,
         {
           method: "PATCH",
           headers: {

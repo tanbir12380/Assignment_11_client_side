@@ -10,7 +10,7 @@ const AllPayments = () => {
     queryKey: ["payments"],
     queryFn: async () => {
       const res = await fetch(
-        "https://assignment-11-server-rosy-five.vercel.app/get-all-payments",
+        "https://assignment-11-server-phi-teal.vercel.app/get-all-payments",
         {
           headers: {
             accesstoken: user.accessToken,

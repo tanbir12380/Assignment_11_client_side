@@ -10,7 +10,7 @@ const EventMembersTable = () => {
     queryKey: ["managerMembers", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `https://assignment-11-server-rosy-five.vercel.app/clubManager-dashboard-EventMember/${user.email}`,
+        `https://assignment-11-server-phi-teal.vercel.app/clubManager-dashboard-EventMember/${user.email}`,
         {
           headers: {
             accesstoken: user.accessToken,
