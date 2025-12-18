@@ -23,9 +23,25 @@ const Profile = () => {
     },
   });
 
-  if (isLoading) return <p>Loading profile...</p>;
-
-  if (!fullUser) return null;
+  if (isLoading) {
+    return (
+      <div
+        className="loaders3"
+        style={{
+          width: "100%",
+          flex: "1",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "500px",
+        }}
+      >
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
+      </div>
+    );
+  }
 
   const containerVariants = {
     hidden: { opacity: 0 },
